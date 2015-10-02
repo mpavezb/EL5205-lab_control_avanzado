@@ -8,7 +8,6 @@ close all;
 
 % cd to this script folder
 cd (fileparts(mfilename('fullpath')));
-addpath(genpath('data'));
 addpath(genpath('sym'));
 addpath(genpath('lib'));
 
@@ -130,7 +129,7 @@ fprintf('- rango alto : (k1,k2) = (%.6f, %.6f)\n',k1_high,k2_high);
 
 clear h_high h_low h_mid
 
-save('model_parameters.mat',...
+save('mat/model_parameters.mat',...
     'k1_low','k1_mid','k1_high','k2_low','k2_mid','k2_high',...
     'beta','c1','c2','u0','K','Ts',...
     'u_low','u_mid','u_high','h_low_cm','h_mid_cm','h_high_cm');
@@ -150,16 +149,16 @@ h_t2 = test_2.h(80:end,3);
 
 sim_u = [t_t1 u_t1];                                            %#ok<NASGU>
 sim('sym/fen_models.mdl')
-save('sim_test1.mat','sim_h','t_t1','u_t1','h_t1');
+save('mat/sim_test1.mat','sim_h','t_t1','u_t1','h_t1');
 
 sim_u = [t_t2 u_t2];
 sim('sym/fen_models.mdl')
-save('sim_test2.mat','sim_h','t_t2','u_t2','h_t2');
+save('mat/sim_test2.mat','sim_h','t_t2','u_t2','h_t2');
 
 
 %%
-sim_test1 = load('sim_test1.mat');
-sim_test2 = load('sim_test2.mat');
+sim_test1 = load('mat/sim_test1.mat');
+sim_test2 = load('mat/sim_test2.mat');
 
 figure;
 plot(sim_test1.sim_h.Time,sim_test1.sim_h.Data(:,1),'b')

@@ -1,6 +1,6 @@
 clear; close all;
 %% Cargar datos
-load('data/lineal/data_alto_prbs_10_ts_5.mat');
+load('mat/data_bajo_prbs_10_ts_5.mat');
 
 % Datos del muestreo
 nds = 1; % submuestreo
