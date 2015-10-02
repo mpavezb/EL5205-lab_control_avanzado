@@ -1,7 +1,11 @@
 clear; close all;
 %% Cargar datos
+<<<<<<< HEAD
 rango = 'bajo';
 load(strcat('data/lineal/data_', rango,'_prbs_10_ts_5.mat'));
+=======
+load('mat/data_bajo_prbs_10_ts_5.mat');
+>>>>>>> a44d25f1a30e3657242448f0d8b046624aed6bb7
 
 % Datos del muestreo
 nds = 10; % submuestreo
