@@ -8,4 +8,4 @@ X0_medio = X0_armax;
 load('data/lineal/modelos/rango_alto');
 modelo_lineal_rango_alto = modelo_armax_op;
 X0_alto = X0_armax;
-load('model_parameters.mat');
+load('mat/model_parameters.mat');
