@@ -90,7 +90,6 @@ title('Mejor Modelo ARIX');
 %% Calculo mejor modelo ARMAX
 table_data_armax = zeros(9,5);
 i = 1;
-h_sim_armax_op = [];
 modelo_armax_op = [];
 h_mse_min_armax = 10^10;
 for na = 1:3
