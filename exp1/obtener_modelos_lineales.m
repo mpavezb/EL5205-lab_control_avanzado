@@ -1,6 +1,6 @@
 clear; close all;
 %% Cargar datos
-rango = 'bajo';
+rango = 'alto';
 load(strcat('data/lineal/data_', rango,'_prbs_10_ts_5.mat'));
 
 % Datos del muestreo
@@ -35,8 +35,8 @@ for na = 1:3
             h_sim = sim(sys_ss, fv, simOptions('InitialCondition',X0));
             h_mse = mean((h_sim - hv).^2); % Mean Square Error
             table_data_arx(i,:) = [na nb nk h_mse]; i= i + 1;
-            fprintf('ARX: na:%d, nb:%d, nk:%d, mse:%f\n', ...
-                na, nb, nk, h_mse);
+            % fprintf('ARX: na:%d, nb:%d, nk:%d, mse:%f\n', ...
+            %    na, nb, nk, h_mse);
             if(h_mse_min_arx>h_mse)
                 h_mse_min_arx = h_mse;
                 X0_arx = findstates(sys_ss,iddata(hs, fs, Ts));
@@ -68,8 +68,8 @@ for na = 1:3
             h_sim = sim(sys_ss, fv, simOptions('InitialCondition',X0));
             h_mse = mean((h_sim - hv).^2); % Mean Square Error
             table_data_arix(i,:) = [na nb nk h_mse]; i= i + 1;
-            fprintf('ARIX: na:%d, nb:%d, nk:%d, mse:%f\n', ...
-                na, nb, nk, h_mse);
+            % fprintf('ARIX: na:%d, nb:%d, nk:%d, mse:%f\n', ...
+            %    na, nb, nk, h_mse);
             if(h_mse_min_arix>h_mse)
                 h_mse_min_arix = h_mse;
                 X0_arix = findstates(sys_ss,iddata(hs, fs, Ts));
@@ -103,8 +103,8 @@ for na = 1:3
                 h_sim = sim(sys_ss, fv, simOptions('InitialCondition',X0));
                 h_mse = mean((h_sim - hv).^2); % Mean Square Error
                 table_data_armax(i,:) = [na nb nc nk h_mse]; i= i + 1;
-                fprintf('ARMAX: na:%d, nb:%d, nk:%d, nk:%d, mse:%f\n', ...
-                    na, nb, nc, nk, h_mse);
+                % fprintf('ARMAX: na:%d, nb:%d, nk:%d, nk:%d, mse:%f\n', ...
+                %    na, nb, nc, nk, h_mse);
                 if(h_mse_min_armax>h_mse)
                     h_mse_min_armax = h_mse;
                     X0_armax = findstates(sys_ss,iddata(hs, fs, Ts));
