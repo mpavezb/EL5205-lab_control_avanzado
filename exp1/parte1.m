@@ -107,6 +107,22 @@ grid on;
 clear c1_std c2_std beta_std nds_beta nds_c12 hc_100_ hc_50__ hbeta__
 clear Fin u0 u 
 
+% plot Fout model
+% - - - - -  - - - - - -
+h = 0:0.25:65;
+Fout = beta*sqrt(h);
+
+figure;
+plot(h,Fout,'k');
+title('Modelo del flujo de salida $F_{out}$','interpreter','Latex','fontsize',14);
+xlabel('altura [cm]','interpreter','Latex','fontsize',12);
+ylabel('flujo de salida $[cm^3/s]$','interpreter','Latex','fontsize',12);
+grid on;
+
+clear c1_std c2_std beta_std nds_beta nds_c12 hc_100_ hc_50__ hbeta__
+clear Fin u0 u
+clear Fout h
+
 %% Actividad 2: puntos de operacion
 
 % op. points
@@ -188,7 +204,7 @@ plot(t_a4_real,h_a4_real,'r');
 hold on;
 plot(t_a4_sim,h_a4_sim_fen,'k');
 plot(t_a4_sim,h_a4_sim_lin,'b');
-legend('planta','modelo fenomenológico','modelo linealizado','Location','SouthEast');
+legend('planta','modelo fen.','modelo lin.','Location','SouthEast');
 xlabel('tiempo [s]','interpreter','Latex','fontsize',12);
 ylabel('altura [cm]','interpreter','Latex','fontsize',12);
 title('Respuesta de la planta y modelos desarrollados','interpreter','Latex','fontsize',14);
