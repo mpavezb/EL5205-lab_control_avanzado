@@ -1,12 +1,12 @@
 Model {
-  Name			  "fen_models"
+  Name			  "P1_fen_models"
   Version		  7.9
   MdlSubVersion		  0
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.100"
+    ComputedModelVersion    "1.130"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -18,7 +18,7 @@ Model {
       Type		      "Cell"
       Dimension		      2
       Cell		      "HDLSubsystem"
-      Cell		      "fen_models"
+      Cell		      "P1_fen_models"
       PropName		      "mdlProps"
     }
   }
@@ -38,9 +38,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "matias"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Sep 28 02:57:57 2015"
-  RTWModifiedTimeStamp	  365308030
-  ModelVersionFormat	  "1.%<AutoIncrement:100>"
+  LastModifiedDate	  "Sun Oct 04 23:01:17 2015"
+  RTWModifiedTimeStamp	  365899892
+  ModelVersionFormat	  "1.%<AutoIncrement:130>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -144,9 +144,9 @@ Model {
 	  $ObjectID		  4
 	  Version		  "1.12.0"
 	  StartTime		  "0.0"
-	  StopTime		  "1000"
+	  StopTime		  "580"
 	  AbsTol		  "auto"
-	  FixedStep		  "auto"
+	  FixedStep		  "0.05"
 	  InitialStep		  "auto"
 	  MaxNumMinSteps	  "-1"
 	  MaxOrder		  5
@@ -638,7 +638,7 @@ Model {
       }
       Name		      "Configuration"
       CurrentDlgPage	      "Solver"
-      ConfigPrmDlgPosition     [ 438, 140, 1481, 1052 ] 
+      ConfigPrmDlgPosition     [ 458, 160, 1461, 976 ] 
     }
     PropName		    "ConfigurationSets"
   }
@@ -896,9 +896,6 @@ Model {
       AllowDiffInputSizes     off
     }
     Block {
-      BlockType		      Terminator
-    }
-    Block {
       BlockType		      ToWorkspace
       VariableName	      "simulink_output"
       MaxDataPoints	      "1000"
@@ -908,18 +905,10 @@ Model {
       FixptAsFi		      off
       NumInputs		      "1"
     }
-    Block {
-      BlockType		      TransferFcn
-      Numerator		      "[1]"
-      Denominator	      "[1 2 1]"
-      AbsoluteTolerance	      "auto"
-      ContinuousStateAttributes	"''"
-      Realization	      "auto"
-    }
   }
   System {
-    Name		    "fen_models"
-    Location		    [1000, 125, 1877, 447]
+    Name		    "P1_fen_models"
+    Location		    [1008, 308, 1639, 656]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -933,20 +922,22 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "452"
+    SIDHighWatermark	    "473"
     Block {
-      BlockType		      Constant
-      Name		      "Constant1"
-      SID		      "439"
-      Position		      [420, 125, 450, 155]
-      ZOrder		      -4
-      Value		      "100"
+      BlockType		      FromWorkspace
+      Name		      "From WS"
+      SID		      "457"
+      Position		      [265, 78, 330, 102]
+      ZOrder		      -10
+      VariableName	      "sim_h_real"
+      SampleTime	      "0"
+      ZeroCross		      on
     }
     Block {
       BlockType		      FromWorkspace
-      Name		      "From\nWorkspace"
+      Name		      "From WS1"
       SID		      "451"
-      Position		      [40, 123, 105, 147]
+      Position		      [40, 168, 105, 192]
       ZOrder		      -10
       VariableName	      "sim_u"
       SampleTime	      "0"
@@ -957,18 +948,115 @@ Model {
       Name		      "Mux"
       SID		      "34"
       Ports		      [2, 1]
-      Position		      [290, 109, 305, 171]
+      Position		      [435, 150, 450, 210]
       ZOrder		      -12
       ShowName		      off
       Inputs		      "2"
       DisplayOption	      "bar"
     }
     Block {
+      BlockType		      Mux
+      Name		      "Mux1"
+      SID		      "470"
+      Ports		      [2, 1]
+      Position		      [435, 234, 450, 296]
+      ZOrder		      -12
+      ShowName		      off
+      Inputs		      "2"
+      DisplayOption	      "bar"
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum"
+      SID		      "458"
+      Ports		      [2, 1]
+      Position		      [330, 140, 350, 160]
+      ZOrder		      -18
+      ShowName		      off
+      IconShape		      "round"
+      Inputs		      "+-|"
+      InputSameDT	      off
+      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum1"
+      SID		      "459"
+      Ports		      [2, 1]
+      Position		      [360, 205, 380, 225]
+      ZOrder		      -18
+      ShowName		      off
+      IconShape		      "round"
+      Inputs		      "+-|"
+      InputSameDT	      off
+      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      ToWorkspace
+      Name		      "To Workspace"
+      SID		      "452"
+      Ports		      [1]
+      Position		      [550, 250, 610, 280]
+      ZOrder		      -7
+      VariableName	      "sim_h"
+      MaxDataPoints	      "inf"
+      SampleTime	      "-1"
+      SaveFormat	      "Timeseries"
+    }
+    Block {
+      BlockType		      ToWorkspace
+      Name		      "To Workspace1"
+      SID		      "473"
+      Ports		      [1]
+      Position		      [550, 165, 610, 195]
+      ZOrder		      -7
+      VariableName	      "sim_error"
+      MaxDataPoints	      "inf"
+      SampleTime	      "-1"
+      SaveFormat	      "Timeseries"
+    }
+    Block {
       BlockType		      Scope
-      Name		      "Scope"
+      Name		      "alturas"
+      SID		      "471"
+      Ports		      [1]
+      Position		      [495, 279, 525, 311]
+      ZOrder		      -16
+      Floating		      off
+      Location		      [936, 138, 2803, 1108]
+      Open		      off
+      NumInputPorts	      "1"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      List {
+	ListType		ScopeGraphics
+	FigureColor		"[0.5 0.5 0.5]"
+	AxesColor		"[0 0 0]"
+	AxesTickColor		"[1 1 1]"
+	LineColors		"[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
+	LineStyles		"-|-|-|-|-|-"
+	LineWidths		"[0.5 0.5 0.5 0.5 0.5 0.5]"
+	MarkerStyles		"none|none|none|none|none|none"
+      }
+      ShowLegends	      off
+      TimeRange		      "1200"
+      YMin		      "0"
+      YMax		      "100"
+      SaveName		      "ScopeData1"
+      DataFormat	      "StructureWithTime"
+      LimitDataPoints	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "errores"
       SID		      "21"
       Ports		      [1]
-      Position		      [340, 124, 370, 156]
+      Position		      [495, 129, 525, 161]
       ZOrder		      -16
       Floating		      off
       Location		      [936, 138, 2803, 1108]
@@ -997,45 +1085,12 @@ Model {
       SampleTime	      "0"
     }
     Block {
-      BlockType		      Terminator
-      Name		      "Terminator"
-      SID		      "436"
-      Position		      [650, 75, 670, 95]
-      ZOrder		      -20
-    }
-    Block {
-      BlockType		      Terminator
-      Name		      "Terminator1"
-      SID		      "437"
-      Position		      [650, 130, 670, 150]
-      ZOrder		      -20
-    }
-    Block {
-      BlockType		      Terminator
-      Name		      "Terminator2"
-      SID		      "438"
-      Position		      [650, 190, 670, 210]
-      ZOrder		      -20
-    }
-    Block {
-      BlockType		      ToWorkspace
-      Name		      "To Workspace"
-      SID		      "452"
-      Ports		      [1]
-      Position		      [340, 185, 400, 215]
-      ZOrder		      -7
-      VariableName	      "sim_h"
-      MaxDataPoints	      "inf"
-      SampleTime	      "-1"
-      SaveFormat	      "Timeseries"
-    }
-    Block {
       BlockType		      SubSystem
       Name		      "modelo fenomenologico"
       SID		      "2"
       Tag		      "Modelo Fenomenologico"
       Ports		      [1, 1]
-      Position		      [150, 82, 255, 128]
+      Position		      [150, 127, 255, 173]
       ZOrder		      -17
       MinAlgLoopOccurrences   off
       PropExecContextOutsideSubsystem off
@@ -1046,7 +1101,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"modelo fenomenologico"
-	Location		[280, 478, 1103, 872]
+	Location		[164, 437, 894, 831]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1072,7 +1127,7 @@ Model {
 	  Name			  "Divide"
 	  SID			  "4"
 	  Ports			  [2, 1]
-	  Position		  [475, 97, 505, 128]
+	  Position		  [505, 97, 535, 128]
 	  ZOrder		  -8
 	  Inputs		  "*/"
 	  InputSameDT		  off
@@ -1103,7 +1158,7 @@ Model {
 	  BlockType		  From
 	  Name			  "From1"
 	  SID			  "7"
-	  Position		  [345, 181, 385, 209]
+	  Position		  [330, 181, 370, 209]
 	  ZOrder		  -9
 	  GotoTag		  "h"
 	}
@@ -1111,7 +1166,7 @@ Model {
 	  BlockType		  Goto
 	  Name			  "Goto"
 	  SID			  "8"
-	  Position		  [615, 55, 655, 85]
+	  Position		  [655, 55, 695, 85]
 	  ZOrder		  -10
 	  GotoTag		  "h"
 	}
@@ -1120,7 +1175,7 @@ Model {
 	  Name			  "Integrator\nLimited"
 	  SID			  "9"
 	  Ports			  [1, 1]
-	  Position		  [535, 100, 565, 130]
+	  Position		  [555, 100, 585, 130]
 	  ZOrder		  -3
 	  InitialCondition	  "0.1"
 	  LimitOutput		  on
@@ -1131,7 +1186,7 @@ Model {
 	  BlockType		  Constant
 	  Name			  "K"
 	  SID			  "10"
-	  Position		  [345, 130, 385, 160]
+	  Position		  [330, 130, 370, 160]
 	  ZOrder		  -4
 	  Value			  "0.5872"
 	}
@@ -1140,12 +1195,23 @@ Model {
 	  Name			  "Product"
 	  SID			  "11"
 	  Ports			  [3, 1]
-	  Position		  [410, 149, 440, 181]
+	  Position		  [395, 149, 425, 181]
 	  ZOrder		  -19
 	  Inputs		  "3"
 	  InputSameDT		  off
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation"
+	  SID			  "454"
+	  Ports			  [1, 1]
+	  Position		  [445, 150, 475, 180]
+	  ZOrder		  -10
+	  InputPortMap		  "u0"
+	  UpperLimit		  "inf"
+	  LowerLimit		  "0.01"
 	}
 	Block {
 	  BlockType		  Sum
@@ -1243,7 +1309,7 @@ Model {
 	  BlockType		  Outport
 	  Name			  "h"
 	  SID			  "20"
-	  Position		  [670, 108, 700, 122]
+	  Position		  [640, 108, 670, 122]
 	  ZOrder		  -2
 	  IconDisplay		  "Port number"
 	}
@@ -1307,13 +1373,6 @@ Model {
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "Product"
-	  SrcPort		  1
-	  Points		  [0, -45]
-	  DstBlock		  "Divide"
-	  DstPort		  2
-	}
-	Line {
 	  SrcBlock		  "K"
 	  SrcPort		  1
 	  Points		  [5, 0]
@@ -1340,19 +1399,6 @@ Model {
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "Integrator\nLimited"
-	  SrcPort		  1
-	  Points		  [30, 0]
-	  Branch {
-	    DstBlock		    "h"
-	    DstPort		    1
-	  }
-	  Branch {
-	    DstBlock		    "Goto"
-	    DstPort		    1
-	  }
-	}
-	Line {
 	  SrcBlock		  "Sum"
 	  SrcPort		  1
 	  DstBlock		  "Fin limiter"
@@ -1370,6 +1416,33 @@ Model {
 	  DstBlock		  "f limiter"
 	  DstPort		  1
 	}
+	Line {
+	  SrcBlock		  "Integrator\nLimited"
+	  SrcPort		  1
+	  Points		  [25, 0]
+	  Branch {
+	    DstBlock		    "h"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -45]
+	    DstBlock		    "Goto"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Product"
+	  SrcPort		  1
+	  DstBlock		  "Saturation"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation"
+	  SrcPort		  1
+	  Points		  [5, 0; 0, -45]
+	  DstBlock		  "Divide"
+	  DstPort		  2
+	}
       }
     }
     Block {
@@ -1378,7 +1451,7 @@ Model {
       SID		      "251"
       Tag		      "Modelo Fenomenologico"
       Ports		      [1, 1]
-      Position		      [150, 147, 255, 193]
+      Position		      [150, 192, 255, 238]
       ZOrder		      -17
       MinAlgLoopOccurrences   off
       PropExecContextOutsideSubsystem off
@@ -1389,7 +1462,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"modelo linealizado"
-	Location		[126, 219, 1168, 589]
+	Location		[549, 356, 1591, 726]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1633,7 +1706,7 @@ Model {
 	  ZOrder		  -4
 	  NamePlacement		  "alternate"
 	  ShowName		  off
-	  Value			  "h_low_cm"
+	  Value			  "h_low"
 	}
 	Block {
 	  BlockType		  Constant
@@ -1643,7 +1716,7 @@ Model {
 	  ZOrder		  -4
 	  NamePlacement		  "alternate"
 	  ShowName		  off
-	  Value			  "h_mid_cm"
+	  Value			  "h_mid"
 	}
 	Block {
 	  BlockType		  Constant
@@ -1653,7 +1726,7 @@ Model {
 	  ZOrder		  -4
 	  NamePlacement		  "alternate"
 	  ShowName		  off
-	  Value			  "h_high_cm"
+	  Value			  "h_high"
 	}
 	Block {
 	  BlockType		  Constant
@@ -2353,7 +2426,7 @@ Model {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "modelo linealizado rango medio"
-	    Location		    [927, 489, 1476, 789]
+	    Location		    [898, 452, 1447, 752]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -2970,473 +3043,8 @@ Model {
 	}
       }
     }
-    Block {
-      BlockType		      SubSystem
-      Name		      "modelo linealizado rango alto"
-      SID		      "425"
-      Ports		      [1, 1]
-      Position		      [505, 182, 600, 218]
-      ZOrder		      -17
-      MinAlgLoopOccurrences   off
-      PropExecContextOutsideSubsystem off
-      RTWSystemCode	      "Auto"
-      FunctionWithSeparateData off
-      Opaque		      off
-      RequestExecContextInheritance off
-      MaskHideContents	      off
-      System {
-	Name			"modelo linealizado rango alto"
-	Location		[916, 148, 1465, 448]
-	Open			off
-	ModelBrowserVisibility	off
-	ModelBrowserWidth	200
-	ScreenColor		"white"
-	PaperOrientation	"landscape"
-	PaperPositionMode	"auto"
-	PaperType		"usletter"
-	PaperUnits		"inches"
-	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
-	TiledPageScale		1
-	ShowPageBoundaries	off
-	ZoomFactor		"100"
-	Block {
-	  BlockType		  Inport
-	  Name			  "u"
-	  SID			  "426"
-	  Position		  [50, 118, 80, 132]
-	  ZOrder		  -1
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant"
-	  SID			  "427"
-	  Position		  [220, 161, 285, 189]
-	  ZOrder		  -4
-	  Value			  "h_high_cm"
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant1"
-	  SID			  "428"
-	  Position		  [50, 160, 80, 190]
-	  ZOrder		  -4
-	  Value			  "u_high"
-	}
-	Block {
-	  BlockType		  Sum
-	  Name			  "Sum"
-	  SID			  "429"
-	  Ports			  [2, 1]
-	  Position		  [145, 115, 165, 135]
-	  ZOrder		  -32
-	  ShowName		  off
-	  IconShape		  "round"
-	  Inputs		  "|+-"
-	  InputSameDT		  off
-	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  Sum
-	  Name			  "Sum1"
-	  SID			  "430"
-	  Ports			  [2, 1]
-	  Position		  [290, 115, 310, 135]
-	  ZOrder		  -32
-	  ShowName		  off
-	  IconShape		  "round"
-	  Inputs		  "|++"
-	  InputSameDT		  off
-	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  TransferFcn
-	  Name			  "Transfer Fcn"
-	  SID			  "431"
-	  Position		  [200, 107, 260, 143]
-	  ZOrder		  -9
-	  Numerator		  "[k2_high]"
-	  Denominator		  "[1 k1_high]"
-	}
-	Block {
-	  BlockType		  Saturate
-	  Name			  "f limiter"
-	  SID			  "432"
-	  Ports			  [1, 1]
-	  Position		  [95, 110, 125, 140]
-	  ZOrder		  -15
-	  InputPortMap		  "u0"
-	  UpperLimit		  "100"
-	  LowerLimit		  "0"
-	}
-	Block {
-	  BlockType		  Outport
-	  Name			  "h"
-	  SID			  "433"
-	  Position		  [385, 118, 415, 132]
-	  ZOrder		  -2
-	  IconDisplay		  "Port number"
-	}
-	Line {
-	  SrcBlock		  "Constant1"
-	  SrcPort		  1
-	  Points		  [70, 0]
-	  DstBlock		  "Sum"
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "Sum1"
-	  SrcPort		  1
-	  DstBlock		  "h"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Constant"
-	  SrcPort		  1
-	  Points		  [10, 0]
-	  DstBlock		  "Sum1"
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "f limiter"
-	  SrcPort		  1
-	  DstBlock		  "Sum"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "u"
-	  SrcPort		  1
-	  DstBlock		  "f limiter"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Sum"
-	  SrcPort		  1
-	  DstBlock		  "Transfer Fcn"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Transfer Fcn"
-	  SrcPort		  1
-	  DstBlock		  "Sum1"
-	  DstPort		  1
-	}
-      }
-    }
-    Block {
-      BlockType		      SubSystem
-      Name		      "modelo linealizado rango bajo"
-      SID		      "396"
-      Ports		      [1, 1]
-      Position		      [505, 67, 600, 103]
-      ZOrder		      -17
-      MinAlgLoopOccurrences   off
-      PropExecContextOutsideSubsystem off
-      RTWSystemCode	      "Auto"
-      FunctionWithSeparateData off
-      Opaque		      off
-      RequestExecContextInheritance off
-      MaskHideContents	      off
-      System {
-	Name			"modelo linealizado rango bajo"
-	Location		[916, 148, 1465, 448]
-	Open			off
-	ModelBrowserVisibility	off
-	ModelBrowserWidth	200
-	ScreenColor		"white"
-	PaperOrientation	"landscape"
-	PaperPositionMode	"auto"
-	PaperType		"usletter"
-	PaperUnits		"inches"
-	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
-	TiledPageScale		1
-	ShowPageBoundaries	off
-	ZoomFactor		"100"
-	Block {
-	  BlockType		  Inport
-	  Name			  "u"
-	  SID			  "397"
-	  Position		  [50, 118, 80, 132]
-	  ZOrder		  -1
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant"
-	  SID			  "414"
-	  Position		  [235, 159, 285, 191]
-	  ZOrder		  -4
-	  Value			  "h_low_cm"
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant1"
-	  SID			  "415"
-	  Position		  [50, 160, 80, 190]
-	  ZOrder		  -4
-	  Value			  "u_low"
-	}
-	Block {
-	  BlockType		  Sum
-	  Name			  "Sum"
-	  SID			  "407"
-	  Ports			  [2, 1]
-	  Position		  [145, 115, 165, 135]
-	  ZOrder		  -32
-	  ShowName		  off
-	  IconShape		  "round"
-	  Inputs		  "|+-"
-	  InputSameDT		  off
-	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  Sum
-	  Name			  "Sum1"
-	  SID			  "408"
-	  Ports			  [2, 1]
-	  Position		  [290, 115, 310, 135]
-	  ZOrder		  -32
-	  ShowName		  off
-	  IconShape		  "round"
-	  Inputs		  "|++"
-	  InputSameDT		  off
-	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  TransferFcn
-	  Name			  "Transfer Fcn"
-	  SID			  "413"
-	  Position		  [200, 107, 260, 143]
-	  ZOrder		  -9
-	  Numerator		  "[k2_low]"
-	  Denominator		  "[1 k1_low]"
-	}
-	Block {
-	  BlockType		  Saturate
-	  Name			  "f limiter"
-	  SID			  "411"
-	  Ports			  [1, 1]
-	  Position		  [95, 110, 125, 140]
-	  ZOrder		  -15
-	  InputPortMap		  "u0"
-	  UpperLimit		  "100"
-	  LowerLimit		  "0"
-	}
-	Block {
-	  BlockType		  Outport
-	  Name			  "h"
-	  SID			  "412"
-	  Position		  [385, 118, 415, 132]
-	  ZOrder		  -2
-	  IconDisplay		  "Port number"
-	}
-	Line {
-	  SrcBlock		  "Constant1"
-	  SrcPort		  1
-	  Points		  [70, 0]
-	  DstBlock		  "Sum"
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "Sum1"
-	  SrcPort		  1
-	  DstBlock		  "h"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Constant"
-	  SrcPort		  1
-	  Points		  [10, 0]
-	  DstBlock		  "Sum1"
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "f limiter"
-	  SrcPort		  1
-	  DstBlock		  "Sum"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "u"
-	  SrcPort		  1
-	  DstBlock		  "f limiter"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Sum"
-	  SrcPort		  1
-	  DstBlock		  "Transfer Fcn"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Transfer Fcn"
-	  SrcPort		  1
-	  DstBlock		  "Sum1"
-	  DstPort		  1
-	}
-      }
-    }
-    Block {
-      BlockType		      SubSystem
-      Name		      "modelo linealizado rango medio"
-      SID		      "416"
-      Ports		      [1, 1]
-      Position		      [505, 122, 600, 158]
-      ZOrder		      -17
-      MinAlgLoopOccurrences   off
-      PropExecContextOutsideSubsystem off
-      RTWSystemCode	      "Auto"
-      FunctionWithSeparateData off
-      Opaque		      off
-      RequestExecContextInheritance off
-      MaskHideContents	      off
-      System {
-	Name			"modelo linealizado rango medio"
-	Location		[916, 148, 1465, 448]
-	Open			off
-	ModelBrowserVisibility	off
-	ModelBrowserWidth	200
-	ScreenColor		"white"
-	PaperOrientation	"landscape"
-	PaperPositionMode	"auto"
-	PaperType		"usletter"
-	PaperUnits		"inches"
-	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
-	TiledPageScale		1
-	ShowPageBoundaries	off
-	ZoomFactor		"100"
-	Block {
-	  BlockType		  Inport
-	  Name			  "u"
-	  SID			  "417"
-	  Position		  [50, 118, 80, 132]
-	  ZOrder		  -1
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant"
-	  SID			  "418"
-	  Position		  [235, 159, 285, 191]
-	  ZOrder		  -4
-	  Value			  "h_mid_cm"
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant1"
-	  SID			  "419"
-	  Position		  [50, 160, 80, 190]
-	  ZOrder		  -4
-	  Value			  "u_mid"
-	}
-	Block {
-	  BlockType		  Sum
-	  Name			  "Sum"
-	  SID			  "420"
-	  Ports			  [2, 1]
-	  Position		  [145, 115, 165, 135]
-	  ZOrder		  -32
-	  ShowName		  off
-	  IconShape		  "round"
-	  Inputs		  "|+-"
-	  InputSameDT		  off
-	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  Sum
-	  Name			  "Sum1"
-	  SID			  "421"
-	  Ports			  [2, 1]
-	  Position		  [290, 115, 310, 135]
-	  ZOrder		  -32
-	  ShowName		  off
-	  IconShape		  "round"
-	  Inputs		  "|++"
-	  InputSameDT		  off
-	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  TransferFcn
-	  Name			  "Transfer Fcn"
-	  SID			  "422"
-	  Position		  [200, 107, 260, 143]
-	  ZOrder		  -9
-	  Numerator		  "[k2_mid]"
-	  Denominator		  "[1 k1_mid]"
-	}
-	Block {
-	  BlockType		  Saturate
-	  Name			  "f limiter"
-	  SID			  "423"
-	  Ports			  [1, 1]
-	  Position		  [95, 110, 125, 140]
-	  ZOrder		  -15
-	  InputPortMap		  "u0"
-	  UpperLimit		  "100"
-	  LowerLimit		  "0"
-	}
-	Block {
-	  BlockType		  Outport
-	  Name			  "h"
-	  SID			  "424"
-	  Position		  [385, 118, 415, 132]
-	  ZOrder		  -2
-	  IconDisplay		  "Port number"
-	}
-	Line {
-	  SrcBlock		  "Constant1"
-	  SrcPort		  1
-	  Points		  [70, 0]
-	  DstBlock		  "Sum"
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "Sum1"
-	  SrcPort		  1
-	  DstBlock		  "h"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Constant"
-	  SrcPort		  1
-	  Points		  [10, 0]
-	  DstBlock		  "Sum1"
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "f limiter"
-	  SrcPort		  1
-	  DstBlock		  "Sum"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "u"
-	  SrcPort		  1
-	  DstBlock		  "f limiter"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Sum"
-	  SrcPort		  1
-	  DstBlock		  "Transfer Fcn"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Transfer Fcn"
-	  SrcPort		  1
-	  DstBlock		  "Sum1"
-	  DstPort		  1
-	}
-      }
-    }
     Line {
-      SrcBlock		      "From\nWorkspace"
+      SrcBlock		      "From WS1"
       SrcPort		      1
       Points		      [5, 0]
       Branch {
@@ -3454,82 +3062,114 @@ Model {
     Line {
       SrcBlock		      "Mux"
       SrcPort		      1
-      Points		      [10, 0]
+      Points		      [25, 0]
       Branch {
-	DstBlock		"Scope"
+	DstBlock		"errores"
 	DstPort			1
       }
       Branch {
-	Points			[0, 60]
-	DstBlock		"To Workspace"
+	DstBlock		"To Workspace1"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "From WS"
+      SrcPort		      1
+      Points		      [5, 0]
+      Branch {
+	DstBlock		"Sum"
+	DstPort			1
+      }
+      Branch {
+	Points			[30, 0]
+	DstBlock		"Sum1"
 	DstPort			1
       }
     }
     Line {
       SrcBlock		      "modelo fenomenologico"
       SrcPort		      1
-      Points		      [15, 0]
-      DstBlock		      "Mux"
-      DstPort		      1
+      Points		      [45, 0]
+      Branch {
+	DstBlock		"Sum"
+	DstPort			2
+      }
+      Branch {
+	Points			[0, 100]
+	DstBlock		"Mux1"
+	DstPort			1
+      }
     }
     Line {
       SrcBlock		      "modelo linealizado"
       SrcPort		      1
-      Points		      [15, 0]
+      Points		      [70, 0]
+      Branch {
+	DstBlock		"Sum1"
+	DstPort			2
+      }
+      Branch {
+	Points			[0, 65]
+	DstBlock		"Mux1"
+	DstPort			2
+      }
+    }
+    Line {
+      SrcBlock		      "Sum"
+      SrcPort		      1
+      Points		      [65, 0]
+      DstBlock		      "Mux"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Sum1"
+      SrcPort		      1
+      Points		      [35, 0]
       DstBlock		      "Mux"
       DstPort		      2
     }
     Line {
-      SrcBlock		      "modelo linealizado rango bajo"
+      SrcBlock		      "Mux1"
       SrcPort		      1
-      DstBlock		      "Terminator"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "modelo linealizado rango medio"
-      SrcPort		      1
-      DstBlock		      "Terminator1"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "modelo linealizado rango alto"
-      SrcPort		      1
-      DstBlock		      "Terminator2"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "Constant1"
-      SrcPort		      1
-      Points		      [15, 0]
+      Points		      [25, 0]
       Branch {
-	DstBlock		"modelo linealizado rango medio"
+	DstBlock		"alturas"
 	DstPort			1
       }
       Branch {
-	Points			[0, -55]
-	DstBlock		"modelo linealizado rango bajo"
+	DstBlock		"To Workspace"
 	DstPort			1
       }
-      Branch {
-	Points			[0, 60]
-	DstBlock		"modelo linealizado rango alto"
-	DstPort			1
-      }
-    }
-    Annotation {
-      SID		      "440"
-      Name		      "estos modelos son los linealizados por separado"
-      Position		      [565, 49]
-    }
-    Annotation {
-      SID		      "441"
-      Name		      "NO SE USAN!!"
-      Position		      [566, 36]
     }
     Annotation {
       SID		      "442"
       Name		      "MODELOS FENOMENOLOGICOS\nY LINEALIZADO EN 3 PUNTOS DE OPERACION"
-      Position		      [197, 64]
+      Position		      [227, 44]
+    }
+    Annotation {
+      SID		      "462"
+      Name		      "h_real"
+      Position		      [359, 78]
+    }
+    Annotation {
+      SID		      "464"
+      Name		      "h_fen"
+      Position		      [284, 143]
+    }
+    Annotation {
+      SID		      "465"
+      Name		      "h_lin"
+      Position		      [289, 205]
+    }
+    Annotation {
+      SID		      "466"
+      Name		      "e_fen"
+      Position		      [396, 141]
+    }
+    Annotation {
+      SID		      "467"
+      Name		      "e_lin"
+      Position		      [401, 204]
     }
   }
 }

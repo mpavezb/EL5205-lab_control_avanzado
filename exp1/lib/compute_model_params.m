@@ -1,6 +1,6 @@
 function [c1, c2, beta, c1_std, c2_std, beta_std] = compute_model_params(h1_,h2_,h3_,K,Ts,nds_c12,nds_b)
 
-    %% Actividad 1a: c1, c2 parameters
+    % Actividad 1a: c1, c2 parameters
     % dh = (c1*u + c2)*x
 
     u1 = 100;
@@ -14,8 +14,8 @@ function [c1, c2, beta, c1_std, c2_std, beta_std] = compute_model_params(h1_,h2_
     % adjust data
     dh1_ = diff(h1_);
     dh2_ = diff(h2_);
-    h1_  = h1_(2:end); %t1_  = t1_(2:end);
-    h2_  = h2_(2:end); %t2_  = t2_(2:end); 
+    h1_  = h1_(1:end-1); %t1_  = t1_(2:end);
+    h2_  = h2_(1:end-1); %t2_  = t2_(2:end); 
 
     % multiple linear regression
     [b1, ~, r1] = regress(dh1_, Ts_c12./(K.*h1_.^2));
@@ -40,7 +40,7 @@ function [c1, c2, beta, c1_std, c2_std, beta_std] = compute_model_params(h1_,h2_
     clear c a11 a12 a21 a22 b1_stdev b2_stdev b12_cov Ainv b1 b2 r1 r2
     clear llenado_f100 llenado_f50
 
-    %% Actividad 1b: beta parameter
+    % Actividad 1b: beta parameter
     % dh = beta*x
 
     % downsampling
@@ -49,7 +49,7 @@ function [c1, c2, beta, c1_std, c2_std, beta_std] = compute_model_params(h1_,h2_
 
     % adjust data
     dh3_ = diff(h3_);
-    h3_  = h3_(2:end); %t3_  = t3_(2:end);
+    h3_  = h3_(1:end-1); %t3_  = t3_(2:end);
 
     % multiple linear regression
     [b3, ~, r3] = regress(dh3_, -Ts_b./(K.*h3_.^(1.5)));
