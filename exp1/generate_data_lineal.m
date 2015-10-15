@@ -3,8 +3,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 load('data/lineal/control_pi_v01');
 
+figure; hold on;
+plot(hr(:,1), hr(:,2), 'b','displayname','Referencia');
+plot(hr(:,1), hr(:,3), 'r', 'displayname','Salida planta','Linewidth', 2);
+xlabel('Tiempo [seg]'); ylabel('Altura [cm]');
+legend(gca,'show','location','best');
+
 %% Rescatar los datos de la prueba en laboratorio
 
+% rescatar los indices de los limites de cada rango en los datos
 lb = find(hr(:,3)>22.5,1):find(hr(:,2)>22.5,1); % rango bajo
 lm = find(hr(:,3)>37.5,1):find(hr(:,2)>37.5,1); % rango medio
 la = find(hr(:,3)>52.5,1):size(hr(:,2),1); % rango alto
