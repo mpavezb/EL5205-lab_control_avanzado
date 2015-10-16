@@ -1,7 +1,7 @@
 function [ Ad, Bd, Cd, Dd ] = discretize_sys(A, B, C, D, Ts)
 
     sys = ss(A,B,C,D);
-    sysd = c2d(sys, Ts);
+    sysd = c2d(sys, Ts, 'zoh');
     
     Ad = sysd.a;
     Bd = sysd.b;
