@@ -38,7 +38,7 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "matias"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Oct 16 04:23:31 2015"
+  LastModifiedDate	  "Fri Oct 16 05:38:01 2015"
   RTWModifiedTimeStamp	  366870059
   ModelVersionFormat	  "1.%<AutoIncrement:69>"
   ConfigurationManager	  "None"
@@ -78,6 +78,7 @@ Model {
     $ObjectID		    2
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "fen_systems"
+    signals_		    []
     overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
@@ -637,7 +638,7 @@ Model {
       }
       Name		      "Configuration"
       CurrentDlgPage	      "Solver"
-      ConfigPrmDlgPosition     [ 468, 170, 1451, 938 ] 
+      ConfigPrmDlgPosition     [ 458, 160, 1461, 976 ] 
     }
     PropName		    "ConfigurationSets"
   }
@@ -875,7 +876,7 @@ Model {
   }
   System {
     Name		    "fen_systems"
-    Location		    [1008, 215, 1576, 559]
+    Location		    [1219, 182, 1787, 526]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1009,7 +1010,7 @@ Model {
       System {
 	Name			"Subsystem"
 	Location		[986, 81, 1919, 1080]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
