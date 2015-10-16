@@ -1,27 +1,25 @@
-clear; close all;
-%% Cargar datos cubo
-addpath('lib', 'sym', 'data', 'mat'); cubo;
 
-%% Condicion inicial
-x1 = 0.01; x2 = 0; x3 = 0; x4 = 0;
+% prepare
+clc;
+close all;
+clear all;
+format shortG
+format compact
+addpath('lib', 'mat','sim');
 
-%% Linealizacion
-[ A, B, C, D ] = get_sys_lineal( a, b, c, x1, x2, x3, x4 );
+load('mat/linear_sys.mat');
+load('mat/discrete_sys.mat');
 
-%% Discretizar
-Ts = 0.002; 
-[ Ad, Bd, Cd, Dd ] = get_sys_lineal_discreto( A, B, C, D, Ts );
+% Simulacion
+Tt = 10;
+sim('sim/sistema');
 
-% polos = pole(sysd); ceros = zero(sysd);
-% fprintf('Polos: \n'); disp(polos);
-% fprintf('Ceros: \n'); disp(ceros);
-
-%% Simulacion
-Tt = 10; sim('sym/sistema');
+% response
 EF  = estados_fenomenologico;
 EL  = estados_lineal;
 ELD = estados_lineal_discreto;
 
+% plot
 figure; hold on;
 plot(EF(:,1), EF(:,2),'-b','displayname','\alpha');
 plot(EF(:,1), EF(:,3),'-r','displayname','\theta');
