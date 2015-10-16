@@ -153,9 +153,9 @@ k2_mid  = c1/(K*h_mid^2);
 k2_high = c1/(K*h_high^2);
 
 fprintf('\nActividad 3: Modelos linealizados Gp(s) = k2/(s+k1)\n');
-fprintf('- rango bajo : (k1,k2) = (%.6f, %.6f)\n',k1_low,k2_low);
-fprintf('- rango medio: (k1,k2) = (%.6f, %.6f)\n',k1_mid,k2_mid);
-fprintf('- rango alto : (k1,k2) = (%.6f, %.6f)\n',k1_high,k2_high);
+fprintf('- rango bajo : (k1,k2) = (%.7f, %.7f)\n',k1_low,k2_low);
+fprintf('- rango medio: (k1,k2) = (%.7f, %.7f)\n',k1_mid,k2_mid);
+fprintf('- rango alto : (k1,k2) = (%.7f, %.7f)\n',k1_high,k2_high);
 
 save('mat/model_parameters.mat',...
     'k1_low','k1_mid','k1_high','k2_low','k2_mid','k2_high',...
@@ -211,5 +211,6 @@ title('Respuesta de la planta y modelos desarrollados','interpreter','Latex','fo
 axis([0 580 0 65]);
 grid on;
 
-%clear test_a4 sim_u sim_h tout
-%clear t_a4_real t_a4_sim h_a4_real h_a4_sim_fen h_a4_sim_lin u_a4_real
+clear mse_fen mse_lin e_a4_sim_fen e_a4_sim_lin
+clear test_a4 sim_u sim_h tout sim_error sim_h_real
+clear t_a4_real t_a4_sim h_a4_real h_a4_sim_fen h_a4_sim_lin u_a4_real
