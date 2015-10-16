@@ -15,16 +15,17 @@ Ts = 0.002;
 %% Controladores
 r = 0; % referencia
 Kc = place(A,B,[-1 -2 -10 -50]);
-Q = 0.05*eye(4); R = 0.1*eye(1);
+Q = 5*eye(4); R = 0.1*eye(1);
 Kd = dlqr(Ad, Bd, Q, R);
+% Kd = [-894.5619 289.6519 -125.6704 30.0752];
 K = Kd;
 
 %% Observadores
-A11 = [Ad(1,1) Ad(1,4);Ad(2,1) Ad(2,4)]; A12 = [Ad(1,2) Ad(1,3);Ad(2,2) Ad(2,3)];
-A21 = [Ad(3,1) Ad(3,4);Ad(4,1) Ad(4,4)]; A22 = [Ad(4,2) Ad(4,3);Ad(1,2) Ad(1,3)];
-B1 = [Bd(1) Bd(4)]';B2 = [Bd(2) Bd(3)]';
+A11 = [Ad(2,2) Ad(2,3);Ad(3,2) Ad(3,3)]; A12 = [Ad(2,1) Ad(2,4);Ad(3,1) Ad(3,4)];
+A21 = [Ad(1,2) Ad(1,3);Ad(4,2) Ad(4,3)]; A22 = [Ad(1,1) Ad(1,4);Ad(4,1) Ad(4,4)];
+B1 = [Bd(2) Bd(3)]';B2 = [Bd(1) Bd(4)]';
 
-L = 10;
+L = place(A22,A12,[0.6+0.2j 0.6-0.2j]);
 
 %% Simulacion
 Tt = 10; sim('sym/sistema_control_observador');
