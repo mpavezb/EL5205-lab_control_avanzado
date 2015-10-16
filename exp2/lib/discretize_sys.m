@@ -12,8 +12,8 @@ function [ Ad, Bd, Cd, Dd ] = discretize_sys(A, B, C, D, Ts)
     fprintf('-----------------\n');
     fprintf('\nAd = \n'); disp(Ad);
     fprintf('\nBd = \n'); disp(Bd);
-    fprintf('\nCd =');    disp(Cd);
-    fprintf('\nDd =');    disp(Dd);
+    fprintf('\nCd = \n'); disp(Cd);
+    fprintf('\nDd = \n'); disp(Dd);
     
     sys_poles = pole(sysd);
     sys_zeros = zero(sysd);

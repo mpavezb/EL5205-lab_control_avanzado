@@ -18,14 +18,14 @@ function [A, B, C, D] = linearize_sys(cube_params, x_op, u_op)
     syms a_ da_ th_ dth_ u_
 
     % dynamics: cube acceleration
-    dda_(a_, da_, th_, dth_, u_) = (1/((c1 + c2*cos(th_)^2)*c3))*(             ...
+    dda_(a_, th_, da_, dth_, u_) = (1/((c1 + c2*cos(th_)^2)*c3))*(             ...
         (a1 + a2*cos(th_))*sin(th_)*da_^2 + a3*sin(th_)*dth_*da_               ...
         + a4*sin(th_)*dth_^2 + (a5 + a6*cos(th_))*dth_ + (a7 + a8*cos(th_))*u_ ...
         + a9*sin(a_)*cos(th_)^2 + a10*sin(a_) + a11*cos(th_)*cos(a_)*sin(th_));
 
 
     % dynamics: pendulum acceleration
-    ddth_(a_, da_, th_, dth_, u_) = (1/((c1 + c2*cos(th_)^2)*c3))*(             ...
+    ddth_(a_, th_, da_, dth_, u_) = (1/((c1 + c2*cos(th_)^2)*c3))*(             ...
         (b1 + b2*cos(th_))*sin(th_)*da_^2 + (b3*cos(th_) + b4)*sin(th_)*dth_*da_...
         + (b5 + b6*cos(th_))*sin(th_)*dth_^2 + (b7 + b8*cos(th_))*dth_          ...
         + (b9 + b10*cos(th_))*u_ + (b11 + b12*cos(th_))*sin(a_)                 ...
@@ -33,16 +33,16 @@ function [A, B, C, D] = linearize_sys(cube_params, x_op, u_op)
         + b15*cos(th_)*sin(th_)*cos(a_));
 
     % state x
-    x = [a_, da_, th_, dth_];
+    x = [a_, th_, da_, dth_];
 
     % dx(t) = f(x,u)
-    f(a_, da_, th_, dth_, u_) = [ da_                             ; ...
+    f(a_, th_, da_, dth_, u_) = [ da_                             ; ...
                                   dth_                            ; ...
-                                  dda_(a_, da_, th_, dth_, u_)    ; ...
-                                  ddth_(a_, da_, th_, dth_, u_) ];
+                                  dda_(a_, th_, da_, dth_, u_)    ; ...
+                                  ddth_(a_, th_, da_, dth_, u_) ];
 
     % y = g(x,u)
-    g(a_, da_, th_, dth_, u_) = a_;
+    g(a_, th_, da_, dth_, u_) = [a_, th_];
 
 
     %% compute linearized model
@@ -58,7 +58,7 @@ function [A, B, C, D] = linearize_sys(cube_params, x_op, u_op)
     % operation point
     a_op   = x_op(1); da_op  = x_op(3);
     th_op  = x_op(2); dth_op = x_op(4);
-    fprintf('x_op = (%.4f, %.4f, %.4f, %.4f)^T :\n', a_op, da_op, th_op, dth_op);
+    fprintf('x_op = (%.4f, %.4f, %.4f, %.4f)^T :\n', a_op, th_op, da_op, dth_op);
     fprintf('u_op = %.4f :\n', u_op);
 
     A = double(A(a_op, th_op, da_op, dth_op, u_op));
@@ -69,8 +69,8 @@ function [A, B, C, D] = linearize_sys(cube_params, x_op, u_op)
     % display matrices
     fprintf('\nA = df/dx :\n'); disp(A);
     fprintf('\nB = df/du :\n'); disp(B);
-    fprintf('\nC = dg/dx = '); disp(C);
-    fprintf('\nD = dg/du = '); disp(D);
+    fprintf('\nC = dg/dx :\n'); disp(C);
+    fprintf('\nD = dg/du :\n'); disp(D);
 
     clear a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11
     clear b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15
