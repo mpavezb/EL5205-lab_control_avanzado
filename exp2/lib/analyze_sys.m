@@ -13,13 +13,13 @@ function analyze_sys(A, B, C)
 
     fprintf('Oo has rank %d\n',rank(Oo));
     fprintf('Co has rank %d\n',rank(Co));
-    if rank(Co) == 4
+    if rank(Co) == size(A,1)
         disp('- el sistema es controlable');
     else
         disp('- el sistema NO es controlable');
     end
 
-    if rank(Oo) == 4
+    if rank(Oo) == size(A,1)
         disp('- el sistema es observable');
     else
         disp('- el sistema NO es observable');
