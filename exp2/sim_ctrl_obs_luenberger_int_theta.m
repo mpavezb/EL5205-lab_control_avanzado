@@ -13,8 +13,6 @@ load('mat/obs_luenberger_int_theta.mat');
 
 %% Condiciones iniciales
 x_0 = [pi/100, 0, 0, 0, 0];
-alpha_max = 2*pi; alpha_min = -2*pi;
-theta_max = 2*pi; theta_min = -2*pi;
 
 %% Controladores
 % Calculo ganancia con posicionamiento de polos

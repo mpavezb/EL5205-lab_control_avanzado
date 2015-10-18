@@ -8,8 +8,7 @@ addpath('lib', 'mat','sim');
 
 load('mat/cubo.mat');
 load('mat/linear_sys.mat');
-load('mat/discrete_sys.mat'); Cd = [0 1 0 0;0 0 1 0]; % get theta and d_alpha
-load('mat/obs_luenberger.mat');
+load('mat/discrete_sys.mat'); Cd = [0 1 0 0;0 0 1 0];
 
 %% Condiciones iniciales
 x_0 = [pi/100, 0, 0, 0];
@@ -24,21 +23,19 @@ K = place(A, B,1.6*poles_c); % posicionamiento de polos
 % K = lqr(A, B, Q, R);
 Knoise = [0 0]; % noise theta and d_alpha
 
-%% Ganancia Observadores
-ts = 0.02; % tiempo establecimiento
-Mp = 0.01; % Sobrepaso maximo.
-[ poles, Wn, damping ] = get_poles( ts, Mp, Ts );
-L = place(A22',A12',poles)';
-% disp(poles); % show poles
+%% Filtro de Kalman
+P0 = diag([0 0 0 0]);
+Qd = diag([1e-3 1e-8 1e-2 1e-2]);
+Rd = diag([1e-8 1e-2]);
 
 %% Simulacion
 Tt = 1; % time simulation
 % sim('sim/sys_ctrl');
-sim('sim/sys_ctrl_obs_luenberger');
+sim('sim/sys_ctrl_obs_kalman');
 EF   = states_feno;
 EF2  = states_feno_obs;
-sim('sim/sys_ctrl_obs_luenberger_lineal');
-ELD  = states_lineal_d_obs;
+sim('sim/sys_ctrl_obs_kalman_lineal');
+ELD  = states_lineal_d_obs(2:end,:);
 ELD2 = states_lineal_d;
 
 %% Tablas
