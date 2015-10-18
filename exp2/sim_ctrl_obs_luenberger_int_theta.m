@@ -19,11 +19,11 @@ theta_max = 2*pi; theta_min = -2*pi;
 %% Controladores
 % Calculo ganancia con posicionamiento de polos
 r = 0; % referencia
-poles_c = real(eig(A)) - [0 0 14 1 0]';
-K = place(A, B,1.6*poles_c); % posicionamiento de polos
+% poles_c = real(eig(A)) - [0 0 14 1 0]';
+% K = place(A, B,1.6*poles_c); % posicionamiento de polos
 % Calculo ganancia con LQR 
-% Q =0.5*eye(4); R = eye(1);
-% K = dlqr(Ad, Bd, Q, R);
+Q =diag([pi/100 pi/100 0.5 pi/100 0.5]); R = 0.5*eye(1);
+K = lqr(A, B, Q, R);
 Knoise = [0 0]; % noise theta and d_alpha
 
 %% Ganancia Observadores
@@ -47,8 +47,26 @@ sim('sim/sys_ctrl_obs_luenberger_lineal_int_theta');
 ELD  = states_lineal_d_obs;
 ELD2 = states_lineal_d;
 
+%% Tablas
+fprintf('Error seguimiento referencia:\n');
+e_alpha = EF(:,2);
+mse_alpha = mean(e_alpha.^2);
+fprintf('mse alpha: %0.6f\n', mse_alpha);
+e_theta = EF(:,3);
+mse_theta = mean(e_theta.^2);
+fprintf('mse theta: %0.6f\n', mse_theta);
+fprintf('Error Estimacion Observador:\n');
+e_alpha_obs = EF(:,2) - EF2(:,2);
+mse_alpha_obs = mean(e_alpha_obs.^2);
+fprintf('mse alpha: %0.6f\n', mse_alpha_obs);
+e_dtheta_obs = EF(:,6) - EF2(:,6);
+mse_dtheta_obs = mean(e_dtheta_obs.^2);
+fprintf('mse dtheta: %0.6f\n', mse_dtheta_obs);
+
 %% Graficos
 x0 = x_0; x0(4) = [];
 plot_lineal_feno(EF, ELD, alpha, x0);
 plot_error(EF, EF2, 'Error entre Observación y Simulación');
 plot_error(ELD, ELD2, 'Error entre Observación y Simulación');
+
+
