@@ -19,8 +19,8 @@ theta_max = 2*pi; theta_min = -2*pi;
 %% Controladores
 % Calculo ganancia con posicionamiento de polos
 r = 0; % referencia
-[ poles_c, Wn_c, dammping_c ] = get_poles( 0.2, 0.01, Ts );
-K = place(A, B, [-11.5 -11.6 -11.7 -8 -23]); % posicionamiento de polos
+poles_c = real(eig(A)) - [0 0 14 1 0]';
+K = place(A, B,1.6*poles_c); % posicionamiento de polos
 % Calculo ganancia con LQR 
 % Q =0.5*eye(4); R = eye(1);
 % K = dlqr(Ad, Bd, Q, R);
@@ -29,9 +29,13 @@ Knoise = [0 0]; % noise theta and d_alpha
 %% Ganancia Observadores
 ts = 0.02; % tiempo establecimiento
 Mp = 0.01; % Sobrepaso maximo.
-[ poles, Wn, damping ] = get_poles( ts, Mp, Ts );
-L = place(A22',A12',poles)';
-disp(poles); % show poles
+[ poles_L, Wn, damping ] = get_poles( ts, Mp, Ts );
+L = place(A22',A12',poles_L)';
+disp(poles_L); % show poles
+
+% Ld = [L(1,:);eye(3);L(2,:)];
+% Acl = [Ad+Bd*K -Bd*K;zeros(5) Ad+Ld*Cd];
+% eig(Acl)
 
 %% Simulacion
 Tt = 1; % time simulation

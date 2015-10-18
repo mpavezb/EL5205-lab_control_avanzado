@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.117"
+    ComputedModelVersion    "1.118"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -51,7 +51,7 @@ Model {
 	Dimension		3
 	Object {
 	  $ObjectID		  5
-	  IsActive		  [1]
+	  IsActive		  [0]
 	  ViewObjType		  "SimulinkTopLevel"
 	  LoadSaveID		  "0"
 	  Extents		  [1332.0, 566.0]
@@ -60,7 +60,7 @@ Model {
 	}
 	Object {
 	  $ObjectID		  6
-	  IsActive		  [0]
+	  IsActive		  [1]
 	  ViewObjType		  "SimulinkSubsys"
 	  LoadSaveID		  "640"
 	  Extents		  [1332.0, 566.0]
@@ -86,9 +86,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "pdoren"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Sun Oct 18 02:36:20 2015"
-  RTWModifiedTimeStamp	  367036572
-  ModelVersionFormat	  "1.%<AutoIncrement:117>"
+  LastModifiedDate	  "Sun Oct 18 12:47:47 2015"
+  RTWModifiedTimeStamp	  367073265
+  ModelVersionFormat	  "1.%<AutoIncrement:118>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -2299,7 +2299,7 @@ Model {
 	  BlockType		  From
 	  Name			  "From46"
 	  SID			  "716"
-	  Position		  [875, 141, 930, 159]
+	  Position		  [875, 136, 930, 154]
 	  ZOrder		  -9
 	  ShowName		  off
 	  GotoTag		  "theta"
@@ -2317,7 +2317,7 @@ Model {
 	  BlockType		  From
 	  Name			  "From48"
 	  SID			  "817"
-	  Position		  [875, 116, 930, 134]
+	  Position		  [875, 106, 930, 124]
 	  ZOrder		  3
 	  ShowName		  off
 	  GotoTag		  "alpha"
@@ -2326,7 +2326,7 @@ Model {
 	  BlockType		  From
 	  Name			  "From49"
 	  SID			  "818"
-	  Position		  [875, 215, 935, 235]
+	  Position		  [875, 225, 935, 245]
 	  ZOrder		  4
 	  ShowName		  off
 	  GotoTag		  "dtheta"
@@ -2502,7 +2502,7 @@ Model {
 	  Position		  [820, 995, 850, 1025]
 	  ZOrder		  -2
 	  ShowName		  off
-	  InitialCondition	  "x_0(4)"
+	  InitialCondition	  "x_0(5)"
 	  UpperSaturationLimit	  "dtheta_max"
 	  LowerSaturationLimit	  "dtheta_min"
 	}
@@ -2523,7 +2523,7 @@ Model {
 	  Name			  "Integrator4"
 	  SID			  "848"
 	  Ports			  [1, 1]
-	  Position		  [960, 185, 990, 215]
+	  Position		  [960, 190, 990, 220]
 	  ZOrder		  5
 	}
 	Block {
@@ -4206,15 +4206,15 @@ Model {
 	  SrcPort		  1
 	  Points		  [5, 0]
 	  Branch {
-	    ZOrder		    243
-	    Points		    [0, 50]
-	    DstBlock		    "Integrator4"
-	    DstPort		    1
-	  }
-	  Branch {
-	    ZOrder		    242
+	    ZOrder		    250
 	    DstBlock		    "Mux"
 	    DstPort		    2
+	  }
+	  Branch {
+	    ZOrder		    249
+	    Points		    [0, 60]
+	    DstBlock		    "Integrator4"
+	    DstPort		    1
 	  }
 	}
 	Line {
@@ -4235,6 +4235,7 @@ Model {
 	  ZOrder		  240
 	  SrcBlock		  "From49"
 	  SrcPort		  1
+	  Points		  [5, 0; 0, 8; 55, 0]
 	  DstBlock		  "Mux"
 	  DstPort		  5
 	}
