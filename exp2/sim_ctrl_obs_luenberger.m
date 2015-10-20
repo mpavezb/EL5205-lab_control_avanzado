@@ -27,19 +27,21 @@ Knoise = [0 0]; % noise theta and d_alpha
 %% Ganancia Observadores
 ts = 0.02; % tiempo establecimiento
 Mp = 0.01; % Sobrepaso maximo.
-[ poles, Wn, damping ] = get_poles( ts, Mp, Ts );
-L = place(A22',A12',poles)';
+[ poles_L, Wn, damping ] = get_poles( ts, Mp, Ts );
+L = place(A22',A12',poles_L)';
 % disp(poles); % show poles
 
 %% Simulacion
-Tt = 1; % time simulation
+Tt = 5; % time simulation
 % sim('sim/sys_ctrl');
 sim('sim/sys_ctrl_obs_luenberger');
 EF   = states_feno;
-EF2  = states_feno_obs;
+EF2  = [states_feno(:,1) interp1(states_feno_obs(:,1),...
+    states_feno_obs(:,2:end),states_feno(:,1))];
 sim('sim/sys_ctrl_obs_luenberger_lineal');
-ELD  = states_lineal_d_obs;
-ELD2 = states_lineal_d;
+ELD  = states_lineal_d;
+ELD2 = [states_lineal_d(:,1) interp1(states_lineal_d_obs(:,1),...
+    states_lineal_d_obs(:,2:end),states_lineal_d(:,1))];
 
 %% Tablas
 fprintf('Error seguimiento referencia:\n');

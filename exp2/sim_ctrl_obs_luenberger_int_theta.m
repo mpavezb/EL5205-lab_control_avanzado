@@ -17,11 +17,11 @@ x_0 = [pi/100, 0, 0, 0, 0];
 %% Controladores
 % Calculo ganancia con posicionamiento de polos
 r = 0; % referencia
-% poles_c = real(eig(A)) - [0 0 14 1 0]';
-% K = place(A, B,1.6*poles_c); % posicionamiento de polos
+poles_c = real(eig(A)) - [0 0 14 1 0]';
+K = place(A, B,1.6*poles_c); % posicionamiento de polos
 % Calculo ganancia con LQR 
-Q =diag([pi/100 pi/100 0.5 pi/100 0.5]); R = 0.5*eye(1);
-K = lqr(A, B, Q, R);
+% Q = 0.5*diag([1 1 1 1 1]); R = 0.5*diag(1);
+% K = lqr(A, B, Q, R);
 Knoise = [0 0]; % noise theta and d_alpha
 
 %% Ganancia Observadores
@@ -36,14 +36,16 @@ disp(poles_L); % show poles
 % eig(Acl)
 
 %% Simulacion
-Tt = 1; % time simulation
+Tt = 5; % time simulation
 % sim('sim/sys_ctrl');
 sim('sim/sys_ctrl_obs_luenberger_int_theta');
 EF   = states_feno;
-EF2  = states_feno_obs;
+EF2  = [states_feno(:,1) interp1(states_feno_obs(:,1),...
+    states_feno_obs(:,2:end),states_feno(:,1))];
 sim('sim/sys_ctrl_obs_luenberger_lineal_int_theta');
-ELD  = states_lineal_d_obs;
-ELD2 = states_lineal_d;
+ELD  = states_lineal_d;
+ELD2 = [states_lineal_d(:,1) interp1(states_lineal_d_obs(:,1),...
+    states_lineal_d_obs(:,2:end),states_lineal_d(:,1))];
 
 %% Tablas
 fprintf('Error seguimiento referencia:\n');

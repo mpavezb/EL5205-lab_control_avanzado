@@ -11,36 +11,38 @@ load('mat/linear_sys_int_theta.mat');
 load('mat/discrete_sys_int_theta.mat'); Cd = [0 1 0 0 0;0 0 1 0 0;0 0 0 1 0];
 
 %% Condiciones iniciales
-x_0 = [pi/100, 0, 0, 0, 0];
+x_0 = [pi/90, pi/90, 0, 0, 0];
 
 %% Controladores
 % Calculo ganancia con posicionamiento de polos
 r = 0; % referencia
-poles_c = real(eig(A)) - [0 0 14 1 0]';
-K = place(A, B,1.6*poles_c); % posicionamiento de polos
+% poles_c = eig(A) - [0 0 15 0 0]';
+% K = place(A, B, poles_c); % posicionamiento de polos
 % Calculo ganancia con LQR 
-% Q =diag([pi/100 pi/100 0.5 pi/100 0.5]); R = 0.5*eye(1);
-% K = lqr(A, B, Q, R);
-Knoise = [0 0]; % noise theta and d_alpha
+Q = diag([1 1 1 1 1]); R = 0.5*diag(1);
+K = 0.5*lqr(A, B, Q, R);
+Knoise = [0.0001 0.05]; % noise theta and d_alpha
 
 %% Filtro de Kalman
-P0 = diag([0 0 0 0 0]);
-Qd = diag([1e-3 1e-8 1e-2 1e-3 1e-2]);
-Rd = diag([1e-8 1e-2 1e-3]);
+P0 = diag([pi/20 pi/20 0 0 0]);
+Qd = diag([1e-2 1e-2 1e-2 1e-2 1e-2]);
+Rd = diag([1e-2 1e-2 1e-2]);
 
 % Ld = [L(1,:);eye(3);L(2,:)];
 % Acl = [Ad+Bd*K -Bd*K;zeros(5) Ad+Ld*Cd];
 % eig(Acl)
 
 %% Simulacion
-Tt = 1; % time simulation
+Tt = 10; % time simulation
 % sim('sim/sys_ctrl');
 sim('sim/sys_ctrl_obs_kalman_int_theta');
 EF   = states_feno;
-EF2  = states_feno_obs;
+EF2  = [states_feno(:,1) interp1(states_feno_obs(:,1),...
+    states_feno_obs(:,2:end),states_feno(:,1))];
 sim('sim/sys_ctrl_obs_kalman_lineal_int_theta');
-ELD  = states_lineal_d_obs;
-ELD2 = states_lineal_d;
+ELD  = states_lineal_d;
+ELD2 = [states_lineal_d(:,1) interp1(states_lineal_d_obs(:,1),...
+    states_lineal_d_obs(:,2:end),states_lineal_d(:,1))];
 
 %% Tablas
 fprintf('Error seguimiento referencia:\n');

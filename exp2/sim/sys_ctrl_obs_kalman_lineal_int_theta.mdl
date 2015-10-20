@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.100"
+    ComputedModelVersion    "1.102"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -65,9 +65,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "pdoren"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Sun Oct 18 14:56:40 2015"
-  RTWModifiedTimeStamp	  367080986
-  ModelVersionFormat	  "1.%<AutoIncrement:100>"
+  LastModifiedDate	  "Mon Oct 19 21:05:21 2015"
+  RTWModifiedTimeStamp	  367189513
+  ModelVersionFormat	  "1.%<AutoIncrement:102>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -805,41 +805,6 @@ Model {
       Realization	      "auto"
     }
     Block {
-      BlockType		      DiscreteTransferFcn
-      NumeratorSource	      "Dialog"
-      Numerator		      "[1]"
-      DenominatorSource	      "Dialog"
-      Denominator	      "[1 0.5]"
-      InitialStatesSource     "Dialog"
-      InitialStates	      "0"
-      InputProcessing	      "Elements as channels (sample based)"
-      ExternalReset	      "None"
-      InitialDenominatorStates "0"
-      FilterStructure	      "Direct form II"
-      SampleTime	      "-1"
-      a0EqualsOne	      off
-      NumCoefMin	      "[]"
-      NumCoefMax	      "[]"
-      DenCoefMin	      "[]"
-      DenCoefMax	      "[]"
-      OutMin		      "[]"
-      OutMax		      "[]"
-      StateDataTypeStr	      "Inherit: Same as input"
-      MultiplicandDataTypeStr "Inherit: Same as input"
-      NumCoefDataTypeStr      "Inherit: Inherit via internal rule"
-      DenCoefDataTypeStr      "Inherit: Inherit via internal rule"
-      NumProductDataTypeStr   "Inherit: Inherit via internal rule"
-      DenProductDataTypeStr   "Inherit: Inherit via internal rule"
-      NumAccumDataTypeStr     "Inherit: Inherit via internal rule"
-      DenAccumDataTypeStr     "Inherit: Inherit via internal rule"
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
-      LockScale		      off
-      RndMeth		      "Floor"
-      SaturateOnIntegerOverflow	off
-      StateMustResolveToSignalObject off
-      RTWStateStorageClass    "Auto"
-    }
-    Block {
       BlockType		      Gain
       Gain		      "1"
       Multiplication	      "Element-wise(K.*u)"
@@ -1162,7 +1127,7 @@ Model {
 	  }
 	  System {
 	    Name		    "Kalman Filter"
-	    Location		    [-8, -8, 1374, 736]
+	    Location		    [-8, 0, 1374, 744]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -1474,6 +1439,7 @@ Model {
 	      ZOrder		      -24
 	      BlockMirror	      on
 	      InitialCondition	      "x0"
+	      SampleTime	      "Ts"
 	    }
 	    Block {
 	      BlockType		      UnitDelay
@@ -1485,6 +1451,7 @@ Model {
 	      NamePlacement	      "alternate"
 	      ShowName		      off
 	      InitialCondition	      "P0"
+	      SampleTime	      "Ts"
 	    }
 	    Block {
 	      BlockType		      Outport
@@ -1833,28 +1800,6 @@ Model {
 	  "5b')),'Version','2015b')"
 	}
 	Block {
-	  BlockType		  DiscreteTransferFcn
-	  Name			  "muestrear"
-	  SID			  "552"
-	  Ports			  [1, 1]
-	  Position		  [90, 122, 110, 158]
-	  ZOrder		  243
-	  InputPortMap		  "u0"
-	  Denominator		  "[1]"
-	  SampleTime		  "Ts"
-	}
-	Block {
-	  BlockType		  DiscreteTransferFcn
-	  Name			  "muestrear1"
-	  SID			  "553"
-	  Ports			  [1, 1]
-	  Position		  [90, 177, 110, 213]
-	  ZOrder		  244
-	  InputPortMap		  "u0"
-	  Denominator		  "[1]"
-	  SampleTime		  "Ts"
-	}
-	Block {
 	  BlockType		  Outport
 	  Name			  "Xe"
 	  SID			  "554"
@@ -1878,31 +1823,17 @@ Model {
 	  DstPort		  1
 	}
 	Line {
-	  ZOrder		  3
+	  ZOrder		  7
 	  SrcBlock		  "y"
-	  SrcPort		  1
-	  DstBlock		  "muestrear"
-	  DstPort		  1
-	}
-	Line {
-	  ZOrder		  4
-	  SrcBlock		  "muestrear"
 	  SrcPort		  1
 	  DstBlock		  "Kalman Filter"
 	  DstPort		  1
 	}
 	Line {
-	  ZOrder		  5
+	  ZOrder		  8
 	  SrcBlock		  "u"
 	  SrcPort		  1
-	  DstBlock		  "muestrear1"
-	  DstPort		  1
-	}
-	Line {
-	  ZOrder		  6
-	  SrcBlock		  "muestrear1"
-	  SrcPort		  1
-	  Points		  [45, 0; 0, -25]
+	  Points		  [70, 0; 0, -25]
 	  DstBlock		  "Kalman Filter"
 	  DstPort		  2
 	}
@@ -2466,27 +2397,17 @@ Model {
       ZOrder		      19
       SrcBlock		      "Sum4"
       SrcPort		      1
-      Points		      [13, 0]
+      Points		      [34, 0]
       Branch {
-	ZOrder			93
-	Points			[0, -53; -128, 0]
-	DstBlock		"Gain2"
+	ZOrder			20
+	Points			[0, 90]
+	DstBlock		"Gain1"
 	DstPort			1
       }
       Branch {
-	ZOrder			92
-	Points			[21, 0]
-	Branch {
-	  ZOrder		  20
-	  Points		  [0, 90]
-	  DstBlock		  "Gain1"
-	  DstPort		  1
-	}
-	Branch {
-	  ZOrder		  26
-	  DstBlock		  "Scope1"
-	  DstPort		  1
-	}
+	ZOrder			26
+	DstBlock		"Scope1"
+	DstPort			1
       }
     }
     Line {
@@ -2509,9 +2430,18 @@ Model {
       ZOrder		      74
       SrcBlock		      "Observador1"
       SrcPort		      1
-      Points		      [-15, 0; 0, 55]
-      DstBlock		      "Scope2"
-      DstPort		      1
+      Points		      [-15, 0]
+      Branch {
+	ZOrder			101
+	DstBlock		"Gain2"
+	DstPort			1
+      }
+      Branch {
+	ZOrder			100
+	Points			[0, 55]
+	DstBlock		"Scope2"
+	DstPort			1
+      }
     }
   }
 }

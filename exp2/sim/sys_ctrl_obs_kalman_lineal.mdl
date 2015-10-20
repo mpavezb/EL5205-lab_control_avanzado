@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.99"
+    ComputedModelVersion    "1.100"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -65,9 +65,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "pdoren"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Sun Oct 18 14:46:49 2015"
-  RTWModifiedTimeStamp	  367080403
-  ModelVersionFormat	  "1.%<AutoIncrement:99>"
+  LastModifiedDate	  "Mon Oct 19 21:04:27 2015"
+  RTWModifiedTimeStamp	  367189457
+  ModelVersionFormat	  "1.%<AutoIncrement:100>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -973,7 +973,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "540"
+    SIDHighWatermark	    "685"
     Block {
       BlockType		      Gain
       Name		      "Gain1"
@@ -1015,7 +1015,7 @@ Model {
       Variant		      off
       System {
 	Name			"Observador1"
-	Location		[-8, 0, 1374, 744]
+	Location		[-7, 0, 690, 735]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1127,7 +1127,7 @@ Model {
 	  }
 	  System {
 	    Name		    "Kalman Filter"
-	    Location		    [-8, 0, 1374, 744]
+	    Location		    [-7, 0, 690, 735]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -1439,6 +1439,7 @@ Model {
 	      ZOrder		      -24
 	      BlockMirror	      on
 	      InitialCondition	      "x0"
+	      SampleTime	      "Ts"
 	    }
 	    Block {
 	      BlockType		      UnitDelay
@@ -1450,6 +1451,7 @@ Model {
 	      NamePlacement	      "alternate"
 	      ShowName		      off
 	      InitialCondition	      "P0"
+	      SampleTime	      "Ts"
 	    }
 	    Block {
 	      BlockType		      Outport
@@ -2368,18 +2370,8 @@ Model {
       ZOrder		      15
       SrcBlock		      "sistema lineal2"
       SrcPort		      1
-      Points		      [10, 0]
-      Branch {
-	ZOrder			86
-	Points			[0, -53; -38, 0; 0, -82]
-	DstBlock		"Gain2"
-	DstPort			1
-      }
-      Branch {
-	ZOrder			85
-	DstBlock		"Sum4"
-	DstPort			2
-      }
+      DstBlock		      "Sum4"
+      DstPort		      2
     }
     Line {
       ZOrder		      19
@@ -2418,9 +2410,18 @@ Model {
       ZOrder		      63
       SrcBlock		      "Observador1"
       SrcPort		      1
-      Points		      [-6, 0; 0, 55]
-      DstBlock		      "Scope2"
-      DstPort		      1
+      Points		      [-6, 0]
+      Branch {
+	ZOrder			95
+	DstBlock		"Gain2"
+	DstPort			1
+      }
+      Branch {
+	ZOrder			94
+	Points			[0, 55]
+	DstBlock		"Scope2"
+	DstPort			1
+      }
     }
   }
 }

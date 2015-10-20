@@ -16,28 +16,29 @@ x_0 = [pi/100, 0, 0, 0];
 %% Controladores
 % Calculo ganancia con posicionamiento de polos
 r = 0; % referencia
-poles_c = real(eig(A)) - [14 0 1 0]';
-K = place(A, B,1.6*poles_c); % posicionamiento de polos
+% poles_c = real(eig(A)) - [14 0 1 0]';
+% K = place(A, B,1.6*poles_c); % posicionamiento de polos
 % Calculo ganancia con LQR 
-% Q =diag([pi/100 pi/100 0.5 0.5]); R = 0.5*eye(1);
-% K = lqr(A, B, Q, R);
+Q = diag([1 1 1 1]); R = 0.5*diag(1);
+K = lqr(A, B, Q, R);
 Knoise = [0 0]; % noise theta and d_alpha
 
 %% Filtro de Kalman
 P0 = diag([0 0 0 0]);
-Qd = diag([1e-3 1e-8 1e-2 1e-2]);
-Rd = diag([1e-8 1e-2]);
+Qd = diag([1e-2 1e-2 1e-2 1e-2]);
+Rd = diag([1e-2 1e-2]);
 
 %% Simulacion
-Tt = 1; % time simulation
+Tt = 5; % time simulation
 % sim('sim/sys_ctrl');
 sim('sim/sys_ctrl_obs_kalman');
 EF   = states_feno;
-EF2  = states_feno_obs;
+EF2  = [states_feno(:,1) interp1(states_feno_obs(:,1),...
+    states_feno_obs(:,2:end),states_feno(:,1))];
 sim('sim/sys_ctrl_obs_kalman_lineal');
-ELD  = states_lineal_d_obs(2:end,:);
-ELD2 = states_lineal_d;
-
+ELD  = states_lineal_d;
+ELD2 = [states_lineal_d(:,1) interp1(states_lineal_d_obs(:,1),...
+    states_lineal_d_obs(:,2:end),states_lineal_d(:,1))];
 %% Tablas
 fprintf('Error seguimiento referencia:\n');
 e_alpha = EF(:,2);
