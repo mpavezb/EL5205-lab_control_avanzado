@@ -20,13 +20,8 @@ r = 0; % referencia
 % K = place(A, B, poles_c); % posicionamiento de polos
 % Calculo ganancia con LQR 
 Q = diag([1 1 1 1 1]); R = 0.5*diag(1);
-K = lqrd(A, B, Q, R, Ts);
+K = lqrd(A, B, Q, R, Ts*0.1);
 Knoise = [0.0001 0.005]; % noise theta and d_alpha
-
-%% Filtro de Kalman
-P0 = diag([pi/20 pi/20 0 0 0]);
-Qd = diag([1e-2 1e-2 1e-2 1e-2 1e-2]);
-Rd = diag([1e-2 1e-2 1e-2]);
 
 % Ld = [L(1,:);eye(3);L(2,:)];
 % Acl = [Ad+Bd*K -Bd*K;zeros(5) Ad+Ld*Cd];
@@ -35,14 +30,10 @@ Rd = diag([1e-2 1e-2 1e-2]);
 %% Simulacion
 Tt = 5; % time simulation
 % sim('sim/sys_ctrl');
-sim('sim/sys_ctrl_obs_kalman_int_theta');
+sim('sim/sys_ctrl_obs_empirico_int_theta');
 EF   = states_feno;
 EF2  = [states_feno(:,1) interp1(states_feno_obs(:,1),...
     states_feno_obs(:,2:end),states_feno(:,1))];
-sim('sim/sys_ctrl_obs_kalman_lineal_int_theta');
-ELD  = states_lineal_d;
-ELD2 = [states_lineal_d(:,1) interp1(states_lineal_d_obs(:,1),...
-    states_lineal_d_obs(:,2:end),states_lineal_d(:,1))];
 
 %% Tablas
 fprintf('Error seguimiento referencia:\n');
@@ -62,8 +53,15 @@ fprintf('mse dtheta: %0.6f\n', mse_dtheta_obs);
 
 %% Graficos
 x0 = x_0; x0(4) = [];
-plot_lineal_feno(EF, ELD, alpha, x0);
+
+figure; hold on;
+plot(EF(:,1), EF(:,2),'-b','displayname','Observado \alpha');
+plot(EF(:,1), EF(:,3),'-r','displayname','Simulado \theta');
+plot(alpha(:,1), alpha(:,2),'--c','displayname','Simulado \alpha');
+xlabel('Tiempo [s]'); ylabel('Angulo [rad]');
+title({'Simulacion Modelo Fenomenologico',sprintf('$$ X_0 = [\\alpha = %0.4f, \\theta = %0.4f, \\dot{\\alpha} = %0.4f, \\dot{\\theta} = %0.4f]$$', x0)},'interpreter','latex');
+legend(gca, 'show', 'location', 'best');
+
 plot_error(EF, EF2, 'Error entre Observación y Simulación');
-plot_error(ELD, ELD2, 'Error entre Observación y Simulación');
 
 
