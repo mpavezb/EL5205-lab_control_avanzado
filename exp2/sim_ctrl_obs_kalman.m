@@ -11,7 +11,7 @@ load('mat/linear_sys.mat');
 load('mat/discrete_sys.mat'); Cd = [0 1 0 0;0 0 1 0];
 
 %% Condiciones iniciales
-x_0 = [pi/100, 0, 0, 0];
+x_0 = [pi/90, pi/90, 0, 0];
 
 %% Controladores
 % Calculo ganancia con posicionamiento de polos
@@ -21,10 +21,10 @@ r = 0; % referencia
 % Calculo ganancia con LQR 
 Q = diag([1 1 1 1]); R = 0.5*diag(1);
 K = lqr(A, B, Q, R);
-Knoise = [0 0]; % noise theta and d_alpha
+Knoise = [0.0001 0.05]; % noise theta and d_alpha
 
 %% Filtro de Kalman
-P0 = diag([0 0 0 0]);
+P0 = diag([pi/20 pi/20 0 0]);
 Qd = diag([1e-2 1e-2 1e-2 1e-2]);
 Rd = diag([1e-2 1e-2]);
 

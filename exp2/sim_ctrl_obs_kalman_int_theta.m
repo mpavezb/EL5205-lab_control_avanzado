@@ -33,7 +33,7 @@ Rd = diag([1e-2 1e-2 1e-2]);
 % eig(Acl)
 
 %% Simulacion
-Tt = 10; % time simulation
+Tt = 5; % time simulation
 % sim('sim/sys_ctrl');
 sim('sim/sys_ctrl_obs_kalman_int_theta');
 EF   = states_feno;

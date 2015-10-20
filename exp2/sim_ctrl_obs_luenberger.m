@@ -12,7 +12,7 @@ load('mat/discrete_sys.mat'); Cd = [0 1 0 0;0 0 1 0]; % get theta and d_alpha
 load('mat/obs_luenberger.mat');
 
 %% Condiciones iniciales
-x_0 = [pi/100, 0, 0, 0];
+x_0 = [pi/1000, pi/1000, 0, 0];
 
 %% Controladores
 % Calculo ganancia con posicionamiento de polos
@@ -22,7 +22,7 @@ K = place(A, B,1.6*poles_c); % posicionamiento de polos
 % Calculo ganancia con LQR 
 % Q =diag([pi/100 pi/100 0.5 0.5]); R = 0.5*eye(1);
 % K = lqr(A, B, Q, R);
-Knoise = [0 0]; % noise theta and d_alpha
+Knoise = [0.0001 0.005]; % noise theta and d_alpha
 
 %% Ganancia Observadores
 ts = 0.02; % tiempo establecimiento

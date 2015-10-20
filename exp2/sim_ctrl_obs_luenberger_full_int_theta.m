@@ -17,18 +17,18 @@ x_0 = [pi/1000, pi/1000, 0, 0, 0];
 %% Controladores
 % Calculo ganancia con posicionamiento de polos
 r = 0; % referencia
-poles_c = real(eig(A)) - [0 0 14 1 0]';
-K = place(A, B,1.6*poles_c); % posicionamiento de polos
+% poles_c = real(eig(A)) - [0 0 14 1 0]';
+% K = place(A, B,1.6*poles_c); % posicionamiento de polos
 % Calculo ganancia con LQR 
-% Q = 0.5*diag([1 1 1 1 1]); R = 0.5*diag(1);
-% K = lqr(A, B, Q, R);
+Q = diag([100 100 1 1 1]); R = 1*diag(1);
+K = lqr(A, B, Q, R);
 Knoise = [0.0001 0.005]; % noise theta and d_alpha
 
 %% Ganancia Observadores
 ts = 0.02; % tiempo establecimiento
 Mp = 0.01; % Sobrepaso maximo.
 [ poles_L, Wn, damping ] = get_poles( ts, Mp, Ts );
-L = place(A22',A12',poles_L)';
+L = place(Ad',Cd',[-0.41 -0.42 -0.43 -0.44 -0.45])';
 disp(poles_L); % show poles
 
 % Ld = [L(1,:);eye(3);L(2,:)];
@@ -38,11 +38,11 @@ disp(poles_L); % show poles
 %% Simulacion
 Tt = 5; % time simulation
 % sim('sim/sys_ctrl');
-sim('sim/sys_ctrl_obs_luenberger_int_theta');
+sim('sim/sys_ctrl_obs_luenberger_full_int_theta');
 EF   = states_feno;
 EF2  = [states_feno(:,1) interp1(states_feno_obs(:,1),...
     states_feno_obs(:,2:end),states_feno(:,1))];
-sim('sim/sys_ctrl_obs_luenberger_lineal_int_theta');
+sim('sim/sys_ctrl_obs_luenberger_full_lineal_int_theta');
 ELD  = states_lineal_d;
 ELD2 = [states_lineal_d(:,1) interp1(states_lineal_d_obs(:,1),...
     states_lineal_d_obs(:,2:end),states_lineal_d(:,1))];
