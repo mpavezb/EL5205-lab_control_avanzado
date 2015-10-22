@@ -1,7 +1,7 @@
 % prepare workspace
 clc;
 close all;
-clear all;
+clear;
 format shortG
 format compact
 addpath('lib', 'mat');

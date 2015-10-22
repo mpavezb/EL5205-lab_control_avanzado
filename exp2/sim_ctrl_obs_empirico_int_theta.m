@@ -11,20 +11,17 @@ load('mat/system_int_theta.mat');
 load('mat/linear_sys_int_theta.mat');
 load('mat/discrete_sys_int_theta.mat');
 
-
 % initial conditions
 x_0 = zeros(x_size, 1);
 x_0(idx_alpha) = pi/90;
 x_0(idx_theta) = pi/90;
 
 %% Controladores
-% Calculo ganancia con posicionamiento de polos
-% poles_c = eig(A) - [0 0 15 0 0]';
-% K = place(A, B, poles_c); % posicionamiento de polos
-% Calculo ganancia con LQR 
-Q = diag([1 1 1 1 1]); R = 0.5*diag(1);
-K = lqrd(A, B, Q, R, Ts*0.1);
-Knoise = [0.0001 0.005]; % noise theta and d_alpha
+r = 0;
+load('mat/test_lqr_2_empirico');
+K = lqrd(A, B, Qop, Rop, Nop, Ts);
+
+Knoise = [0.000001 0.005]; % noise theta and d_alpha
 
 
 %% observer 
@@ -39,8 +36,35 @@ Knoise = [0.0001 0.005]; % noise theta and d_alpha
 
 
 %% Simulacion
-Tt = 5; % time simulation
-sim('sim/sys_ctrl_obs_empirico_int_theta');
+Tt = 25; % time simulation
+% sim('sim/sys_ctrl');
+% e_obs_alpha_min = 1E10;
+% for Add = 0.1:0.1:1
+%     for Bdd = 10*(0.5 - rand(4,60));
+%         Bdd = Bdd';
+%         sim('sim/sys_ctrl_obs_empirico_2_int_theta');
+%         e_obs_alpha = mean(e_obs(:,2).^2);
+%         if(e_obs_alpha < e_obs_alpha_min)
+%             e_obs_alpha_min = e_obs_alpha;
+%             Add_op = Add;
+%             Bdd_op = Bdd;
+%         end
+%     end
+% end
+
+A22 = Ad(1,1);
+A21 = Ad(1,2:end);
+A11 = Ad(2:end,2:end);
+A12 = Ad(2:end,1);
+B1 = Bd(2:end);
+B2 = Bd(1);
+
+% Kalman
+P0 = pi/100;
+Qd = 0.5;
+Rd = diag([0.001 0.01 1 1]);
+
+sim('sim/sys_ctrl_obs_empirico_2_int_theta');
 EF   = states_feno;
 EF2  = [states_feno(:,1), ...
         interp1(states_feno_obs(:,1),...

@@ -11,7 +11,6 @@ load('mat/system_int_theta.mat');
 load('mat/linear_sys_int_theta.mat');
 load('mat/discrete_sys_int_theta.mat');
 
-
 % initial conditions
 x_0 = zeros(x_size, 1);
 x_0(idx_alpha) = pi/90;
