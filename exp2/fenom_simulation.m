@@ -1,40 +1,44 @@
 % prepare workspace
-%#ok<*NASGU>
 clc;
 close all;
-clear all;
+clear;
 format shortG
 format compact
 addpath('lib', 'mat','sim');
 
 load('mat/cubo.mat');
+load('mat/system.mat');
 load('mat/linear_sys.mat');
 load('mat/discrete_sys.mat');
 
+% output full state!
+Cd = eye(x_size);
+Dd = zeros(x_size,1);
+
 %% behavior simulation
-% initial conditions:
-%x = [  a,  th,  da, dth];
 sim_stop_time = 5;
 
 % sim 1: zero state
-x_0 = [0.0, 0.0, 0.0, 0.0];
+x_0(idx_alpha) = 0;
+x_0(idx_theta) = 0;
 run_fenom_sim(x_0);
 
 % sim 2: alpha = 0.1
-x_0 = [0.1, 0.0, 0.0, 0.0];
+x_0(idx_alpha) = 0.1;
+x_0(idx_theta) = 0.0;
 run_fenom_sim(x_0);
 
 % sim 3: theta = 0.1
-x_0 = [0.0, 0.1, 0.0, 0.0];
+x_0(idx_alpha) = 0.0;
+x_0(idx_theta) = 0.1;
 run_fenom_sim(x_0);
 
 
 %% basic control simulation
 
 sim_stop_time = 2; % [s]
-Cd_control = eye(4);
-Dd_control = zeros(4,1);
-x_0 = [0.03, 0.0, 0.0, 0.0];
+x_0(idx_alpha) = 0.03;
+x_0(idx_theta) = 0.00;
 
 % ts = ?? [s]: TODO
 p1 = -1;       p2 = -2;

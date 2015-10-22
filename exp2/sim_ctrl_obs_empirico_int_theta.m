@@ -1,21 +1,24 @@
 % prepare workspace
 clc;
 close all;
-clear all;
+clear;
 format shortG
 format compact
 addpath('lib', 'mat','sim');
 
 load('mat/cubo.mat');
+load('mat/system_int_theta.mat');
 load('mat/linear_sys_int_theta.mat');
-load('mat/discrete_sys_int_theta.mat'); Cd = [0 1 0 0 0;0 0 1 0 0;0 0 0 1 0];
+load('mat/discrete_sys_int_theta.mat');
 
-%% Condiciones iniciales
-x_0 = [pi/90, pi/90, 0, 0, 0];
+
+% initial conditions
+x_0 = zeros(x_size, 1);
+x_0(idx_alpha) = pi/90;
+x_0(idx_theta) = pi/90;
 
 %% Controladores
 % Calculo ganancia con posicionamiento de polos
-r = 0; % referencia
 % poles_c = eig(A) - [0 0 15 0 0]';
 % K = place(A, B, poles_c); % posicionamiento de polos
 % Calculo ganancia con LQR 
@@ -62,6 +65,6 @@ xlabel('Tiempo [s]'); ylabel('Angulo [rad]');
 title({'Simulacion Modelo Fenomenologico',sprintf('$$ X_0 = [\\alpha = %0.4f, \\theta = %0.4f, \\dot{\\alpha} = %0.4f, \\dot{\\theta} = %0.4f]$$', x0)},'interpreter','latex');
 legend(gca, 'show', 'location', 'best');
 
-plot_error(EF, EF2, 'Error entre Observación y Simulación');
+plot_error(EF, EF2, 'Error entre Observaciï¿½n y Simulaciï¿½n');
 
 
