@@ -19,7 +19,6 @@ x_0(idx_theta) = pi/90;
 
 %% Controladores
 % Calculo ganancia con posicionamiento de polos
-r = 0; % referencia
 % poles_c = eig(A) - [0 0 15 0 0]';
 % K = place(A, B, poles_c); % posicionamiento de polos
 % Calculo ganancia con LQR 
