@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.21"
+    ComputedModelVersion    "1.23"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -38,9 +38,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "matias"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Oct 21 23:52:40 2015"
-  RTWModifiedTimeStamp	  367372359
-  ModelVersionFormat	  "1.%<AutoIncrement:21>"
+  LastModifiedDate	  "Thu Oct 22 07:02:31 2015"
+  RTWModifiedTimeStamp	  367397394
+  ModelVersionFormat	  "1.%<AutoIncrement:23>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -725,6 +725,64 @@ Model {
       SampleTime	      "-1"
     }
     Block {
+      BlockType		      Inport
+      Port		      "1"
+      OutputFunctionCall      off
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: auto"
+      LockScale		      off
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      VarSizeSig	      "Inherit"
+      SampleTime	      "-1"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      LatchByDelayingOutsideSignal off
+      LatchInputForFeedbackSignals off
+      Interpolate	      on
+    }
+    Block {
+      BlockType		      Mux
+      Inputs		      "4"
+      DisplayOption	      "none"
+      UseBusObject	      off
+      BusObject		      "BusObject"
+      NonVirtualBus	      off
+    }
+    Block {
+      BlockType		      Outport
+      Port		      "1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: auto"
+      LockScale		      off
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      VarSizeSig	      "Inherit"
+      SampleTime	      "-1"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      SourceOfInitialOutputValue "Dialog"
+      OutputWhenDisabled      "held"
+      InitialOutput	      "[]"
+    }
+    Block {
+      BlockType		      Saturate
+      UpperLimitSource	      "Dialog"
+      UpperLimit	      "0.5"
+      LowerLimitSource	      "Dialog"
+      LowerLimit	      "-0.5"
+      LinearizeAsGain	      on
+      ZeroCross		      on
+      SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: Same as input"
+      LockScale		      off
+      RndMeth		      "Floor"
+    }
+    Block {
       BlockType		      Scope
       ModelBased	      off
       TickLabels	      "OneTimeTick"
@@ -741,6 +799,29 @@ Model {
       Decimation	      "1"
       SampleInput	      off
       SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      SubSystem
+      ShowPortLabels	      "FromPortIcon"
+      Permissions	      "ReadWrite"
+      PermitHierarchicalResolution "All"
+      TreatAsAtomicUnit	      off
+      CheckFcnCallInpInsideContextMsg off
+      SystemSampleTime	      "-1"
+      RTWFcnNameOpts	      "Auto"
+      RTWFileNameOpts	      "Auto"
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      SimViewingDevice	      off
+      DataTypeOverride	      "UseLocalSettings"
+      DataTypeOverrideAppliesTo	"AllNumericTypes"
+      MinMaxOverflowLogging   "UseLocalSettings"
+      SFBlockType	      "NONE"
+      Variant		      off
+      GeneratePreprocessorConditionals off
     }
     Block {
       BlockType		      Sum
@@ -774,7 +855,7 @@ Model {
   }
   System {
     Name		    "fen_control"
-    Location		    [560, 366, 1060, 573]
+    Location		    [595, 106, 1095, 313]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -788,7 +869,182 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "11"
+    SIDHighWatermark	    "20"
+    Block {
+      BlockType		      SubSystem
+      Name		      "4saturation"
+      SID		      "12"
+      Ports		      [1, 1]
+      Position		      [270, 64, 325, 96]
+      ZOrder		      -17
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      System {
+	Name			"4saturation"
+	Location		[408, 389, 753, 617]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "y4"
+	  SID			  "13"
+	  Position		  [45, 103, 75, 117]
+	  ZOrder		  -1
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux1"
+	  SID			  "14"
+	  Ports			  [1, 4]
+	  Position		  [115, 40, 120, 175]
+	  ZOrder		  -7
+	  ShowName		  off
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  SID			  "15"
+	  Ports			  [4, 1]
+	  Position		  [220, 36, 225, 179]
+	  ZOrder		  -16
+	  ShowName		  off
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation2"
+	  SID			  "16"
+	  Ports			  [1, 1]
+	  Position		  [155, 40, 185, 70]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_alpha"
+	  LowerLimit		  "min_alpha"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation3"
+	  SID			  "17"
+	  Ports			  [1, 1]
+	  Position		  [155, 75, 185, 105]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_theta"
+	  LowerLimit		  "min_theta"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation4"
+	  SID			  "18"
+	  Ports			  [1, 1]
+	  Position		  [155, 110, 185, 140]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_dalpha"
+	  LowerLimit		  "min_dalpha"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation5"
+	  SID			  "19"
+	  Ports			  [1, 1]
+	  Position		  [155, 145, 185, 175]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_dtheta"
+	  LowerLimit		  "min_dtheta"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "limited"
+	  SID			  "20"
+	  Position		  [260, 103, 290, 117]
+	  ZOrder		  -9
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  SrcBlock		  "y4"
+	  SrcPort		  1
+	  DstBlock		  "Demux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  1
+	  DstBlock		  "Saturation2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  2
+	  DstBlock		  "Saturation3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation2"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation3"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  3
+	  DstBlock		  "Saturation4"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation4"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  4
+	  DstBlock		  "Saturation5"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation5"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  DstBlock		  "limited"
+	  DstPort		  1
+	}
+      }
+    }
     Block {
       BlockType		      Constant
       Name		      "Constant"
@@ -802,7 +1058,7 @@ Model {
       Name		      "Demux"
       SID		      "5"
       Ports		      [1, 4]
-      Position		      [360, 41, 370, 119]
+      Position		      [375, 41, 385, 119]
       ZOrder		      -6
       ShowName		      off
       DisplayOption	      "bar"
@@ -811,7 +1067,7 @@ Model {
       BlockType		      DiscreteStateSpace
       Name		      "Discrete State-Space"
       SID		      "1"
-      Position		      [165, 61, 275, 99]
+      Position		      [135, 61, 245, 99]
       ZOrder		      -9
       A			      "Ad"
       B			      "Bd"
@@ -838,12 +1094,12 @@ Model {
       Name		      "Scope"
       SID		      "6"
       Ports		      [1]
-      Position		      [435, 24, 465, 56]
+      Position		      [450, 24, 480, 56]
       ZOrder		      -16
       ShowName		      off
       Floating		      off
       Location		      [1117, 415, 1712, 1017]
-      Open		      on
+      Open		      off
       NumInputPorts	      "1"
       List {
 	ListType		AxesTitles
@@ -883,7 +1139,7 @@ Model {
       BlockType		      Terminator
       Name		      "Terminator"
       SID		      "8"
-      Position		      [440, 60, 460, 80]
+      Position		      [455, 60, 475, 80]
       ZOrder		      -20
       ShowName		      off
     }
@@ -891,7 +1147,7 @@ Model {
       BlockType		      Terminator
       Name		      "Terminator1"
       SID		      "9"
-      Position		      [440, 80, 460, 100]
+      Position		      [455, 80, 475, 100]
       ZOrder		      -20
       ShowName		      off
     }
@@ -899,7 +1155,7 @@ Model {
       BlockType		      Terminator
       Name		      "Terminator2"
       SID		      "10"
-      Position		      [440, 100, 460, 120]
+      Position		      [455, 100, 475, 120]
       ZOrder		      -20
       ShowName		      off
     }
@@ -908,33 +1164,13 @@ Model {
       Name		      "To Workspace"
       SID		      "11"
       Ports		      [1]
-      Position		      [370, 131, 445, 159]
+      Position		      [385, 131, 460, 159]
       ZOrder		      -7
       ShowName		      off
       VariableName	      "alpha_control"
       MaxDataPoints	      "inf"
       SampleTime	      "-1"
       SaveFormat	      "Timeseries"
-    }
-    Line {
-      SrcBlock		      "Discrete State-Space"
-      SrcPort		      1
-      Points		      [35, 0]
-      Branch {
-	DstBlock		"Demux"
-	DstPort			1
-      }
-      Branch {
-	Points			[0, 65]
-	Branch {
-	  DstBlock		  "Gain"
-	  DstPort		  1
-	}
-	Branch {
-	  DstBlock		  "To Workspace"
-	  DstPort		  1
-	}
-      }
     }
     Line {
       SrcBlock		      "Constant"
@@ -979,6 +1215,32 @@ Model {
       SrcPort		      4
       DstBlock		      "Terminator2"
       DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Discrete State-Space"
+      SrcPort		      1
+      DstBlock		      "4saturation"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "4saturation"
+      SrcPort		      1
+      Points		      [15, 0]
+      Branch {
+	DstBlock		"Demux"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, 65]
+	Branch {
+	  DstBlock		  "To Workspace"
+	  DstPort		  1
+	}
+	Branch {
+	  DstBlock		  "Gain"
+	  DstPort		  1
+	}
+      }
     }
   }
 }

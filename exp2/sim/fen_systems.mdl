@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.69"
+    ComputedModelVersion    "1.77"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -38,9 +38,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "matias"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Oct 16 05:38:01 2015"
+  LastModifiedDate	  "Thu Oct 22 06:59:10 2015"
   RTWModifiedTimeStamp	  366870059
-  ModelVersionFormat	  "1.%<AutoIncrement:69>"
+  ModelVersionFormat	  "1.%<AutoIncrement:77>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -78,7 +78,6 @@ Model {
     $ObjectID		    2
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "fen_systems"
-    signals_		    []
     overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
@@ -693,6 +692,12 @@ Model {
       PreserveConstantTs      off
     }
     Block {
+      BlockType		      Demux
+      Outputs		      "4"
+      DisplayOption	      "none"
+      BusSelectionMode	      off
+    }
+    Block {
       BlockType		      DiscreteStateSpace
       A			      "1"
       B			      "1"
@@ -731,21 +736,6 @@ Model {
       LatchByDelayingOutsideSignal off
       LatchInputForFeedbackSignals off
       Interpolate	      on
-    }
-    Block {
-      BlockType		      Integrator
-      ExternalReset	      "none"
-      InitialConditionSource  "internal"
-      InitialCondition	      "0"
-      LimitOutput	      off
-      UpperSaturationLimit    "inf"
-      LowerSaturationLimit    "-inf"
-      ShowSaturationPort      off
-      ShowStatePort	      off
-      AbsoluteTolerance	      "auto"
-      IgnoreLimit	      off
-      ZeroCross		      on
-      ContinuousStateAttributes	"''"
     }
     Block {
       BlockType		      Mux
@@ -788,6 +778,21 @@ Model {
       SampleTime	      "-1"
     }
     Block {
+      BlockType		      Saturate
+      UpperLimitSource	      "Dialog"
+      UpperLimit	      "0.5"
+      LowerLimitSource	      "Dialog"
+      LowerLimit	      "-0.5"
+      LinearizeAsGain	      on
+      ZeroCross		      on
+      SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: Same as input"
+      LockScale		      off
+      RndMeth		      "Floor"
+    }
+    Block {
       BlockType		      Scope
       ModelBased	      off
       TickLabels	      "OneTimeTick"
@@ -804,6 +809,26 @@ Model {
       Decimation	      "1"
       SampleInput	      off
       SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      SecondOrderIntegrator
+      ICSourceX		      "internal"
+      ICX		      "0.0"
+      LimitX		      off
+      UpperLimitX	      "inf"
+      LowerLimitX	      "-inf"
+      AbsoluteToleranceX      "auto"
+      ICSourceDXDT	      "internal"
+      ICDXDT		      "0.0"
+      LimitDXDT		      off
+      UpperLimitDXDT	      "inf"
+      LowerLimitDXDT	      "-inf"
+      AbsoluteToleranceDXDT   "auto"
+      ExternalReset	      "none"
+      ZeroCross		      on
+      ReinitDXDTwhenXreachesSaturation off
+      IgnoreStateLimitsAndResetForLinearization	off
+      ShowOutput	      "both"
     }
     Block {
       BlockType		      StateSpace
@@ -876,7 +901,7 @@ Model {
   }
   System {
     Name		    "fen_systems"
-    Location		    [1219, 182, 1787, 526]
+    Location		    [695, 419, 1424, 763]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -890,7 +915,532 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "230"
+    SIDHighWatermark	    "546"
+    Block {
+      BlockType		      SubSystem
+      Name		      "4saturation"
+      SID		      "519"
+      Ports		      [1, 1]
+      Position		      [285, 74, 340, 106]
+      ZOrder		      -17
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      System {
+	Name			"4saturation"
+	Location		[408, 389, 753, 617]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "y4"
+	  SID			  "520"
+	  Position		  [45, 103, 75, 117]
+	  ZOrder		  -1
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux1"
+	  SID			  "521"
+	  Ports			  [1, 4]
+	  Position		  [115, 40, 120, 175]
+	  ZOrder		  -7
+	  ShowName		  off
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  SID			  "522"
+	  Ports			  [4, 1]
+	  Position		  [220, 36, 225, 179]
+	  ZOrder		  -16
+	  ShowName		  off
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation2"
+	  SID			  "523"
+	  Ports			  [1, 1]
+	  Position		  [155, 40, 185, 70]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_alpha"
+	  LowerLimit		  "min_alpha"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation3"
+	  SID			  "524"
+	  Ports			  [1, 1]
+	  Position		  [155, 75, 185, 105]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_theta"
+	  LowerLimit		  "min_theta"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation4"
+	  SID			  "525"
+	  Ports			  [1, 1]
+	  Position		  [155, 110, 185, 140]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_dalpha"
+	  LowerLimit		  "min_dalpha"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation5"
+	  SID			  "526"
+	  Ports			  [1, 1]
+	  Position		  [155, 145, 185, 175]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_dtheta"
+	  LowerLimit		  "min_dtheta"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "limited"
+	  SID			  "527"
+	  Position		  [260, 103, 290, 117]
+	  ZOrder		  -9
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  SrcBlock		  "y4"
+	  SrcPort		  1
+	  DstBlock		  "Demux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  1
+	  DstBlock		  "Saturation2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  2
+	  DstBlock		  "Saturation3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation2"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation3"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  3
+	  DstBlock		  "Saturation4"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation4"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  4
+	  DstBlock		  "Saturation5"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation5"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  DstBlock		  "limited"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "4saturation1"
+      SID		      "528"
+      Ports		      [1, 1]
+      Position		      [285, 164, 340, 196]
+      ZOrder		      -17
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      System {
+	Name			"4saturation1"
+	Location		[408, 389, 753, 617]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "y4"
+	  SID			  "529"
+	  Position		  [45, 103, 75, 117]
+	  ZOrder		  -1
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux1"
+	  SID			  "530"
+	  Ports			  [1, 4]
+	  Position		  [115, 40, 120, 175]
+	  ZOrder		  -7
+	  ShowName		  off
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  SID			  "531"
+	  Ports			  [4, 1]
+	  Position		  [220, 36, 225, 179]
+	  ZOrder		  -16
+	  ShowName		  off
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation2"
+	  SID			  "532"
+	  Ports			  [1, 1]
+	  Position		  [155, 40, 185, 70]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_alpha"
+	  LowerLimit		  "min_alpha"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation3"
+	  SID			  "533"
+	  Ports			  [1, 1]
+	  Position		  [155, 75, 185, 105]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_theta"
+	  LowerLimit		  "min_theta"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation4"
+	  SID			  "534"
+	  Ports			  [1, 1]
+	  Position		  [155, 110, 185, 140]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_dalpha"
+	  LowerLimit		  "min_dalpha"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation5"
+	  SID			  "535"
+	  Ports			  [1, 1]
+	  Position		  [155, 145, 185, 175]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_dtheta"
+	  LowerLimit		  "min_dtheta"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "limited"
+	  SID			  "536"
+	  Position		  [260, 103, 290, 117]
+	  ZOrder		  -9
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  SrcBlock		  "y4"
+	  SrcPort		  1
+	  DstBlock		  "Demux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  1
+	  DstBlock		  "Saturation2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  2
+	  DstBlock		  "Saturation3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation2"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation3"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  3
+	  DstBlock		  "Saturation4"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation4"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  4
+	  DstBlock		  "Saturation5"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation5"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  DstBlock		  "limited"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "4saturation2"
+      SID		      "537"
+      Ports		      [1, 1]
+      Position		      [285, 249, 340, 281]
+      ZOrder		      -17
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      System {
+	Name			"4saturation2"
+	Location		[408, 389, 753, 617]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "y4"
+	  SID			  "538"
+	  Position		  [45, 103, 75, 117]
+	  ZOrder		  -1
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux1"
+	  SID			  "539"
+	  Ports			  [1, 4]
+	  Position		  [115, 40, 120, 175]
+	  ZOrder		  -7
+	  ShowName		  off
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  SID			  "540"
+	  Ports			  [4, 1]
+	  Position		  [220, 36, 225, 179]
+	  ZOrder		  -16
+	  ShowName		  off
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation2"
+	  SID			  "541"
+	  Ports			  [1, 1]
+	  Position		  [155, 40, 185, 70]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_alpha"
+	  LowerLimit		  "min_alpha"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation3"
+	  SID			  "542"
+	  Ports			  [1, 1]
+	  Position		  [155, 75, 185, 105]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_theta"
+	  LowerLimit		  "min_theta"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation4"
+	  SID			  "543"
+	  Ports			  [1, 1]
+	  Position		  [155, 110, 185, 140]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_dalpha"
+	  LowerLimit		  "min_dalpha"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation5"
+	  SID			  "544"
+	  Ports			  [1, 1]
+	  Position		  [155, 145, 185, 175]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_dtheta"
+	  LowerLimit		  "min_dtheta"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "limited"
+	  SID			  "545"
+	  Position		  [260, 103, 290, 117]
+	  ZOrder		  -9
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  SrcBlock		  "y4"
+	  SrcPort		  1
+	  DstBlock		  "Demux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  1
+	  DstBlock		  "Saturation2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  2
+	  DstBlock		  "Saturation3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation2"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation3"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  3
+	  DstBlock		  "Saturation4"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation4"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  4
+	  DstBlock		  "Saturation5"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation5"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  DstBlock		  "limited"
+	  DstPort		  1
+	}
+      }
+    }
     Block {
       BlockType		      Constant
       Name		      "Constant"
@@ -903,25 +1453,25 @@ Model {
       BlockType		      Constant
       Name		      "Constant1"
       SID		      "5"
-      Position		      [440, 50, 470, 80]
+      Position		      [515, 50, 545, 80]
       ZOrder		      -4
       BlockRotation	      270
       BlockMirror	      on
       NamePlacement	      "alternate"
       ShowName		      off
-      Value		      "pi/2"
+      Value		      "pi/4"
     }
     Block {
       BlockType		      Constant
       Name		      "Constant2"
       SID		      "6"
-      Position		      [405, 50, 435, 80]
+      Position		      [480, 50, 510, 80]
       ZOrder		      -4
       BlockRotation	      270
       BlockMirror	      on
       NamePlacement	      "alternate"
       ShowName		      off
-      Value		      "-pi/2"
+      Value		      "-pi/4"
     }
     Block {
       BlockType		      DiscreteStateSpace
@@ -941,7 +1491,7 @@ Model {
       Name		      "Mux"
       SID		      "4"
       Ports		      [5, 1]
-      Position		      [470, 128, 480, 202]
+      Position		      [545, 128, 555, 202]
       ZOrder		      -16
       ShowName		      off
       Inputs		      "5"
@@ -952,13 +1502,12 @@ Model {
       Name		      "Scope"
       SID		      "3"
       Ports		      [1]
-      Position		      [500, 149, 530, 181]
+      Position		      [575, 149, 605, 181]
       ZOrder		      -3
       Floating		      off
-      Location		      [919, 374, 1712, 813]
+      Location		      [1022, 167, 1815, 606]
       Open		      off
       NumInputPorts	      "1"
-      ZoomMode		      "yonly"
       List {
 	ListType		AxesTitles
 	axes1			"%<SignalLabel>"
@@ -982,24 +1531,12 @@ Model {
       SampleTime	      "0"
     }
     Block {
-      BlockType		      StateSpace
-      Name		      "State-Space"
-      SID		      "1"
-      Position		      [155, 157, 235, 203]
-      ZOrder		      -8
-      A			      "A"
-      B			      "B"
-      C			      "C"
-      D			      "D"
-      X0		      "x_0"
-    }
-    Block {
       BlockType		      SubSystem
-      Name		      "Subsystem"
-      SID		      "13"
+      Name		      "Sistema Fenomenologico"
+      SID		      "375"
       Ports		      [1, 1]
       Position		      [145, 69, 245, 111]
-      ZOrder		      -19
+      ZOrder		      60
       MinAlgLoopOccurrences   off
       PropExecContextOutsideSubsystem off
       RTWSystemCode	      "Auto"
@@ -1008,8 +1545,8 @@ Model {
       RequestExecContextInheritance off
       MaskHideContents	      off
       System {
-	Name			"Subsystem"
-	Location		[986, 81, 1919, 1080]
+	Name			"Sistema Fenomenologico"
+	Location		[315, 183, 1437, 918]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1025,7 +1562,7 @@ Model {
 	Block {
 	  BlockType		  Inport
 	  Name			  "u"
-	  SID			  "14"
+	  SID			  "376"
 	  Position		  [720, 73, 750, 87]
 	  ZOrder		  -1
 	  IconDisplay		  "Port number"
@@ -1033,7 +1570,7 @@ Model {
 	Block {
 	  BlockType		  Sum
 	  Name			  "Add"
-	  SID			  "102"
+	  SID			  "377"
 	  Ports			  [8, 1]
 	  Position		  [395, 407, 450, 653]
 	  ZOrder		  -2
@@ -1045,7 +1582,7 @@ Model {
 	Block {
 	  BlockType		  Sum
 	  Name			  "Add1"
-	  SID			  "192"
+	  SID			  "378"
 	  Ports			  [9, 1]
 	  Position		  [845, 502, 900, 748]
 	  ZOrder		  -2
@@ -1057,7 +1594,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant"
-	  SID			  "24"
+	  SID			  "379"
 	  Position		  [70, 190, 100, 220]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1066,7 +1603,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant1"
-	  SID			  "25"
+	  SID			  "380"
 	  Position		  [70, 225, 100, 255]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1075,7 +1612,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant10"
-	  SID			  "34"
+	  SID			  "381"
 	  Position		  [70, 875, 100, 905]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1084,7 +1621,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant11"
-	  SID			  "39"
+	  SID			  "382"
 	  Position		  [490, 195, 520, 225]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1093,7 +1630,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant12"
-	  SID			  "36"
+	  SID			  "383"
 	  Position		  [35, 40, 65, 70]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1102,7 +1639,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant13"
-	  SID			  "37"
+	  SID			  "384"
 	  Position		  [35, 75, 65, 105]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1111,7 +1648,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant14"
-	  SID			  "38"
+	  SID			  "385"
 	  Position		  [180, 85, 210, 115]
 	  ZOrder		  -4
 	  BlockRotation		  270
@@ -1121,7 +1658,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant15"
-	  SID			  "40"
+	  SID			  "386"
 	  Position		  [490, 230, 520, 260]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1130,7 +1667,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant16"
-	  SID			  "41"
+	  SID			  "387"
 	  Position		  [480, 725, 510, 755]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1139,7 +1676,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant17"
-	  SID			  "42"
+	  SID			  "388"
 	  Position		  [490, 330, 520, 360]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1148,7 +1685,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant18"
-	  SID			  "43"
+	  SID			  "389"
 	  Position		  [490, 295, 520, 325]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1157,7 +1694,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant19"
-	  SID			  "44"
+	  SID			  "390"
 	  Position		  [490, 400, 520, 430]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1166,7 +1703,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant2"
-	  SID			  "26"
+	  SID			  "391"
 	  Position		  [65, 290, 95, 320]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1175,7 +1712,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant20"
-	  SID			  "45"
+	  SID			  "392"
 	  Position		  [490, 435, 520, 465]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1184,7 +1721,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant21"
-	  SID			  "46"
+	  SID			  "393"
 	  Position		  [490, 500, 520, 530]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1193,7 +1730,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant22"
-	  SID			  "47"
+	  SID			  "394"
 	  Position		  [490, 535, 520, 565]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1202,7 +1739,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant23"
-	  SID			  "48"
+	  SID			  "395"
 	  Position		  [480, 615, 510, 645]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1211,7 +1748,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant24"
-	  SID			  "49"
+	  SID			  "396"
 	  Position		  [480, 650, 510, 680]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1220,7 +1757,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant25"
-	  SID			  "118"
+	  SID			  "397"
 	  Position		  [480, 835, 510, 865]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1229,7 +1766,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant26"
-	  SID			  "119"
+	  SID			  "398"
 	  Position		  [480, 760, 510, 790]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1238,7 +1775,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant27"
-	  SID			  "120"
+	  SID			  "399"
 	  Position		  [475, 990, 505, 1020]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1247,7 +1784,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant28"
-	  SID			  "121"
+	  SID			  "400"
 	  Position		  [475, 915, 505, 945]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1256,7 +1793,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant3"
-	  SID			  "27"
+	  SID			  "401"
 	  Position		  [65, 400, 95, 430]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1265,7 +1802,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant4"
-	  SID			  "28"
+	  SID			  "402"
 	  Position		  [65, 490, 95, 520]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1274,7 +1811,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant5"
-	  SID			  "29"
+	  SID			  "403"
 	  Position		  [65, 525, 95, 555]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1283,7 +1820,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant6"
-	  SID			  "30"
+	  SID			  "404"
 	  Position		  [65, 605, 95, 635]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1292,7 +1829,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant7"
-	  SID			  "31"
+	  SID			  "405"
 	  Position		  [65, 640, 95, 670]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1301,7 +1838,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant8"
-	  SID			  "32"
+	  SID			  "406"
 	  Position		  [70, 725, 100, 755]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1310,7 +1847,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant9"
-	  SID			  "33"
+	  SID			  "407"
 	  Position		  [70, 815, 100, 845]
 	  ZOrder		  -4
 	  ShowName		  off
@@ -1319,9 +1856,9 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Divide"
-	  SID			  "61"
+	  SID			  "408"
 	  Ports			  [2, 1]
-	  Position		  [155, 1007, 185, 1038]
+	  Position		  [155, 1017, 185, 1048]
 	  ZOrder		  -8
 	  Inputs		  "*/"
 	  InputSameDT		  off
@@ -1332,7 +1869,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Divide1"
-	  SID			  "210"
+	  SID			  "409"
 	  Ports			  [2, 1]
 	  Position		  [755, 992, 785, 1023]
 	  ZOrder		  -8
@@ -1346,7 +1883,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From"
-	  SID			  "54"
+	  SID			  "410"
 	  Position		  [385, 46, 440, 64]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1355,7 +1892,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From1"
-	  SID			  "55"
+	  SID			  "411"
 	  Position		  [385, 117, 440, 133]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1364,7 +1901,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From10"
-	  SID			  "78"
+	  SID			  "412"
 	  Position		  [65, 370, 125, 390]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1373,7 +1910,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From11"
-	  SID			  "80"
+	  SID			  "413"
 	  Position		  [65, 431, 125, 449]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1382,7 +1919,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From12"
-	  SID			  "81"
+	  SID			  "414"
 	  Position		  [65, 450, 125, 470]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1391,7 +1928,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From13"
-	  SID			  "84"
+	  SID			  "415"
 	  Position		  [65, 561, 125, 579]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1400,7 +1937,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From14"
-	  SID			  "86"
+	  SID			  "416"
 	  Position		  [150, 570, 210, 590]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1409,7 +1946,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From15"
-	  SID			  "89"
+	  SID			  "417"
 	  Position		  [65, 676, 125, 694]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1418,7 +1955,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From16"
-	  SID			  "91"
+	  SID			  "418"
 	  Position		  [155, 696, 215, 714]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1427,7 +1964,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From17"
-	  SID			  "94"
+	  SID			  "419"
 	  Position		  [70, 761, 125, 779]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1436,7 +1973,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From18"
-	  SID			  "95"
+	  SID			  "420"
 	  Position		  [70, 781, 130, 799]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1445,7 +1982,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From19"
-	  SID			  "99"
+	  SID			  "421"
 	  Position		  [70, 911, 130, 929]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1454,7 +1991,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From2"
-	  SID			  "65"
+	  SID			  "422"
 	  Position		  [70, 936, 130, 954]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1463,7 +2000,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From20"
-	  SID			  "101"
+	  SID			  "423"
 	  Position		  [70, 961, 130, 979]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1472,8 +2009,8 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From21"
-	  SID			  "105"
-	  Position		  [75, 1021, 135, 1039]
+	  SID			  "424"
+	  Position		  [75, 1031, 135, 1049]
 	  ZOrder		  -9
 	  ShowName		  off
 	  GotoTag		  "base"
@@ -1481,7 +2018,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From22"
-	  SID			  "124"
+	  SID			  "425"
 	  Position		  [490, 266, 550, 284]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1490,7 +2027,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From23"
-	  SID			  "125"
+	  SID			  "426"
 	  Position		  [640, 231, 695, 249]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1499,7 +2036,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From24"
-	  SID			  "126"
+	  SID			  "427"
 	  Position		  [640, 251, 695, 269]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1508,7 +2045,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From25"
-	  SID			  "131"
+	  SID			  "428"
 	  Position		  [645, 375, 705, 395]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1517,7 +2054,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From26"
-	  SID			  "132"
+	  SID			  "429"
 	  Position		  [645, 331, 705, 349]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1526,7 +2063,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From27"
-	  SID			  "133"
+	  SID			  "430"
 	  Position		  [645, 350, 705, 370]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1535,7 +2072,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From28"
-	  SID			  "135"
+	  SID			  "431"
 	  Position		  [490, 366, 550, 384]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1544,7 +2081,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From29"
-	  SID			  "139"
+	  SID			  "432"
 	  Position		  [645, 426, 705, 444]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1553,7 +2090,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From3"
-	  SID			  "96"
+	  SID			  "433"
 	  Position		  [70, 851, 125, 869]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1562,7 +2099,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From30"
-	  SID			  "140"
+	  SID			  "434"
 	  Position		  [645, 445, 705, 465]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1571,7 +2108,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From31"
-	  SID			  "144"
+	  SID			  "435"
 	  Position		  [490, 471, 550, 489]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1580,7 +2117,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From32"
-	  SID			  "149"
+	  SID			  "436"
 	  Position		  [490, 571, 550, 589]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1589,7 +2126,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From33"
-	  SID			  "154"
+	  SID			  "437"
 	  Position		  [575, 590, 635, 610]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1598,7 +2135,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From34"
-	  SID			  "157"
+	  SID			  "438"
 	  Position		  [475, 686, 535, 704]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1607,7 +2144,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From35"
-	  SID			  "158"
+	  SID			  "439"
 	  Position		  [565, 706, 625, 724]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1616,7 +2153,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From36"
-	  SID			  "171"
+	  SID			  "440"
 	  Position		  [475, 796, 535, 814]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1625,7 +2162,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From37"
-	  SID			  "176"
+	  SID			  "441"
 	  Position		  [565, 821, 620, 839]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1634,7 +2171,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From38"
-	  SID			  "178"
+	  SID			  "442"
 	  Position		  [480, 871, 535, 889]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1643,7 +2180,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From39"
-	  SID			  "179"
+	  SID			  "443"
 	  Position		  [480, 891, 540, 909]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1652,7 +2189,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From4"
-	  SID			  "67"
+	  SID			  "444"
 	  Position		  [35, 116, 95, 134]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1661,7 +2198,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From40"
-	  SID			  "187"
+	  SID			  "445"
 	  Position		  [475, 1026, 535, 1044]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1670,7 +2207,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From41"
-	  SID			  "183"
+	  SID			  "446"
 	  Position		  [475, 946, 535, 964]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1679,7 +2216,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From42"
-	  SID			  "184"
+	  SID			  "447"
 	  Position		  [475, 966, 535, 984]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1688,7 +2225,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From43"
-	  SID			  "188"
+	  SID			  "448"
 	  Position		  [475, 1051, 535, 1069]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1697,7 +2234,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From44"
-	  SID			  "189"
+	  SID			  "449"
 	  Position		  [475, 1076, 535, 1094]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1706,7 +2243,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From45"
-	  SID			  "211"
+	  SID			  "450"
 	  Position		  [675, 1006, 735, 1024]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1715,25 +2252,43 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From46"
-	  SID			  "228"
+	  SID			  "451"
 	  Position		  [775, 126, 830, 144]
-	  ZOrder		  -9
-	  ShowName		  off
-	  GotoTag		  "alpha"
-	}
-	Block {
-	  BlockType		  From
-	  Name			  "From47"
-	  SID			  "229"
-	  Position		  [775, 147, 830, 163]
 	  ZOrder		  -9
 	  ShowName		  off
 	  GotoTag		  "theta"
 	}
 	Block {
 	  BlockType		  From
+	  Name			  "From47"
+	  SID			  "452"
+	  Position		  [775, 152, 830, 168]
+	  ZOrder		  -9
+	  ShowName		  off
+	  GotoTag		  "dalpha"
+	}
+	Block {
+	  BlockType		  From
+	  Name			  "From48"
+	  SID			  "453"
+	  Position		  [775, 101, 830, 119]
+	  ZOrder		  3
+	  ShowName		  off
+	  GotoTag		  "alpha"
+	}
+	Block {
+	  BlockType		  From
+	  Name			  "From49"
+	  SID			  "454"
+	  Position		  [775, 175, 835, 195]
+	  ZOrder		  4
+	  ShowName		  off
+	  GotoTag		  "dtheta"
+	}
+	Block {
+	  BlockType		  From
 	  Name			  "From5"
-	  SID			  "68"
+	  SID			  "455"
 	  Position		  [65, 326, 125, 344]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1742,7 +2297,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From6"
-	  SID			  "71"
+	  SID			  "456"
 	  Position		  [65, 261, 125, 279]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1751,7 +2306,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From7"
-	  SID			  "74"
+	  SID			  "457"
 	  Position		  [215, 226, 270, 244]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1760,7 +2315,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From8"
-	  SID			  "75"
+	  SID			  "458"
 	  Position		  [215, 246, 270, 264]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1769,7 +2324,7 @@ Model {
 	Block {
 	  BlockType		  From
 	  Name			  "From9"
-	  SID			  "77"
+	  SID			  "459"
 	  Position		  [65, 345, 125, 365]
 	  ZOrder		  -9
 	  ShowName		  off
@@ -1778,7 +2333,7 @@ Model {
 	Block {
 	  BlockType		  Goto
 	  Name			  "Goto"
-	  SID			  "56"
+	  SID			  "460"
 	  Position		  [560, 64, 625, 86]
 	  ZOrder		  -10
 	  ShowName		  off
@@ -1787,7 +2342,7 @@ Model {
 	Block {
 	  BlockType		  Goto
 	  Name			  "Goto1"
-	  SID			  "57"
+	  SID			  "461"
 	  Position		  [560, 29, 625, 51]
 	  ZOrder		  -10
 	  ShowName		  off
@@ -1796,7 +2351,7 @@ Model {
 	Block {
 	  BlockType		  Goto
 	  Name			  "Goto2"
-	  SID			  "59"
+	  SID			  "462"
 	  Position		  [560, 134, 625, 156]
 	  ZOrder		  -10
 	  ShowName		  off
@@ -1805,7 +2360,7 @@ Model {
 	Block {
 	  BlockType		  Goto
 	  Name			  "Goto3"
-	  SID			  "60"
+	  SID			  "463"
 	  Position		  [560, 99, 625, 121]
 	  ZOrder		  -10
 	  ShowName		  off
@@ -1814,7 +2369,7 @@ Model {
 	Block {
 	  BlockType		  Goto
 	  Name			  "Goto4"
-	  SID			  "92"
+	  SID			  "464"
 	  Position		  [770, 69, 835, 91]
 	  ZOrder		  -10
 	  ShowName		  off
@@ -1823,7 +2378,7 @@ Model {
 	Block {
 	  BlockType		  Goto
 	  Name			  "Goto5"
-	  SID			  "104"
+	  SID			  "465"
 	  Position		  [285, 54, 350, 76]
 	  ZOrder		  -10
 	  ShowName		  off
@@ -1832,18 +2387,20 @@ Model {
 	Block {
 	  BlockType		  Goto
 	  Name			  "Goto6"
-	  SID			  "110"
-	  Position		  [292, 985, 338, 1010]
+	  SID			  "466"
+	  Position		  [332, 1060, 378, 1085]
 	  ZOrder		  -10
 	  BlockRotation		  270
+	  BlockMirror		  on
+	  NamePlacement		  "alternate"
 	  ShowName		  off
 	  GotoTag		  "dalpha"
 	}
 	Block {
 	  BlockType		  Goto
 	  Name			  "Goto7"
-	  SID			  "111"
-	  Position		  [374, 985, 416, 1010]
+	  SID			  "467"
+	  Position		  [314, 985, 356, 1010]
 	  ZOrder		  -10
 	  BlockRotation		  270
 	  ShowName		  off
@@ -1852,8 +2409,8 @@ Model {
 	Block {
 	  BlockType		  Goto
 	  Name			  "Goto8"
-	  SID			  "212"
-	  Position		  [852, 970, 898, 995]
+	  SID			  "468"
+	  Position		  [932, 960, 978, 985]
 	  ZOrder		  -10
 	  BlockRotation		  270
 	  ShowName		  off
@@ -1862,68 +2419,59 @@ Model {
 	Block {
 	  BlockType		  Goto
 	  Name			  "Goto9"
-	  SID			  "213"
-	  Position		  [934, 970, 976, 995]
+	  SID			  "469"
+	  Position		  [879, 960, 921, 985]
 	  ZOrder		  -10
 	  BlockRotation		  270
 	  ShowName		  off
 	  GotoTag		  "theta"
 	}
 	Block {
-	  BlockType		  Integrator
-	  Name			  "Integrator"
-	  SID			  "107"
-	  Ports			  [1, 1]
-	  Position		  [260, 1010, 290, 1040]
-	  ZOrder		  -2
-	  ShowName		  off
-	  InitialCondition	  "x_0(3)"
+	  BlockType		  SecondOrderIntegrator
+	  Name			  "Integrator,\nSecond-Order"
+	  SID			  "470"
+	  Ports			  [1, 2]
+	  Position		  [245, 1015, 295, 1055]
+	  ZOrder		  5
+	  ICX			  "x_0(idx_alpha)"
+	  LimitX		  on
+	  UpperLimitX		  "max_alpha"
+	  LowerLimitX		  "min_alpha"
+	  ICDXDT		  "x_0(idx_dalpha)"
+	  LimitDXDT		  on
+	  UpperLimitDXDT	  "max_dalpha"
+	  LowerLimitDXDT	  "min_dalpha"
 	}
 	Block {
-	  BlockType		  Integrator
-	  Name			  "Integrator1"
-	  SID			  "109"
-	  Ports			  [1, 1]
-	  Position		  [345, 1010, 375, 1040]
-	  ZOrder		  -2
-	  ShowName		  off
-	  InitialCondition	  "x_0(1)"
-	}
-	Block {
-	  BlockType		  Integrator
-	  Name			  "Integrator2"
-	  SID			  "214"
-	  Ports			  [1, 1]
-	  Position		  [820, 995, 850, 1025]
-	  ZOrder		  -2
-	  ShowName		  off
-	  InitialCondition	  "x_0(4)"
-	}
-	Block {
-	  BlockType		  Integrator
-	  Name			  "Integrator3"
-	  SID			  "215"
-	  Ports			  [1, 1]
-	  Position		  [905, 995, 935, 1025]
-	  ZOrder		  -2
-	  ShowName		  off
-	  InitialCondition	  "x_0(2)"
+	  BlockType		  SecondOrderIntegrator
+	  Name			  "Integrator,\nSecond-Order1"
+	  SID			  "471"
+	  Ports			  [1, 2]
+	  Position		  [825, 990, 875, 1030]
+	  ZOrder		  6
+	  ICX			  "x_0(idx_theta)"
+	  LimitX		  on
+	  UpperLimitX		  "max_theta"
+	  LowerLimitX		  "min_theta"
+	  ICDXDT		  "x_0(idx_dtheta)"
+	  LimitDXDT		  on
+	  UpperLimitDXDT	  "max_dtheta"
+	  LowerLimitDXDT	  "min_dtheta"
 	}
 	Block {
 	  BlockType		  Mux
 	  Name			  "Mux"
-	  SID			  "226"
-	  Ports			  [2, 1]
-	  Position		  [850, 126, 855, 164]
+	  SID			  "472"
+	  Ports			  [4, 1]
+	  Position		  [850, 101, 855, 194]
 	  ZOrder		  -16
 	  ShowName		  off
-	  Inputs		  "2"
 	  DisplayOption		  "bar"
 	}
 	Block {
 	  BlockType		  Product
 	  Name			  "Product"
-	  SID			  "64"
+	  SID			  "473"
 	  Ports			  [3, 1]
 	  Position		  [120, 84, 150, 116]
 	  ZOrder		  -13
@@ -1936,7 +2484,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product1"
-	  SID			  "69"
+	  SID			  "474"
 	  Ports			  [2, 1]
 	  Position		  [215, 47, 245, 78]
 	  ZOrder		  -13
@@ -1948,7 +2496,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product10"
-	  SID			  "93"
+	  SID			  "475"
 	  Ports			  [4, 1]
 	  Position		  [170, 759, 200, 791]
 	  ZOrder		  -13
@@ -1961,7 +2509,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product11"
-	  SID			  "97"
+	  SID			  "476"
 	  Ports			  [2, 1]
 	  Position		  [155, 822, 185, 853]
 	  ZOrder		  -13
@@ -1973,7 +2521,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product12"
-	  SID			  "98"
+	  SID			  "477"
 	  Ports			  [4, 1]
 	  Position		  [175, 909, 205, 941]
 	  ZOrder		  -13
@@ -1986,7 +2534,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product13"
-	  SID			  "127"
+	  SID			  "478"
 	  Ports			  [2, 1]
 	  Position		  [575, 236, 605, 269]
 	  ZOrder		  -13
@@ -1998,7 +2546,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product14"
-	  SID			  "128"
+	  SID			  "479"
 	  Ports			  [4, 1]
 	  Position		  [725, 229, 755, 261]
 	  ZOrder		  -13
@@ -2011,7 +2559,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product15"
-	  SID			  "134"
+	  SID			  "480"
 	  Ports			  [4, 1]
 	  Position		  [740, 334, 770, 366]
 	  ZOrder		  -13
@@ -2024,7 +2572,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product16"
-	  SID			  "136"
+	  SID			  "481"
 	  Ports			  [2, 1]
 	  Position		  [580, 336, 610, 369]
 	  ZOrder		  -13
@@ -2036,7 +2584,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product17"
-	  SID			  "141"
+	  SID			  "482"
 	  Ports			  [4, 1]
 	  Position		  [740, 424, 770, 456]
 	  ZOrder		  -13
@@ -2049,7 +2597,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product18"
-	  SID			  "145"
+	  SID			  "483"
 	  Ports			  [2, 1]
 	  Position		  [580, 441, 610, 474]
 	  ZOrder		  -13
@@ -2061,7 +2609,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product19"
-	  SID			  "151"
+	  SID			  "484"
 	  Ports			  [2, 1]
 	  Position		  [580, 557, 610, 588]
 	  ZOrder		  -13
@@ -2073,7 +2621,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product2"
-	  SID			  "72"
+	  SID			  "485"
 	  Ports			  [2, 1]
 	  Position		  [150, 231, 180, 264]
 	  ZOrder		  -13
@@ -2085,7 +2633,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product20"
-	  SID			  "152"
+	  SID			  "486"
 	  Ports			  [2, 1]
 	  Position		  [670, 507, 700, 538]
 	  ZOrder		  -13
@@ -2097,7 +2645,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product21"
-	  SID			  "159"
+	  SID			  "487"
 	  Ports			  [2, 1]
 	  Position		  [565, 672, 595, 703]
 	  ZOrder		  -13
@@ -2109,7 +2657,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product22"
-	  SID			  "160"
+	  SID			  "488"
 	  Ports			  [2, 1]
 	  Position		  [655, 622, 685, 653]
 	  ZOrder		  -13
@@ -2121,7 +2669,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product23"
-	  SID			  "173"
+	  SID			  "489"
 	  Ports			  [2, 1]
 	  Position		  [565, 782, 595, 813]
 	  ZOrder		  -13
@@ -2133,7 +2681,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product24"
-	  SID			  "174"
+	  SID			  "490"
 	  Ports			  [2, 1]
 	  Position		  [655, 732, 685, 763]
 	  ZOrder		  -13
@@ -2145,7 +2693,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product25"
-	  SID			  "180"
+	  SID			  "491"
 	  Ports			  [4, 1]
 	  Position		  [580, 869, 610, 901]
 	  ZOrder		  -13
@@ -2158,7 +2706,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product26"
-	  SID			  "185"
+	  SID			  "492"
 	  Ports			  [3, 1]
 	  Position		  [580, 939, 610, 971]
 	  ZOrder		  -13
@@ -2171,7 +2719,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product27"
-	  SID			  "190"
+	  SID			  "493"
 	  Ports			  [4, 1]
 	  Position		  [580, 1024, 610, 1056]
 	  ZOrder		  -13
@@ -2184,7 +2732,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product3"
-	  SID			  "73"
+	  SID			  "494"
 	  Ports			  [4, 1]
 	  Position		  [300, 224, 330, 256]
 	  ZOrder		  -13
@@ -2197,7 +2745,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product4"
-	  SID			  "76"
+	  SID			  "495"
 	  Ports			  [4, 1]
 	  Position		  [160, 329, 190, 361]
 	  ZOrder		  -13
@@ -2210,7 +2758,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product5"
-	  SID			  "79"
+	  SID			  "496"
 	  Ports			  [4, 1]
 	  Position		  [160, 429, 190, 461]
 	  ZOrder		  -13
@@ -2223,7 +2771,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product6"
-	  SID			  "83"
+	  SID			  "497"
 	  Ports			  [2, 1]
 	  Position		  [150, 532, 180, 563]
 	  ZOrder		  -13
@@ -2235,7 +2783,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product7"
-	  SID			  "85"
+	  SID			  "498"
 	  Ports			  [2, 1]
 	  Position		  [230, 497, 260, 528]
 	  ZOrder		  -13
@@ -2247,7 +2795,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product8"
-	  SID			  "88"
+	  SID			  "499"
 	  Ports			  [2, 1]
 	  Position		  [155, 662, 185, 693]
 	  ZOrder		  -13
@@ -2259,7 +2807,7 @@ Model {
 	Block {
 	  BlockType		  Product
 	  Name			  "Product9"
-	  SID			  "90"
+	  SID			  "500"
 	  Ports			  [2, 1]
 	  Position		  [245, 612, 275, 643]
 	  ZOrder		  -13
@@ -2269,9 +2817,63 @@ Model {
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
+	  BlockType		  Scope
+	  Name			  "Scope"
+	  SID			  "501"
+	  Ports			  [1]
+	  Position		  [1005, 1004, 1035, 1036]
+	  ZOrder		  1
+	  Floating		  off
+	  Location		  [1, 76, 1367, 727]
+	  Open			  off
+	  NumInputPorts		  "1"
+	  List {
+	    ListType		    AxesTitles
+	    axes1		    "%<SignalLabel>"
+	  }
+	  ShowLegends		  off
+	  YMin			  "-4.02413"
+	  YMax			  "11.14983"
+	  SaveToWorkspace	  on
+	  SaveName		  "dtheta"
+	  LimitDataPoints	  off
+	}
+	Block {
+	  BlockType		  Scope
+	  Name			  "Scope1"
+	  SID			  "502"
+	  Ports			  [1]
+	  Position		  [405, 1009, 435, 1041]
+	  ZOrder		  2
+	  Floating		  off
+	  Location		  [555, 280, 1921, 931]
+	  Open			  off
+	  NumInputPorts		  "1"
+	  List {
+	    ListType		    AxesTitles
+	    axes1		    "%<SignalLabel>"
+	  }
+	  List {
+	    ListType		    ScopeGraphics
+	    FigureColor		    "[0.5 0.5 0.5]"
+	    AxesColor		    "[0 0 0]"
+	    AxesTickColor	    "[1 1 1]"
+	    LineColors		    "[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
+	    LineStyles		    "-|-|-|-|-|-"
+	    LineWidths		    "[0.5 0.5 0.5 0.5 0.5 0.5]"
+	    MarkerStyles	    "none|none|none|none|none|none"
+	  }
+	  ShowLegends		  off
+	  YMin			  "-550"
+	  YMax			  "25"
+	  SaveToWorkspace	  on
+	  SaveName		  "alpha"
+	  LimitDataPoints	  off
+	}
+	Block {
 	  BlockType		  Sum
 	  Name			  "Sum"
-	  SID			  "63"
+	  SID			  "503"
 	  Ports			  [2, 1]
 	  Position		  [160, 45, 180, 65]
 	  ZOrder		  -18
@@ -2285,7 +2887,7 @@ Model {
 	Block {
 	  BlockType		  Sum
 	  Name			  "Sum1"
-	  SID			  "70"
+	  SID			  "504"
 	  Ports			  [2, 1]
 	  Position		  [185, 195, 205, 215]
 	  ZOrder		  -18
@@ -2299,7 +2901,7 @@ Model {
 	Block {
 	  BlockType		  Sum
 	  Name			  "Sum2"
-	  SID			  "82"
+	  SID			  "505"
 	  Ports			  [2, 1]
 	  Position		  [175, 495, 195, 515]
 	  ZOrder		  -18
@@ -2313,7 +2915,7 @@ Model {
 	Block {
 	  BlockType		  Sum
 	  Name			  "Sum3"
-	  SID			  "87"
+	  SID			  "506"
 	  Ports			  [2, 1]
 	  Position		  [190, 610, 210, 630]
 	  ZOrder		  -18
@@ -2327,7 +2929,7 @@ Model {
 	Block {
 	  BlockType		  Sum
 	  Name			  "Sum4"
-	  SID			  "129"
+	  SID			  "507"
 	  Ports			  [2, 1]
 	  Position		  [610, 200, 630, 220]
 	  ZOrder		  -18
@@ -2341,7 +2943,7 @@ Model {
 	Block {
 	  BlockType		  Sum
 	  Name			  "Sum5"
-	  SID			  "137"
+	  SID			  "508"
 	  Ports			  [2, 1]
 	  Position		  [625, 300, 645, 320]
 	  ZOrder		  -18
@@ -2355,7 +2957,7 @@ Model {
 	Block {
 	  BlockType		  Sum
 	  Name			  "Sum6"
-	  SID			  "146"
+	  SID			  "509"
 	  Ports			  [2, 1]
 	  Position		  [625, 405, 645, 425]
 	  ZOrder		  -18
@@ -2369,7 +2971,7 @@ Model {
 	Block {
 	  BlockType		  Sum
 	  Name			  "Sum7"
-	  SID			  "153"
+	  SID			  "510"
 	  Ports			  [2, 1]
 	  Position		  [615, 505, 635, 525]
 	  ZOrder		  -18
@@ -2383,7 +2985,7 @@ Model {
 	Block {
 	  BlockType		  Sum
 	  Name			  "Sum8"
-	  SID			  "161"
+	  SID			  "511"
 	  Ports			  [2, 1]
 	  Position		  [600, 620, 620, 640]
 	  ZOrder		  -18
@@ -2397,7 +2999,7 @@ Model {
 	Block {
 	  BlockType		  Sum
 	  Name			  "Sum9"
-	  SID			  "175"
+	  SID			  "512"
 	  Ports			  [2, 1]
 	  Position		  [600, 730, 620, 750]
 	  ZOrder		  -18
@@ -2411,7 +3013,7 @@ Model {
 	Block {
 	  BlockType		  Trigonometry
 	  Name			  "Trigonometric\nFunction"
-	  SID			  "50"
+	  SID			  "513"
 	  Ports			  [1, 1]
 	  Position		  [495, 25, 525, 55]
 	  ZOrder		  -34
@@ -2421,7 +3023,7 @@ Model {
 	Block {
 	  BlockType		  Trigonometry
 	  Name			  "Trigonometric\nFunction1"
-	  SID			  "51"
+	  SID			  "514"
 	  Ports			  [1, 1]
 	  Position		  [495, 60, 525, 90]
 	  ZOrder		  -34
@@ -2430,7 +3032,7 @@ Model {
 	Block {
 	  BlockType		  Trigonometry
 	  Name			  "Trigonometric\nFunction2"
-	  SID			  "52"
+	  SID			  "515"
 	  Ports			  [1, 1]
 	  Position		  [495, 95, 525, 125]
 	  ZOrder		  -34
@@ -2440,7 +3042,7 @@ Model {
 	Block {
 	  BlockType		  Trigonometry
 	  Name			  "Trigonometric\nFunction3"
-	  SID			  "53"
+	  SID			  "516"
 	  Ports			  [1, 1]
 	  Position		  [495, 130, 525, 160]
 	  ZOrder		  -34
@@ -2449,8 +3051,8 @@ Model {
 	Block {
 	  BlockType		  Outport
 	  Name			  "y"
-	  SID			  "230"
-	  Position		  [880, 138, 910, 152]
+	  SID			  "517"
+	  Position		  [880, 143, 910, 157]
 	  ZOrder		  -9
 	  IconDisplay		  "Port number"
 	}
@@ -2879,28 +3481,9 @@ Model {
 	  DstPort		  2
 	}
 	Line {
-	  SrcBlock		  "Integrator"
-	  SrcPort		  1
-	  Points		  [20, 0]
-	  Branch {
-	    DstBlock		    "Integrator1"
-	    DstPort		    1
-	  }
-	  Branch {
-	    DstBlock		    "Goto6"
-	    DstPort		    1
-	  }
-	}
-	Line {
-	  SrcBlock		  "Integrator1"
-	  SrcPort		  1
-	  DstBlock		  "Goto7"
-	  DstPort		  1
-	}
-	Line {
 	  SrcBlock		  "Divide"
 	  SrcPort		  1
-	  DstBlock		  "Integrator"
+	  DstBlock		  "Integrator,\nSecond-Order"
 	  DstPort		  1
 	}
 	Line {
@@ -3331,20 +3914,7 @@ Model {
 	  DstPort		  2
 	}
 	Line {
-	  SrcBlock		  "Integrator2"
-	  SrcPort		  1
-	  Points		  [20, 0]
-	  Branch {
-	    DstBlock		    "Integrator3"
-	    DstPort		    1
-	  }
-	  Branch {
-	    DstBlock		    "Goto8"
-	    DstPort		    1
-	  }
-	}
-	Line {
-	  SrcBlock		  "Integrator3"
+	  SrcBlock		  "Integrator,\nSecond-Order1"
 	  SrcPort		  1
 	  DstBlock		  "Goto9"
 	  DstPort		  1
@@ -3352,7 +3922,7 @@ Model {
 	Line {
 	  SrcBlock		  "Divide1"
 	  SrcPort		  1
-	  DstBlock		  "Integrator2"
+	  DstBlock		  "Integrator,\nSecond-Order1"
 	  DstPort		  1
 	}
 	Line {
@@ -3363,36 +3933,92 @@ Model {
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "From46"
-	  SrcPort		  1
-	  DstBlock		  "Mux"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "From47"
-	  SrcPort		  1
-	  DstBlock		  "Mux"
-	  DstPort		  2
-	}
-	Line {
 	  SrcBlock		  "Mux"
 	  SrcPort		  1
 	  DstBlock		  "y"
 	  DstPort		  1
 	}
+	Line {
+	  SrcBlock		  "From46"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "From47"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "From49"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "From48"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Integrator,\nSecond-Order"
+	  SrcPort		  2
+	  DstBlock		  "Goto6"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Integrator,\nSecond-Order"
+	  SrcPort		  1
+	  Points		  [35, 0]
+	  Branch {
+	    DstBlock		    "Scope1"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Goto7"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Integrator,\nSecond-Order1"
+	  SrcPort		  2
+	  Points		  [75, 0]
+	  Branch {
+	    DstBlock		    "Goto8"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Scope"
+	    DstPort		    1
+	  }
+	}
 	Annotation {
-	  SID			  "108"
+	  SID			  "518"
 	  Name			  "d2alpha"
-	  Position		  [221, 1014]
+	  Position		  [221, 1024]
 	}
       }
+    }
+    Block {
+      BlockType		      StateSpace
+      Name		      "State-Space"
+      SID		      "1"
+      Position		      [155, 157, 235, 203]
+      ZOrder		      -8
+      A			      "A"
+      B			      "B"
+      C			      "C"
+      D			      "D"
+      X0		      "x_0"
     }
     Block {
       BlockType		      ToWorkspace
       Name		      "To Workspace"
       SID		      "221"
       Ports		      [1]
-      Position		      [325, 75, 385, 105]
+      Position		      [400, 75, 460, 105]
       ZOrder		      -7
       VariableName	      "sim_fenom"
       MaxDataPoints	      "inf"
@@ -3404,7 +4030,7 @@ Model {
       Name		      "To Workspace1"
       SID		      "222"
       Ports		      [1]
-      Position		      [405, 220, 465, 250]
+      Position		      [480, 220, 540, 250]
       ZOrder		      -7
       VariableName	      "sim_linear"
       MaxDataPoints	      "inf"
@@ -3416,7 +4042,7 @@ Model {
       Name		      "To Workspace2"
       SID		      "223"
       Ports		      [1]
-      Position		      [405, 275, 465, 305]
+      Position		      [480, 275, 540, 305]
       ZOrder		      -7
       VariableName	      "sim_discrete"
       MaxDataPoints	      "inf"
@@ -3438,7 +4064,7 @@ Model {
       }
       Branch {
 	Points			[0, -90]
-	DstBlock		"Subsystem"
+	DstBlock		"Sistema Fenomenologico"
 	DstPort			1
       }
     }
@@ -3464,7 +4090,25 @@ Model {
     Line {
       SrcBlock		      "Discrete State-Space"
       SrcPort		      1
-      Points		      [55, 0]
+      DstBlock		      "4saturation2"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "State-Space"
+      SrcPort		      1
+      DstBlock		      "4saturation1"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Sistema Fenomenologico"
+      SrcPort		      1
+      DstBlock		      "4saturation"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "4saturation2"
+      SrcPort		      1
+      Points		      [40, 0]
       Branch {
 	Points			[0, -70]
 	DstBlock		"Mux"
@@ -3477,9 +4121,9 @@ Model {
       }
     }
     Line {
-      SrcBlock		      "State-Space"
+      SrcBlock		      "4saturation1"
       SrcPort		      1
-      Points		      [145, 0]
+      Points		      [115, 0]
       Branch {
 	DstBlock		"Mux"
 	DstPort			4
@@ -3491,9 +4135,9 @@ Model {
       }
     }
     Line {
-      SrcBlock		      "Subsystem"
+      SrcBlock		      "4saturation"
       SrcPort		      1
-      Points		      [45, 0]
+      Points		      [25, 0]
       Branch {
 	DstBlock		"To Workspace"
 	DstPort			1

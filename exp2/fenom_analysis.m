@@ -12,8 +12,24 @@ idx_alpha = 1;
 idx_theta = 2;
 idx_dalpha = 3;
 idx_dtheta = 4;
+max_alpha =  pi/4; min_alpha = -pi/4;
+max_theta =  pi/4; min_theta = -pi/4;
+max_dalpha =  pi/2; min_dalpha = -pi/2;
+max_dtheta =  pi/2; min_dtheta = -pi/2;
+params.x_size = x_size;
+params.idx_alpha  = idx_alpha;
+params.idx_theta  = idx_theta;
+params.idx_dalpha = idx_dalpha;
+params.idx_dtheta = idx_dtheta;
+params.max_alpha = max_alpha; params.min_alpha = min_alpha;
+params.max_theta = max_theta; params.min_theta = min_theta;
+params.max_dalpha = max_dalpha; params.min_dalpha = min_dalpha;
+params.max_dtheta = max_dtheta; params.min_dtheta = min_dtheta;
 x_0  = zeros(x_size, 1);
-save('mat/system.mat','x_size','idx_alpha','idx_theta','idx_dalpha','idx_dtheta','x_0');
+save('mat/system.mat','x_size','idx_alpha','idx_theta','idx_dalpha','idx_dtheta',...
+     'max_alpha','max_theta','max_dalpha','max_dtheta',...
+     'min_alpha','min_theta','min_dalpha','min_dtheta',...
+     'x_0','params');
 
 % linearization
 cube = load('mat/cubo.mat');

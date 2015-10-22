@@ -12,6 +12,8 @@ load('mat/linear_sys.mat');
 load('mat/discrete_sys.mat');
 
 % output full state!
+C = eye(x_size);
+D = zeros(x_size,1);
 Cd = eye(x_size);
 Dd = zeros(x_size,1);
 
@@ -71,6 +73,6 @@ xlabel('time [s]','interpreter','Latex','fontsize',12);
 ylabel('angle $\alpha$ [rad]','interpreter','Latex','fontsize',12);
 title(sprintf('$$ X_0 = [\\alpha = %0.2f, \\theta = %0.2f, \\dot{\\alpha} = %0.2f, \\dot{\\theta} = %0.2f]$$', x_0),'interpreter','Latex');
 legend(gca, 'show', 'location', 'NorthEast');
-axis([0 alpha_control.Time(end) -0.2 0.2]);
+axis([0 alpha_control.Time(end) -pi/3 pi/3]);
 grid on;
 

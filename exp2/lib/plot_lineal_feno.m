@@ -1,19 +1,35 @@
-function [ ] = plot_lineal_feno( EF, ELD, alpha, x_0 )
-%PLOT_LINEAL_FENO Summary of this function goes here
-%   Detailed explanation goes here
+function [ ] = plot_lineal_feno(resp_fenom, resp_lineal, alpha, x_0, params)
+
+    label_time_ = 'tiempo [s]';
+    label_ang_  = 'angulo [rad]';
+    title_ = sprintf('$$ X_0 = [\\alpha = %0.4f, \\theta = %0.4f, \\dot{\\alpha} = %0.4f, \\dot{\\theta} = %0.4f]$$',...
+                x_0(params.idx_alpha),...
+                x_0(params.idx_theta),...
+                x_0(params.idx_dalpha),...
+                x_0(params.idx_dtheta));
+    
+    t_ef  = resp_fenom(:,1);
+    t_eld = resp_lineal(:,1);
+    
     figure;
-    subplot(211);hold on;
-    plot(EF(:,1), EF(:,2),'-b','displayname','Observado \alpha');
-    plot(EF(:,1), EF(:,3),'-r','displayname','Simulado \theta');
+    subplot(211);
+    hold on;
+    plot(t_ef, resp_fenom(:, params.idx_alpha+1), '-b', 'displayname', 'Observado \alpha');
+    plot(t_ef, resp_fenom(:, params.idx_theta+1), '-r', 'displayname', 'Simulado \theta');
     plot(alpha(:,1), alpha(:,2),'--c','displayname','Simulado \alpha');
-    xlabel('Tiempo [s]'); ylabel('Angulo [rad]');
-    title({'Simulacion Modelo Fenomenologico',sprintf('$$ X_0 = [\\alpha = %0.4f, \\theta = %0.4f, \\dot{\\alpha} = %0.4f, \\dot{\\theta} = %0.4f]$$', x_0)},'interpreter','latex');
+    xlabel(label_time_, 'Interpreter', 'latex', 'fontsize', 12);
+    ylabel(label_ang_,  'Interpreter', 'latex', 'fontsize', 12);
+    title({'Simulacion Modelo Fenomenologico', title_}, 'interpreter', 'latex');
     legend(gca, 'show', 'location', 'best');
-    subplot(212);hold on;
-    plot(ELD(:,1), ELD(:,2),'-b','displayname','\alpha');
-    plot(ELD(:,1), ELD(:,3),'-r','displayname','\theta');
-    xlabel('Tiempo [s]'); ylabel('Angulo [rad]');
-    title({'Simulacion Modelo Lineal Discreto',sprintf('$$ X_0 = [\\alpha = %0.4f, \\theta = %0.4f, \\dot{\\alpha} = %0.4f, \\dot{\\theta} = %0.4f]$$', x_0)},'interpreter','latex');
+    
+    subplot(212);
+    hold on;
+    plot(t_eld, resp_lineal(:, params.idx_alpha+1), '-b', 'displayname', '\alpha');
+    plot(t_eld, resp_lineal(:, params.idx_alpha+1), '-r', 'displayname', '\theta');
+    xlabel(label_time_, 'Interpreter', 'latex', 'fontsize', 12);
+    ylabel(label_ang_,  'Interpreter', 'latex', 'fontsize', 12);
+    title({'Simulacion Modelo Lineal Discreto', title_}, 'interpreter', 'latex');
     legend(gca, 'show', 'location', 'best');
+    
 end
 

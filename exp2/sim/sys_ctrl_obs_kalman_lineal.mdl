@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.110"
+    ComputedModelVersion    "1.118"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -27,9 +27,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "matias"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Oct 22 01:25:55 2015"
+  LastModifiedDate	  "Thu Oct 22 07:32:51 2015"
   RTWModifiedTimeStamp	  367377951
-  ModelVersionFormat	  "1.%<AutoIncrement:110>"
+  ModelVersionFormat	  "1.%<AutoIncrement:118>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -67,6 +67,7 @@ Model {
     $ObjectID		    1
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "sistema"
+    signals_		    []
     overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
@@ -771,6 +772,21 @@ Model {
       VectorParams1D	      on
     }
     Block {
+      BlockType		      Saturate
+      UpperLimitSource	      "Dialog"
+      UpperLimit	      "0.5"
+      LowerLimitSource	      "Dialog"
+      LowerLimit	      "-0.5"
+      LinearizeAsGain	      on
+      ZeroCross		      on
+      SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: Same as input"
+      LockScale		      off
+      RndMeth		      "Floor"
+    }
+    Block {
       BlockType		      Scope
       ModelBased	      off
       TickLabels	      "OneTimeTick"
@@ -842,7 +858,7 @@ Model {
   }
   System {
     Name		    "sys_ctrl_obs_kalman_lineal"
-    Location		    [774, 186, 1363, 713]
+    Location		    [951, 226, 1540, 753]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -856,7 +872,488 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "894"
+    SIDHighWatermark	    "928"
+    Block {
+      BlockType		      SubSystem
+      Name		      "2saturation"
+      SID		      "922"
+      Ports		      [1, 1]
+      Position		      [375, 119, 430, 151]
+      ZOrder		      -17
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      System {
+	Name			"2saturation"
+	Location		[919, 383, 1254, 594]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "y2"
+	  SID			  "923"
+	  Position		  [45, 103, 75, 117]
+	  ZOrder		  -1
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux"
+	  SID			  "924"
+	  Ports			  [1, 2]
+	  Position		  [115, 74, 120, 141]
+	  ZOrder		  -7
+	  ShowName		  off
+	  Outputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  SID			  "925"
+	  Ports			  [2, 1]
+	  Position		  [220, 71, 225, 144]
+	  ZOrder		  -16
+	  ShowName		  off
+	  Inputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation"
+	  SID			  "926"
+	  Ports			  [1, 1]
+	  Position		  [155, 75, 185, 105]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_theta"
+	  LowerLimit		  "min_theta"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation1"
+	  SID			  "927"
+	  Ports			  [1, 1]
+	  Position		  [155, 110, 185, 140]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_dalpha"
+	  LowerLimit		  "min_dalpha"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "limited"
+	  SID			  "928"
+	  Position		  [260, 103, 290, 117]
+	  ZOrder		  -9
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  SrcBlock		  "y2"
+	  SrcPort		  1
+	  DstBlock		  "Demux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  1
+	  DstBlock		  "Saturation"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  2
+	  DstBlock		  "Saturation1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation1"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  DstBlock		  "limited"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "4saturation1"
+      SID		      "895"
+      Ports		      [1, 1]
+      Position		      [215, 224, 270, 256]
+      ZOrder		      -17
+      BlockMirror	      on
+      NamePlacement	      "alternate"
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      System {
+	Name			"4saturation1"
+	Location		[408, 389, 753, 617]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "y4"
+	  SID			  "896"
+	  Position		  [45, 103, 75, 117]
+	  ZOrder		  -1
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux1"
+	  SID			  "897"
+	  Ports			  [1, 4]
+	  Position		  [115, 40, 120, 175]
+	  ZOrder		  -7
+	  ShowName		  off
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  SID			  "898"
+	  Ports			  [4, 1]
+	  Position		  [220, 36, 225, 179]
+	  ZOrder		  -16
+	  ShowName		  off
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation2"
+	  SID			  "899"
+	  Ports			  [1, 1]
+	  Position		  [155, 40, 185, 70]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_alpha"
+	  LowerLimit		  "min_alpha"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation3"
+	  SID			  "900"
+	  Ports			  [1, 1]
+	  Position		  [155, 75, 185, 105]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_theta"
+	  LowerLimit		  "min_theta"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation4"
+	  SID			  "901"
+	  Ports			  [1, 1]
+	  Position		  [155, 110, 185, 140]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_dalpha"
+	  LowerLimit		  "min_dalpha"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation5"
+	  SID			  "902"
+	  Ports			  [1, 1]
+	  Position		  [155, 145, 185, 175]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_dtheta"
+	  LowerLimit		  "min_dtheta"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "limited"
+	  SID			  "903"
+	  Position		  [260, 103, 290, 117]
+	  ZOrder		  -9
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  SrcBlock		  "y4"
+	  SrcPort		  1
+	  DstBlock		  "Demux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  1
+	  DstBlock		  "Saturation2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  2
+	  DstBlock		  "Saturation3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation2"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation3"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  3
+	  DstBlock		  "Saturation4"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation4"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  4
+	  DstBlock		  "Saturation5"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation5"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  DstBlock		  "limited"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "4saturation2"
+      SID		      "913"
+      Ports		      [1, 1]
+      Position		      [380, 344, 430, 376]
+      ZOrder		      -17
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      System {
+	Name			"4saturation2"
+	Location		[408, 389, 753, 617]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "y4"
+	  SID			  "914"
+	  Position		  [45, 103, 75, 117]
+	  ZOrder		  -1
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux1"
+	  SID			  "915"
+	  Ports			  [1, 4]
+	  Position		  [115, 40, 120, 175]
+	  ZOrder		  -7
+	  ShowName		  off
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  SID			  "916"
+	  Ports			  [4, 1]
+	  Position		  [220, 36, 225, 179]
+	  ZOrder		  -16
+	  ShowName		  off
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation2"
+	  SID			  "917"
+	  Ports			  [1, 1]
+	  Position		  [155, 40, 185, 70]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_alpha"
+	  LowerLimit		  "min_alpha"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation3"
+	  SID			  "918"
+	  Ports			  [1, 1]
+	  Position		  [155, 75, 185, 105]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_theta"
+	  LowerLimit		  "min_theta"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation4"
+	  SID			  "919"
+	  Ports			  [1, 1]
+	  Position		  [155, 110, 185, 140]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_dalpha"
+	  LowerLimit		  "min_dalpha"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation5"
+	  SID			  "920"
+	  Ports			  [1, 1]
+	  Position		  [155, 145, 185, 175]
+	  ZOrder		  -10
+	  ShowName		  off
+	  InputPortMap		  "u0"
+	  UpperLimit		  "max_dtheta"
+	  LowerLimit		  "min_dtheta"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "limited"
+	  SID			  "921"
+	  Position		  [260, 103, 290, 117]
+	  ZOrder		  -9
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  SrcBlock		  "y4"
+	  SrcPort		  1
+	  DstBlock		  "Demux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  1
+	  DstBlock		  "Saturation2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  2
+	  DstBlock		  "Saturation3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation2"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation3"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  3
+	  DstBlock		  "Saturation4"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation4"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  4
+	  DstBlock		  "Saturation5"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation5"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  DstBlock		  "limited"
+	  DstPort		  1
+	}
+      }
+    }
     Block {
       BlockType		      DiscreteStateSpace
       Name		      "Discrete State-Space"
@@ -901,7 +1398,7 @@ Model {
       BlockType		      Gain
       Name		      "Gain2"
       SID		      "55"
-      Position		      [185, 225, 215, 255]
+      Position		      [150, 225, 180, 255]
       ZOrder		      34
       BlockMirror	      on
       NamePlacement	      "alternate"
@@ -916,7 +1413,7 @@ Model {
       Name		      "Observador"
       SID		      "854"
       Ports		      [2, 1]
-      Position		      [255, 211, 355, 264]
+      Position		      [290, 211, 390, 264]
       ZOrder		      64
       BlockMirror	      on
       NamePlacement	      "alternate"
@@ -1867,15 +2364,25 @@ Model {
       Name		      "Scope2"
       SID		      "499"
       Ports		      [1]
-      Position		      [280, 269, 310, 301]
+      Position		      [245, 284, 275, 316]
       ZOrder		      57
       Floating		      off
-      Location		      [685, 85, 1366, 727]
+      Location		      [675, 81, 1356, 723]
       Open		      off
       NumInputPorts	      "1"
       List {
 	ListType		AxesTitles
 	axes1			"%<SignalLabel>"
+      }
+      List {
+	ListType		ScopeGraphics
+	FigureColor		"[0.5 0.5 0.5]"
+	AxesColor		"[0 0 0]"
+	AxesTickColor		"[1 1 1]"
+	LineColors		"[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
+	LineStyles		"-|-|-|-|-|-"
+	LineWidths		"[0.5 0.5 0.5 0.5 0.5 0.5]"
+	MarkerStyles		"none|none|none|none|none|none"
       }
       ShowLegends	      off
       YMin		      "-1.88262"
@@ -1917,7 +2424,7 @@ Model {
       Name		      "Sum4"
       SID		      "435"
       Ports		      [2, 1]
-      Position		      [380, 350, 400, 370]
+      Position		      [340, 350, 360, 370]
       ZOrder		      53
       ShowName		      off
       IconShape		      "round"
@@ -1931,7 +2438,7 @@ Model {
       Name		      "Sum5"
       SID		      "58"
       Ports		      [2, 1]
-      Position		      [380, 125, 400, 145]
+      Position		      [340, 125, 360, 145]
       ZOrder		      37
       ShowName		      off
       IconShape		      "round"
@@ -1957,7 +2464,7 @@ Model {
 	DstPort			1
       }
       Branch {
-	Points			[0, 40; 205, 0]
+	Points			[0, 40; 240, 0]
 	DstBlock		"Observador"
 	DstPort			1
       }
@@ -1965,7 +2472,7 @@ Model {
     Line {
       SrcBlock		      "Gain2"
       SrcPort		      1
-      Points		      [-40, 0]
+      Points		      [-5, 0]
       DstBlock		      "Sum2"
       DstPort		      2
     }
@@ -2011,16 +2518,8 @@ Model {
     Line {
       SrcBlock		      "Sum4"
       SrcPort		      1
-      Points		      [34, 0]
-      Branch {
-	Points			[0, 80]
-	DstBlock		"Gain1"
-	DstPort			1
-      }
-      Branch {
-	DstBlock		"Scope1"
-	DstPort			1
-      }
+      DstBlock		      "4saturation2"
+      DstPort		      1
     }
     Line {
       SrcBlock		      "P"
@@ -2032,31 +2531,57 @@ Model {
     Line {
       SrcBlock		      "P"
       SrcPort		      1
-      Points		      [105, 0]
+      Points		      [65, 0]
       DstBlock		      "Sum5"
       DstPort		      1
     }
     Line {
       SrcBlock		      "Observador"
       SrcPort		      1
-      Points		      [-11, 0]
+      DstBlock		      "4saturation1"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Sum5"
+      SrcPort		      1
+      DstBlock		      "2saturation"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "4saturation1"
+      SrcPort		      1
+      Points		      [-6, 0]
       Branch {
 	DstBlock		"Gain2"
 	DstPort			1
       }
       Branch {
-	Points			[0, 45]
+	Points			[0, 60]
 	DstBlock		"Scope2"
 	DstPort			1
       }
     }
     Line {
-      Labels		      [2, 0]
-      SrcBlock		      "Sum5"
+      Labels		      [1, 0]
+      SrcBlock		      "2saturation"
       SrcPort		      1
-      Points		      [10, 0; 0, 115]
+      Points		      [0, 115]
       DstBlock		      "Observador"
       DstPort		      2
+    }
+    Line {
+      SrcBlock		      "4saturation2"
+      SrcPort		      1
+      Points		      [4, 0]
+      Branch {
+	Points			[0, 80]
+	DstBlock		"Gain1"
+	DstPort			1
+      }
+      Branch {
+	DstBlock		"Scope1"
+	DstPort			1
+      }
     }
     Annotation {
       SID		      "733"
