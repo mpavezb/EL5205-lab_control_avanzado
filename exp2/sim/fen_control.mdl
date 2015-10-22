@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.20"
+    ComputedModelVersion    "1.21"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -38,9 +38,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "matias"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Oct 16 05:40:55 2015"
-  RTWModifiedTimeStamp	  366874714
-  ModelVersionFormat	  "1.%<AutoIncrement:20>"
+  LastModifiedDate	  "Wed Oct 21 23:52:40 2015"
+  RTWModifiedTimeStamp	  367372359
+  ModelVersionFormat	  "1.%<AutoIncrement:21>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -78,7 +78,6 @@ Model {
     $ObjectID		    2
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "fen_control"
-    signals_		    []
     overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
@@ -816,8 +815,8 @@ Model {
       ZOrder		      -9
       A			      "Ad"
       B			      "Bd"
-      C			      "Cd_control"
-      D			      "Dd_control"
+      C			      "Cd"
+      D			      "Dd"
       X0		      "x_0"
       SampleTime	      "Ts"
     }

@@ -42,7 +42,7 @@ function [A, B, C, D] = linearize_sys(cube_params, x_op, u_op)
                                   ddth_(a_, th_, da_, dth_, u_) ];
 
     % y = g(x,u)
-    g(a_, th_, da_, dth_, u_) = [a_, th_];
+    g(a_, th_, da_, dth_, u_) = [th_; da_];
 
 
     %% compute linearized model

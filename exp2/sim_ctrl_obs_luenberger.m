@@ -1,18 +1,21 @@
 % prepare workspace
 clc;
 close all;
-clear all;
+clear;
 format shortG
 format compact
 addpath('lib', 'mat','sim');
 
 load('mat/cubo.mat');
+load('mat/system.mat');
 load('mat/linear_sys.mat');
-load('mat/discrete_sys.mat'); Cd = [0 1 0 0;0 0 1 0]; % get theta and d_alpha
+load('mat/discrete_sys.mat');
 load('mat/obs_luenberger.mat');
 
-%% Condiciones iniciales
-x_0 = [pi/1000, pi/1000, 0, 0];
+% initial conditions
+x_0 = zeros(x_size, 1);
+x_0(idx_alpha) = pi/90;
+x_0(idx_theta) = pi/90;
 
 %% Controladores
 % Calculo ganancia con posicionamiento de polos
@@ -61,5 +64,5 @@ fprintf('mse dtheta: %0.6f\n', mse_dtheta_obs);
 
 %% Graficos
 plot_lineal_feno(EF, ELD, alpha, x_0);
-plot_error(EF, EF2, 'Error entre Observación y Simulación');
-plot_error(ELD, ELD2, 'Error entre Observación y Simulación');
+plot_error(EF, EF2, 'Error entre Observaciï¿½n y Simulaciï¿½n');
+plot_error(ELD, ELD2, 'Error entre Observaciï¿½n y Simulaciï¿½n');

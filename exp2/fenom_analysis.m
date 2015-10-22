@@ -6,9 +6,18 @@ format shortG
 format compact
 addpath('lib', 'mat');
 
+% system configuration
+x_size = 4;
+idx_alpha = 1;
+idx_theta = 2;
+idx_dalpha = 3;
+idx_dtheta = 4;
+x_0  = zeros(x_size, 1);
+save('mat/system.mat','x_size','idx_alpha','idx_theta','idx_dalpha','idx_dtheta','x_0');
+
 % linearization
 cube = load('mat/cubo.mat');
-x_op = [0; 0; 0; 0];
+x_op = zeros(x_size, 1);
 u_op = 0;
 [A, B, C, D] = linearize_sys(cube, x_op, u_op);
 clear cube
@@ -20,12 +29,17 @@ analyze_sys(A, B, C);
 % discretization
 Ts  = 0.002; % [s]
 [Ad, Bd, Cd, Dd ] = discretize_sys(A, B, C, D, Ts);
-
 save('mat/discrete_sys.mat','Ad','Bd','Cd','Dd','Ts');
 
 % Luenberger observer
-A11 = [Ad(2,2) Ad(2,3);Ad(3,2) Ad(3,3)]; A12 = [Ad(2,1) Ad(2,4);Ad(3,1) Ad(3,4)];
-A21 = [Ad(1,2) Ad(1,3);Ad(4,2) Ad(4,3)]; A22 = [Ad(1,1) Ad(1,4);Ad(4,1) Ad(4,4)];
-B1 = [Bd(2) Bd(3)]';B2 = [Bd(1) Bd(4)]';
-
+A11 = [Ad(2,2) Ad(2,3); ...
+       Ad(3,2) Ad(3,3)];
+A12 = [Ad(2,1) Ad(2,4); ...
+       Ad(3,1) Ad(3,4)];
+A21 = [Ad(1,2) Ad(1,3); ...
+       Ad(4,2) Ad(4,3)];
+A22 = [Ad(1,1) Ad(1,4); ...
+       Ad(4,1) Ad(4,4)];
+B1 = [Bd(2), Bd(3)]';
+B2 = [Bd(1), Bd(4)]';
 save('mat/obs_luenberger.mat','A11','A12','A21','A22','B1','B2','Ts');
