@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.128"
+    ComputedModelVersion    "1.133"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -27,9 +27,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "matias"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Oct 22 00:42:04 2015"
+  LastModifiedDate	  "Thu Oct 22 01:25:57 2015"
   RTWModifiedTimeStamp	  367375035
-  ModelVersionFormat	  "1.%<AutoIncrement:128>"
+  ModelVersionFormat	  "1.%<AutoIncrement:133>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -67,6 +67,7 @@ Model {
     $ObjectID		    1
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "sistema"
+    signals_		    []
     overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
@@ -860,7 +861,7 @@ Model {
   }
   System {
     Name		    "sys_ctrl_obs_kalman"
-    Location		    [1295, 134, 1881, 503]
+    Location		    [169, 254, 755, 623]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -874,7 +875,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "1046"
+    SIDHighWatermark	    "1049"
     Block {
       BlockType		      Demux
       Name		      "Demux"
@@ -891,7 +892,7 @@ Model {
       BlockType		      Gain
       Name		      "Gain"
       SID		      "49"
-      Position		      [165, 225, 210, 255]
+      Position		      [155, 225, 200, 255]
       ZOrder		      28
       BlockMirror	      on
       NamePlacement	      "alternate"
@@ -916,7 +917,7 @@ Model {
     }
     Block {
       BlockType		      SubSystem
-      Name		      "Observador1"
+      Name		      "Observador"
       SID		      "819"
       Ports		      [2, 1]
       Position		      [245, 211, 345, 264]
@@ -931,8 +932,8 @@ Model {
       RequestExecContextInheritance off
       MaskHideContents	      off
       System {
-	Name			"Observador1"
-	Location		[191, 172, 1573, 916]
+	Name			"Observador"
+	Location		[786, 181, 1172, 402]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -949,7 +950,7 @@ Model {
 	  BlockType		  Inport
 	  Name			  "u"
 	  SID			  "821"
-	  Position		  [20, 162, 50, 178]
+	  Position		  [30, 142, 60, 158]
 	  ZOrder		  170
 	  NamePlacement		  "alternate"
 	  IconDisplay		  "Port number"
@@ -958,7 +959,7 @@ Model {
 	  BlockType		  Inport
 	  Name			  "y"
 	  SID			  "820"
-	  Position		  [20, 132, 50, 148]
+	  Position		  [30, 62, 60, 78]
 	  ZOrder		  163
 	  NamePlacement		  "alternate"
 	  Port			  "2"
@@ -969,7 +970,7 @@ Model {
 	  Name			  "Kalman Filter"
 	  SID			  "848"
 	  Ports			  [2, 2]
-	  Position		  [200, 126, 275, 184]
+	  Position		  [205, 81, 280, 139]
 	  ZOrder		  241
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
@@ -1592,32 +1593,36 @@ Model {
 	  }
 	}
 	Block {
-	  BlockType		  Scope
-	  Name			  "Scope"
-	  SID			  "882"
-	  Ports			  [1]
-	  Position		  [355, 154, 385, 186]
-	  ZOrder		  242
-	  Floating		  off
-	  Location		  [403, 174, 963, 594]
-	  Open			  off
-	  NumInputPorts		  "1"
-	  List {
-	    ListType		    AxesTitles
-	    axes1		    "%<SignalLabel>"
-	  }
-	  ShowLegends		  off
-	  YMin			  "-10"
-	  YMax			  "10"
-	  SaveName		  "ScopeData1"
-	  DataFormat		  "StructureWithTime"
-	  LimitDataPoints	  off
+	  BlockType		  Terminator
+	  Name			  "Terminator"
+	  SID			  "1047"
+	  Position		  [340, 115, 360, 135]
+	  ZOrder		  68
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  UnitDelay
+	  Name			  "Unit Delay"
+	  SID			  "1048"
+	  Position		  [115, 53, 150, 87]
+	  ZOrder		  -21
+	  InputProcessing	  "Elements as channels (sample based)"
+	  SampleTime		  "Ts"
+	}
+	Block {
+	  BlockType		  UnitDelay
+	  Name			  "Unit Delay1"
+	  SID			  "1049"
+	  Position		  [115, 133, 150, 167]
+	  ZOrder		  -21
+	  InputProcessing	  "Elements as channels (sample based)"
+	  SampleTime		  "Ts"
 	}
 	Block {
 	  BlockType		  Outport
 	  Name			  "Xe"
 	  SID			  "833"
-	  Position		  [355, 133, 385, 147]
+	  Position		  [335, 88, 365, 102]
 	  ZOrder		  164
 	  NamePlacement		  "alternate"
 	  IconDisplay		  "Port number"
@@ -1631,20 +1636,34 @@ Model {
 	Line {
 	  SrcBlock		  "Kalman Filter"
 	  SrcPort		  2
-	  DstBlock		  "Scope"
+	  DstBlock		  "Terminator"
 	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "y"
 	  SrcPort		  1
-	  DstBlock		  "Kalman Filter"
+	  DstBlock		  "Unit Delay"
 	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "u"
 	  SrcPort		  1
+	  DstBlock		  "Unit Delay1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Unit Delay1"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, -25]
 	  DstBlock		  "Kalman Filter"
 	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Unit Delay"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, 25]
+	  DstBlock		  "Kalman Filter"
+	  DstPort		  1
 	}
       }
     }
@@ -4361,7 +4380,7 @@ Model {
       }
       Branch {
 	Points			[0, 50; 190, 0]
-	DstBlock		"Observador1"
+	DstBlock		"Observador"
 	DstPort			1
       }
     }
@@ -4401,7 +4420,7 @@ Model {
     Line {
       SrcBlock		      "Gain"
       SrcPort		      1
-      Points		      [-20, 0]
+      Points		      [-10, 0]
       Branch {
 	DstBlock		"Sum"
 	DstPort			2
@@ -4421,7 +4440,7 @@ Model {
     Line {
       SrcBlock		      "Mux"
       SrcPort		      1
-      DstBlock		      "Observador1"
+      DstBlock		      "Observador"
       DstPort		      2
     }
     Line {
@@ -4443,7 +4462,7 @@ Model {
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Observador1"
+      SrcBlock		      "Observador"
       SrcPort		      1
       Points		      [-10, 0]
       Branch {
