@@ -106,6 +106,4 @@ xlabel('Tiempo [s]'); ylabel('Angulo [rad]');
 title({'Simulacion Modelo Fenomenologico',sprintf('$$ X_0 = [\\alpha = %0.4f, \\theta = %0.4f, \\dot{\\alpha} = %0.4f, \\dot{\\theta} = %0.4f]$$', x0)},'interpreter','latex');
 legend(gca, 'show', 'location', 'best');
 
-plot_error(EF, EF2, 'Error entre Observaci�n y Simulaci�n');
-
-
+plot_error(EF , EF2 , 'Errores en observación con modelo no-lineal', params);

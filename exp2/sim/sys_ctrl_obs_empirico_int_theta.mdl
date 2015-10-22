@@ -27,7 +27,7 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "matias"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Oct 22 07:20:55 2015"
+  LastModifiedDate	  "Thu Oct 22 08:03:28 2015"
   RTWModifiedTimeStamp	  367398925
   ModelVersionFormat	  "1.%<AutoIncrement:159>"
   ConfigurationManager	  "none"
@@ -67,7 +67,6 @@ Model {
     $ObjectID		    1
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "sys_ctrl_obs_empirico"
-    signals_		    []
     overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
@@ -938,7 +937,7 @@ Model {
   }
   System {
     Name		    "sys_ctrl_obs_empirico_int_theta"
-    Location		    [1112, 155, 1779, 509]
+    Location		    [920, 81, 1590, 662]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
