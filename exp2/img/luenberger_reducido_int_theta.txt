@@ -1,0 +1,7 @@
+Cubo Real - Error seguimiento referencia:
+- mse alpha: NaN
+- mse theta: 0.0000
+Error Simulacion vs Real:
+- mse alpha : NaN
+- mse theta : 0.0003
+K = [-1057.91880086115 341.131105571529 -148.280027266824 0 35.4478037316858]

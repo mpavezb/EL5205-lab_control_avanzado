@@ -1,0 +1,15 @@
+Cubo Real - Error seguimiento referencia:
+- mse alpha: 0.0020
+- mse theta: 0.0089
+Error Simulacion vs Real:
+- mse alpha : 0.0022
+- mse theta : 0.0090
+K = [-362.066720992783 123.641358979378 -51.1724778449095 -1.38718062559898 12.7717160344766]
+
+Q = I;
+R = 0.5;
+
+P0 =  0.15708            0            0            0
+            0      0.15708            0            0
+            0            0            0            0
+            0            0            0            0
