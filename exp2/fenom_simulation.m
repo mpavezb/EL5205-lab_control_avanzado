@@ -23,17 +23,17 @@ sim_stop_time = 5;
 % sim 1: zero state
 x_0(idx_alpha) = 0;
 x_0(idx_theta) = 0;
-run_fenom_sim(x_0);
+run_fenom_sim(x_0,params);
 
 % sim 2: alpha = 0.1
 x_0(idx_alpha) = 0.1;
 x_0(idx_theta) = 0.0;
-run_fenom_sim(x_0);
+run_fenom_sim(x_0,params);
 
 % sim 3: theta = 0.1
 x_0(idx_alpha) = 0.0;
 x_0(idx_theta) = 0.1;
-run_fenom_sim(x_0);
+run_fenom_sim(x_0,params);
 
 
 %% basic control simulation

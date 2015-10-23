@@ -1,8 +1,8 @@
 clear; close all;
 
-msg_title = 'Observador Luenberger con integrador en $$\theta$$';
-data_path = 'data/luenberger_full_int_theta';
-sim_name  = 'sim/sys_ctrl_obs_luenberger_full_int_theta';
+msg_title = 'Observador Empirico con Kalman e integrador en $\theta$';
+data_path = 'data/empirico_int_theta_kalman_v2.mat';
+sim_name  = 'sim/sys_ctrl_obs_empirico_2_int_theta';
 load(data_path);
 
 t_e = estados_estimados(:,1);
@@ -14,9 +14,9 @@ dalpha_m   = estados_medidos(:,3);
 theta_m   = estados_medidos(:,2);
 
 load('mat/cubo.mat');
-load('mat/system.mat');
-load('mat/linear_sys.mat');
-load('mat/discrete_sys.mat');
+load('mat/system_int_theta.mat');
+load('mat/linear_sys_int_theta.mat');
+load('mat/discrete_sys_int_theta.mat');
 
 load(data_path);
 
@@ -46,10 +46,12 @@ ylimits = 3*[-1 1];
 
 figure; 
 subplot(211); hold on;
-title('Simulación');
+title('Simulaci''on');
 plot(sim_t_e, sim_alpha_e,'-b','displayname','\alpha Simulado');
 plot(sim_t_m, sim_theta_m,'-r','displayname','\theta Estimado');
-xlabel('Tiempo [s]'); ylabel('Angulo [rad]'); ylim(ylimits);xlim([0 max(sim_t_e)]);
+xlabel('Tiempo [s]'); ylabel('Angulo [rad]'); 
+ylim(ylimits);
+xlim([0 max(sim_t_e)]);
 legend(gca, 'show');
 
 subplot(212); hold on;
