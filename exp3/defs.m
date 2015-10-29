@@ -12,19 +12,27 @@ Bt = [        0; ...
       -939.9211];
 
 Ct = [1, 0, 0, 0; ...
-      0, 1, 0, 0];
+      0, 1, 0, 0; ...
+      0, 0, 1, 0]; % se agrega dtheta, para incluirlo en J al minimizar
   
 Dt = [0; ...
+      0; ...
       0];  
 
-  
-tower = [];
-tower.A = At;
-tower.B = Bt;
-tower.C = Ct;
-tower.D = Dt;
-tower.state_list = {'\theta', '\alpha', '\dot{\theta}', '\dot{\alpha}'};
-tower.x0 = [0; 0; 0; 0];
+tower = ss(At, Bt, Ct, Dt);
+tower.Name = 'Tower';
+tower.StateName  = {'theta','alpha','dtheta','dalpha'};
+tower.StateUnit  = {'rad'  ,'rad'  ,'rad/s' ,'rad/s' };
+tower.InputName  = {'t_curr'};
+tower.InputUnit  = {'A'};
+tower.OutputName = {'theta','alpha','dtheta'};
+tower.OutputUnit = {'rad'  ,'rad'  ,'rad/s' };
+tower.InputGroup.MV  = 1;
+tower.OutputGroup.MO = [1 2];
+tower.OutputGroup.UO = 3;
+max_alpha =  3;
+min_alpha = -3;
+
 
 %% Jib
 
@@ -39,20 +47,37 @@ Bj = [       0; ...
        21.1299];
 
 Cj = [1, 0, 0, 0; ...
-      0, 1, 0, 0];
+      0, 1, 0, 0; ...
+      0, 0, 1, 0]; % se agrega dx, para incluirlo en J al minimizar
   
 Dj = [0; ...
-      0];
+      0; ...
+      0];  
 
-jib = [];
-jib.A = Aj;
-jib.B = Bj;
-jib.C = Cj;
-jib.D = Dj;
-jib.state_list = {'x', '\gamma', '\dot{x}', '\dot{\gamma}'};
-jib.x0 = [0; 0; 0; 0];
+jib = ss(Aj, Bj, Cj, Dj);
+jib.Name = 'Jib';
+jib.StateName  = {'x','gamma','dx' ,'dgamma'};
+jib.StateUnit  = {'m','rad'  ,'m/s','rad/s' };
+jib.InputName  = {'j_curr'};
+jib.InputUnit  = {'A'};
+jib.OutputName = {'x','gamma','dx' };
+jib.OutputUnit = {'m','rad'  ,'m/s'};
+jib.InputGroup.MV  = 1;
+jib.OutputGroup.MO = [1 2];
+jib.OutputGroup.UO = 3;
+max_gamma =  3;
+min_gamma = -3;
 
 %% parameters
 Ts = 0.01;
+N1 =  1;
+N2 = 60;
+Nu = 40;
+t_lambda1 = 1.0;
+t_lambda2 = 1.0;
+t_lambdau = 1.0;
 
-save('mat/defs.mat','tower','jib','Ts')
+save('mat/defs.mat','tower','jib','Ts', ...
+     'max_alpha','min_alpha','max_gamma','min_gamma')
+
+ 
