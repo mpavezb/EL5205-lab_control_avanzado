@@ -1,16 +1,16 @@
 %% parameters
 Ts = 0.01;
-N1 =  1;
-N2 = 60;
-Nu = 40;
-t_lambda1 = 1.0;
-t_lambda2 = 1.0;
-t_lambdau = 1.0;
-
-max_alpha =  3;
-min_alpha = -3;
-max_gamma =  3;
-min_gamma = -3;
+% N1 =  1;
+% N2 = 60;
+% Nu = 40;
+% t_lambda1 = 1.0;
+% t_lambda2 = 1.0;
+% t_lambdau = 1.0;
+% 
+% max_alpha =  3;
+% min_alpha = -3;
+% max_gamma =  3;
+% min_gamma = -3;
 
 %% Tower
 
@@ -82,7 +82,7 @@ clear Aj Bj Cj Dj sys
 
 
 %% save
-save('mat/defs.mat','tower','jib','Ts', ...
-     'max_alpha','min_alpha','max_gamma','min_gamma')
+save('mat/defs.mat','tower','jib','Ts'), ...
+     %'max_alpha','min_alpha','max_gamma','min_gamma')
 
  
