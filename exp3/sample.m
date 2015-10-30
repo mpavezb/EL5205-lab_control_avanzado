@@ -29,3 +29,8 @@ figure;
 hold on;
 plot(t(1:Nu),y_est,'r');
 grid on;
+
+%% control
+
+load('mat/tower_MPC.mat');
+

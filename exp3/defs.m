@@ -1,3 +1,16 @@
+%% parameters
+Ts = 0.01;
+N1 =  1;
+N2 = 60;
+Nu = 40;
+t_lambda1 = 1.0;
+t_lambda2 = 1.0;
+t_lambdau = 1.0;
+
+max_alpha =  3;
+min_alpha = -3;
+max_gamma =  3;
+min_gamma = -3;
 
 %% Tower
 
@@ -19,7 +32,8 @@ Dt = [0; ...
       0; ...
       0];  
 
-tower = ss(At, Bt, Ct, Dt);
+sys   = ss(At, Bt, Ct, Dt);
+tower = c2d(sys, Ts, 'zoh');
 tower.Name = 'Tower';
 tower.StateName  = {'theta','alpha','dtheta','dalpha'};
 tower.StateUnit  = {'rad'  ,'rad'  ,'rad/s' ,'rad/s' };
@@ -30,9 +44,8 @@ tower.OutputUnit = {'rad'  ,'rad'  ,'rad/s' };
 tower.InputGroup.MV  = 1;
 tower.OutputGroup.MO = [1 2];
 tower.OutputGroup.UO = 3;
-max_alpha =  3;
-min_alpha = -3;
 
+clear At Bt Ct Dt sys
 
 %% Jib
 
@@ -46,15 +59,14 @@ Bj = [       0; ...
        18.2478; ...
        21.1299];
 
+% se agrega dx, para incluirlo en J al minimizar
 Cj = [1, 0, 0, 0; ...
       0, 1, 0, 0; ...
-      0, 0, 1, 0]; % se agrega dx, para incluirlo en J al minimizar
-  
-Dj = [0; ...
-      0; ...
-      0];  
+      0, 0, 1, 0];
+Dj = [0; 0; 0];
 
-jib = ss(Aj, Bj, Cj, Dj);
+sys = ss(Aj, Bj, Cj, Dj);
+jib = c2d(sys, Ts, 'zoh');
 jib.Name = 'Jib';
 jib.StateName  = {'x','gamma','dx' ,'dgamma'};
 jib.StateUnit  = {'m','rad'  ,'m/s','rad/s' };
@@ -65,18 +77,11 @@ jib.OutputUnit = {'m','rad'  ,'m/s'};
 jib.InputGroup.MV  = 1;
 jib.OutputGroup.MO = [1 2];
 jib.OutputGroup.UO = 3;
-max_gamma =  3;
-min_gamma = -3;
 
-%% parameters
-Ts = 0.01;
-N1 =  1;
-N2 = 60;
-Nu = 40;
-t_lambda1 = 1.0;
-t_lambda2 = 1.0;
-t_lambdau = 1.0;
+clear Aj Bj Cj Dj sys
 
+
+%% save
 save('mat/defs.mat','tower','jib','Ts', ...
      'max_alpha','min_alpha','max_gamma','min_gamma')
 
