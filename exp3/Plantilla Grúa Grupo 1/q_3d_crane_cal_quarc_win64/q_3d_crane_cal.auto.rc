@@ -1,0 +1,2 @@
+#include <winuser.rh>
+1 RT_MANIFEST "q_3d_crane_cal.auto.manifest"

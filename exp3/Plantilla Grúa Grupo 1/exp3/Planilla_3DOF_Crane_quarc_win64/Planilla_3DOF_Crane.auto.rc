@@ -1,0 +1,2 @@
+#include <winuser.rh>
+1 RT_MANIFEST "Planilla_3DOF_Crane.auto.manifest"
