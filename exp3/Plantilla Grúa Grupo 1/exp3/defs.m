@@ -73,7 +73,7 @@ jib.OutputUnit = {'m','deg'  };
 jib.InputGroup.MV  = 1;
 jib.OutputGroup.MO = [1 2];
 
-clear Aj Bj Cj Dj sys
+% clear Aj Bj Cj Dj sys
 
 
 %% save
