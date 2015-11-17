@@ -2,12 +2,12 @@ clc;
 clear;
 close all;
 
-dataLab = load('mat/matlab_test27.mat');
+dataLab = load('mat/matlab_test32.mat');
 
-t         = dataLab.alpha(:,1);
-alpha_ref = dataLab.alpha(:,2);
-alpha     = dataLab.alpha(:,3);
-S_alpha   = stepinfo(alpha, t);
+t         = dataLab.gamma(:,1);
+gamma_ref = dataLab.gamma(:,2);
+gamma     = dataLab.gamma(:,3);
+S_gamma   = stepinfo(gamma, t);
 
 theta_ref = dataLab.theta(:,2);
 theta     = dataLab.theta(:,3);
@@ -38,8 +38,8 @@ xlim([min(t) max(t)]);
 grid;
 
 h(3) = subplot(313); hold on;
-plot(t, alpha, '-b', 'displayname', '\alpha');
-plot(t, alpha_ref, '--r', 'displayname', '\alpha_{ref}');
+plot(t, gamma, '-b', 'displayname', '\gamma');
+plot(t, gamma_ref, '--r', 'displayname', '\gamma_{ref}');
 legend(gca, 'show');
 xlabel('Tiempo [s]'); ylabel('Ángulo [deg]');
 xlim([min(t) max(t)]);
