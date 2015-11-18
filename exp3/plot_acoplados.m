@@ -2,7 +2,7 @@ clc;
 clear;
 close all;
 
-dataLab = load('mat/matlab_test34.mat');
+dataLab = load('mat/matlab_sim_jib_1.mat');
 
 t         = dataLab.alpha(:,1);
 alpha_ref = dataLab.alpha(:,2);

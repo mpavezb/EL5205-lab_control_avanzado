@@ -78,6 +78,7 @@ jib.InputGroup.MV  = 1;
 jib.OutputGroup.MO = [1 2];
 jib.OutputGroup.UO = 3;
 
+%%
 clear Aj Bj Cj Dj sys
 
 

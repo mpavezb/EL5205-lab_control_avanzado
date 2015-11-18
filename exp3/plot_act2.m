@@ -2,11 +2,11 @@ clc;
 clear;
 close all;
 
-dataLab = load('mat/matlab_test32.mat');
+dataLab = load('mat/matlab_test49.mat');
 
 t         = dataLab.gamma(:,1);
-gamma_ref = dataLab.gamma(:,2);
-gamma     = dataLab.gamma(:,3);
+gamma_ref = dataLab.gamma(:,3);
+gamma     = dataLab.gamma(:,2);
 S_gamma   = stepinfo(gamma, t);
 
 theta_ref = dataLab.theta(:,2);
