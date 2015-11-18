@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.7"
+    ComputedModelVersion    "1.8"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -29,7 +29,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-8.0, -8.0, 1382.0, 744.0]
+      Location		      [-8.0, 0.0, 1382.0, 744.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -38,7 +38,7 @@ Model {
 	DockPosition		"Left"
 	Width			[50]
 	Height			[50]
-	Filter			[8]
+	Filter			[9]
       }
       Object {
 	$PropName		"ExplorerBarInfo"
@@ -55,7 +55,7 @@ Model {
 	LoadSaveID		"0"
 	Extents			[1332.0, 569.0]
 	ZoomFactor		[1.0]
-	Offset			[94.499990344047546, 194.57499727606773]
+	Offset			[94.499990344047546, 153.57499727606773]
       }
     }
   }
@@ -65,9 +65,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "pdoren"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Nov 18 01:09:46 2015"
-  RTWModifiedTimeStamp	  369709784
-  ModelVersionFormat	  "1.%<AutoIncrement:7>"
+  LastModifiedDate	  "Wed Nov 18 02:58:38 2015"
+  RTWModifiedTimeStamp	  369716315
+  ModelVersionFormat	  "1.%<AutoIncrement:8>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -112,7 +112,7 @@ Model {
     $ObjectID		    6
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "sim_completa"
-    overrideMode_	    [0U]
+    overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
       Dimension		      1
@@ -827,7 +827,7 @@ Model {
   }
   System {
     Name		    "sim_completa"
-    Location		    [-8, -8, 1374, 736]
+    Location		    [-8, 0, 1374, 744]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -916,6 +916,7 @@ Model {
       SID		      "36"
       Position		      [365, 277, 395, 313]
       ZOrder		      41
+      CurrentSetting	      "0"
     }
     Block {
       BlockType		      ManualSwitch
