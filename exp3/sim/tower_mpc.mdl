@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.28"
+    ComputedModelVersion    "1.29"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -38,9 +38,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "matias"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Oct 30 00:00:24 2015"
-  RTWModifiedTimeStamp	  368060996
-  ModelVersionFormat	  "1.%<AutoIncrement:28>"
+  LastModifiedDate	  "Wed Nov 18 11:15:45 2015"
+  RTWModifiedTimeStamp	  369716902
+  ModelVersionFormat	  "1.%<AutoIncrement:29>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -78,7 +78,6 @@ Model {
     $ObjectID		    2
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "system_mpc"
-    signals_		    []
     overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
@@ -144,7 +143,7 @@ Model {
 	  $ObjectID		  4
 	  Version		  "1.12.0"
 	  StartTime		  "0.0"
-	  StopTime		  "10.0"
+	  StopTime		  "25"
 	  AbsTol		  "auto"
 	  FixedStep		  "auto"
 	  InitialStep		  "auto"
@@ -638,7 +637,7 @@ Model {
       }
       Name		      "Configuration"
       CurrentDlgPage	      "Solver"
-      ConfigPrmDlgPosition     [ 500, 205, 1420, 931 ] 
+      ConfigPrmDlgPosition     [ 480, 185, 1440, 1007 ] 
     }
     PropName		    "ConfigurationSets"
   }
@@ -739,7 +738,7 @@ Model {
   }
   System {
     Name		    "tower_mpc"
-    Location		    [1001, 132, 1609, 474]
+    Location		    [1086, 486, 1877, 836]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -753,7 +752,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "25"
+    SIDHighWatermark	    "26"
     Block {
       BlockType		      Demux
       Name		      "Demux"
@@ -780,12 +779,12 @@ Model {
       BlockType		      Mux
       Name		      "Mux1"
       SID		      "7"
-      Ports		      [3, 1]
-      Position		      [395, 157, 400, 303]
+      Ports		      [2, 1]
+      Position		      [395, 159, 400, 306]
       ZOrder		      -12
       BlockMirror	      on
       ShowName		      off
-      Inputs		      "3"
+      Inputs		      "2"
       DisplayOption	      "bar"
     }
     Block {
@@ -859,7 +858,7 @@ Model {
       Position		      [560, 103, 585, 127]
       ZOrder		      -16
       Floating		      off
-      Location		      [1224, 710, 1830, 1079]
+      Location		      [1214, 695, 1820, 1064]
       Open		      off
       NumInputPorts	      "1"
       List {
@@ -877,8 +876,8 @@ Model {
 	MarkerStyles		"none|none|none|none|none|none"
       }
       ShowLegends	      off
-      SaveName		      "ScopeData2"
-      DataFormat	      "StructureWithTime"
+      SaveToWorkspace	      on
+      SaveName		      "alpha"
       LimitDataPoints	      off
       SampleTime	      "0"
     }
@@ -893,16 +892,6 @@ Model {
       Value		      "tower_xref(2)"
     }
     Block {
-      BlockType		      Constant
-      Name		      "dtheta_ref"
-      SID		      "25"
-      Position		      [470, 268, 550, 292]
-      ZOrder		      -4
-      BlockMirror	      on
-      NamePlacement	      "alternate"
-      Value		      "tower_xref(3)"
-    }
-    Block {
       BlockType		      Scope
       Name		      "theta"
       SID		      "5"
@@ -910,7 +899,7 @@ Model {
       Position		      [560, 62, 585, 88]
       ZOrder		      -16
       Floating		      off
-      Location		      [1203, 322, 1809, 691]
+      Location		      [612, 347, 1218, 716]
       Open		      off
       NumInputPorts	      "1"
       List {
@@ -928,7 +917,10 @@ Model {
 	MarkerStyles		"none|none|none|none|none|none"
       }
       ShowLegends	      off
-      DataFormat	      "StructureWithTime"
+      YMin		      "59.45"
+      YMax		      "60.55"
+      SaveToWorkspace	      on
+      SaveName		      "theta"
       LimitDataPoints	      off
       SampleTime	      "0"
     }
@@ -951,7 +943,7 @@ Model {
       ZOrder		      -16
       BlockMirror	      on
       Floating		      off
-      Location		      [585, 720, 1210, 1112]
+      Location		      [575, 672, 1200, 1064]
       Open		      off
       NumInputPorts	      "1"
       List {
@@ -969,8 +961,8 @@ Model {
 	MarkerStyles		"none|none|none|none|none|none"
       }
       ShowLegends	      off
-      SaveName		      "ScopeData1"
-      DataFormat	      "StructureWithTime"
+      SaveToWorkspace	      on
+      SaveName		      "u_"
       LimitDataPoints	      off
       SampleTime	      "0"
     }
@@ -1017,6 +1009,7 @@ Model {
 	DstPort			1
       }
       Branch {
+	Points			[-25, 0]
 	DstBlock		"Mux1"
 	DstPort			1
       }
@@ -1024,6 +1017,7 @@ Model {
     Line {
       SrcBlock		      "Mux1"
       SrcPort		      1
+      Points		      [0, -5]
       DstBlock		      "Tower MPC Controller"
       DstPort		      2
     }
@@ -1044,6 +1038,7 @@ Model {
       SrcPort		      1
       Points		      [-15, 0]
       Branch {
+	Points			[-35, 0]
 	DstBlock		"Mux1"
 	DstPort			2
       }
@@ -1052,12 +1047,6 @@ Model {
 	DstBlock		"Mux2"
 	DstPort			1
       }
-    }
-    Line {
-      SrcBlock		      "dtheta_ref"
-      SrcPort		      1
-      DstBlock		      "Mux1"
-      DstPort		      3
     }
     Line {
       SrcBlock		      "Demux"
