@@ -1,0 +1,16 @@
+%implements cgirblk_s2_b39_BlockOutputSignal "C"
+
+%function BlockOutputSignal(block,system,portIdx,ucv,lcv,idx,retType) void
+  %if retType == "Signal"
+    %switch portIdx
+      %case 0
+         %return "(2.0 * rt_SATURATE(%<LibBlockInputSignal(0, "", "", 0)>, %<SLibCGIRBlockParameter(1, "", "", 0)>, %<SLibCGIRBlockParameter(0, "", "", 0)>) - 20.0)"
+      %case 1
+         %return "(rt_SATURATE(%<LibBlockInputSignal(1, "", "", 0)>, %<SLibCGIRBlockParameter(3, "", "", 0)>, %<SLibCGIRBlockParameter(2, "", "", 0)>))"
+    %default
+      %assign errTxt = "No expression on port %<portIdx>"
+      %<LibBlockReportError(block,errTxt)>
+  %endswitch
+  %else
+  %endif
+%endfunction

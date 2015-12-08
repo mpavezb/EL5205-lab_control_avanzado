@@ -1,0 +1,21 @@
+%implements cgirblk_s2_b39_BlockOutputComment "C"
+
+%function BlockOutputComment(block, portIdx) void 
+    %assign tmpBuf = ""
+    %switch portIdx
+      %case 0
+         %openfile tmpBuf
+ *  Fcn: '<S5>/Normalizacion 0-20'
+ *  Saturate: '<S5>/Saturation1'\
+         %closefile tmpBuf
+         %return tmpBuf
+      %case 1
+         %openfile tmpBuf
+ *  Saturate: '<S5>/Saturation2'\
+         %closefile tmpBuf
+         %return tmpBuf
+    %default
+      %assign errTxt = "No expression comment on port %<portIdx>"
+      %<LibBlockReportError(block,errTxt)>
+  %endswitch
+%endfunction

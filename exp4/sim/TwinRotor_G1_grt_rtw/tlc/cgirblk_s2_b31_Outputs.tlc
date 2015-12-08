@@ -1,0 +1,18 @@
+%implements cgirblk_s2_b31_Outputs "C"
+
+%function Outputs(block, system) Output
+
+/* Switch: '<S6>/Environment Switch' incorporates:
+ *  Constant: '<S6>/Switch Control'
+ *  Constant: '<S1>/RTWValue'
+ */
+if(%<LibBlockInputSignal(1, "", "", 0)>) {
+%if !LibBlockOutputSignalIsExpr(0)
+%<LibBlockAssignOutputSignal(0, "", "", 0, "%<LibBlockInputSignal(0, "", "", 0)>")>\
+%endif
+} else {
+%if !LibBlockOutputSignalIsExpr(0)
+%<LibBlockAssignOutputSignal(0, "", "", 0, "%<LibBlockInputSignal(2, "", "", 0)>")>\
+%endif
+}
+%endfunction

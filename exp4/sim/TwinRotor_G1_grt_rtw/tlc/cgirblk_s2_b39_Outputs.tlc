@@ -1,0 +1,15 @@
+%implements cgirblk_s2_b39_Outputs "C"
+
+%function Outputs(block, system) Output
+%if !LibBlockOutputSignalIsExpr(0)
+
+/* Fcn: '<S5>/Normalizacion 0-20' incorporates:
+ *  Saturate: '<S5>/Saturation1' */
+%<LibBlockAssignOutputSignal(0, "", "", 0, "2.0 * rt_SATURATE(%<LibBlockInputSignal(0, "", "", 0)>, %<SLibCGIRBlockParameter(1, "", "", 0)>, %<SLibCGIRBlockParameter(0, "", "", 0)>) - 20.0")>\
+%endif
+%if !LibBlockOutputSignalIsExpr(1)
+
+/* Saturate: '<S5>/Saturation2' */
+%<LibBlockAssignOutputSignal(1, "", "", 0, "rt_SATURATE(%<LibBlockInputSignal(1, "", "", 0)>, %<SLibCGIRBlockParameter(3, "", "", 0)>, %<SLibCGIRBlockParameter(2, "", "", 0)>)")>\
+%endif
+%endfunction

@@ -1,0 +1,9 @@
+%implements cgirblk_s2_b39_BlockInstanceSetup "C"
+
+%function BlockInstanceSetup(block, system) Output
+%% Systems removed in IR:
+%% TLC Block Registration buffer:
+%assign ::CompiledModel.IncludeLibsrc = 1
+%assign ::CompiledModel.IncludeLibsrc = 1
+%% END  Block Registration buffer
+%endfunction

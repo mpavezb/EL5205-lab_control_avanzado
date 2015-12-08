@@ -1,0 +1,14 @@
+%implements cgirblk_s2_b25_Outputs "C"
+
+%function Outputs(block, system) Output
+%if !LibBlockOutputSignalIsExpr(0)
+
+/* Sum: '<Root>/Sum' incorporates:
+ *  Constant: '<Root>/rV'
+ */
+%<LibBlockAssignOutputSignal(0, "", "", 0, "%<LibBlockInputSignal(1, "", "", 0)> - %<LibBlockInputSignal(0, "", "", 0)>")>\
+%endif
+
+/* Gain: '<S3>/Gain' */
+%<LibBlockAssignOutputSignal(1, "", "", 0, "%<SLibCGIRBlockOutputSignal(0, "", "", 0)> * %<SLibCGIRBlockParameter(0, "", "", 0)>")>\
+%endfunction

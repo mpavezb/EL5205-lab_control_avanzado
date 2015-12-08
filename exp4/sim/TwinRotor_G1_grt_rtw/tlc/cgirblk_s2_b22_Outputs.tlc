@@ -1,0 +1,22 @@
+%implements cgirblk_s2_b22_Outputs "C"
+
+%function Outputs(block, system) Output
+%<SLibCGIRAccessLocalVar(11)> %% %<tLocalBlockIO>_Sum_n
+
+/* Switch: '<S2>/Switch' incorporates:
+ *  Saturate: '<S4>/Saturation'
+ *  Constant: '<Root>/Constant'
+ */
+if(%<LibBlockInputSignal(3, "", "", 0)>) {
+
+/* Sum: '<S4>/Sum' */
+%<tLocalBlockIO>_Sum_n = (%<LibBlockInputSignal(0, "", "", 0)> + %<LibBlockInputSignal(1, "", "", 0)>) + %<LibBlockInputSignal(2, "", "", 0)>;
+%if !LibBlockOutputSignalIsExpr(0)
+%<LibBlockAssignOutputSignal(0, "", "", 0, "rt_SATURATE(%<tLocalBlockIO>_Sum_n, %<SLibCGIRBlockParameter(1, "", "", 0)>, %<SLibCGIRBlockParameter(0, "", "", 0)>)")>\
+%endif
+} else {
+%if !LibBlockOutputSignalIsExpr(0)
+%<LibBlockAssignOutputSignal(0, "", "", 0, "%<LibBlockInputSignal(4, "", "", 0)>")>\
+%endif
+}
+%endfunction

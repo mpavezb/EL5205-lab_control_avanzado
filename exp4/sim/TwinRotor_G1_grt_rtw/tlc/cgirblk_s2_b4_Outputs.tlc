@@ -1,0 +1,9 @@
+%implements cgirblk_s2_b4_Outputs "C"
+
+%function Outputs(block, system) Output
+%if !LibBlockOutputSignalIsExpr(0)
+
+/* Fcn: '<S5>/Normalizacion3' */
+%<LibBlockAssignOutputSignal(0, "", "", 0, "(-179.250407 * %<LibBlockInputSignal(0, "", "", 0)> - 107.191743) * 0.80357100000000004")>\
+%endif
+%endfunction

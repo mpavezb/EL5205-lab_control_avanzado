@@ -1,0 +1,12 @@
+%implements cgirblk_s2_b7_Outputs "C"
+
+%function Outputs(block, system) Output
+%if !LibBlockOutputSignalIsExpr(0)
+
+/* Sum: '<S5>/Sum2' incorporates:
+ *  Fcn: '<S5>/Normalizacion2'
+ *  Constant: '<S5>/Constant1'
+ */
+%<LibBlockAssignOutputSignal(0, "", "", 0, "-(-126.05042 * %<LibBlockInputSignal(0, "", "", 0)> + 227.899159) + %<LibBlockInputSignal(1, "", "", 0)>")>\
+%endif
+%endfunction
