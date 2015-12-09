@@ -38,8 +38,13 @@ for ntest = 1:40
     legend(gca, 'show');
     ylim([-5 5]); xlim([min(t) max(t)]);
 
-    print(f1,sprintf('img/PI/test_%d_horz', ntest),'-deps');
-    print(f2,sprintf('img/PID/test_%d_vert', ntest),'-deps');
-    pause(1);
+    if ntest >= 18
+        saveas(f2,sprintf('img/PID/test_%d_horz', ntest),'epsc');
+        S = stepinfo(t, h, 'SettlingTimeThreshold', 0.05);
+    else
+        saveas(f1,sprintf('img/PI/test_%d_vert', ntest),'epsc');
+        S = stepinfo(t, v, 'SettlingTimeThreshold', 0.05);
+    end
+    disp(S);
     close all;
 end
